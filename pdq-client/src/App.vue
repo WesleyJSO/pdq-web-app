@@ -146,3 +146,13 @@ export default {
   })
 }
 </script>
+
+<style>
+table {
+	white-space: nowrap;
+}
+.v-table__overflow {
+	height: 350px;
+	overflow-y: auto;
+}
+</style>
