@@ -9,7 +9,7 @@ import com.dvsmedeiros.bce.domain.DomainSpecificEntity;
 
 @Entity
 @Table
-public class Order extends DomainSpecificEntity {
+public class Order extends DomainSpecificEntity { 
 
 	@Id @Column(name="ID_PEDIDO")
 	private String orderId;
