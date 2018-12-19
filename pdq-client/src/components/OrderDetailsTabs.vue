@@ -7,27 +7,28 @@
     />
 
     <!-- tab 2 informações dos itens -->
-          <OrderItensDetails 
-            :orderItens="order.itensPedido"
-            :tabIndex="tabIndex"
-          />
+    <OrderItensDetails 
+      :orderItens="order.itensPedido"
+      :tabIndex="tabIndex"
+    />
 
     <!-- tab 3 outros -->
-    <v-card v-if="tabIndex === 3 && order" color="white" class="black--text">
-      <v-card-text>
-        3
-      </v-card-text>
-    </v-card>
+    <WorkFlow 
+      :tabIndex="tabIndex"
+    />
   </div>
 </template>
 
 <script>
 import OrderInfo from './OrderInfo'
 import OrderItensDetails from './OrderItensDetails'
+import WorkFlow from './WorkFlowPoc'
+
   export default {
     components: {
       OrderInfo,
-      OrderItensDetails
+      OrderItensDetails,
+      WorkFlow
     },
     props: {
       tabIndex: {

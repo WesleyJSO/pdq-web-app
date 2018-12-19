@@ -37,6 +37,8 @@ Vue.filter('calculateDays', function (v) {
   return today - moment(v).format('DDD')
 })
 
+
+/* eslint-disable no-console */
 new Vue({
   render: h => h(App),
 }).$mount('#app')

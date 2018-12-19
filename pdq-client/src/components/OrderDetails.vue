@@ -68,8 +68,6 @@ import Approvals from './Approvals'
 		},
     data() {
       return {
-				
-				checkBoxColor: 'indigo',
         tabs: null,
 				selectedTabIndex: 0,
 				selectedOrder: null,

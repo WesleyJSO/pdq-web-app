@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-card light v-if="tabIndex === 2 && orderItens" color="white" class="black--text">
+		<v-card light v-if="tabIndex === 2  && orderItens" color="white" class="black--text">
 			<v-card-text >
 				<v-data-table
 					:headers="headers"

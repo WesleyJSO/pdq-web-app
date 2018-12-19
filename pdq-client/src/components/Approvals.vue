@@ -27,6 +27,7 @@
 <script>
   export default {
     data: () => ({
+      checkBoxColor: 'indigo',
       aprovations: [
 					{ id: 1, description: 'Campanha', approved: false },
 					{ id: 2, description: 'Agenciamento', approved: false },
