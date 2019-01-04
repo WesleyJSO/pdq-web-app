@@ -3,6 +3,8 @@ import './plugins/vuetify'
 import App from './App.vue'
 import axios from 'axios'
 import moment from 'moment'
+import router from './router'
+import BasicValidator from './Rules/BasicValidator'
 
 moment.updateLocale('en', {
   months: [
@@ -15,6 +17,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$_axios = axios
 Vue.prototype.$_moment = moment
+Vue.prototype.$v_basic = new BasicValidator()
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'
@@ -40,5 +43,6 @@ Vue.filter('calculateDays', function (v) {
 
 /* eslint-disable no-console */
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

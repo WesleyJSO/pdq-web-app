@@ -6,6 +6,28 @@
     >
       <v-list dense>
 
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <router-link to="aprovarpedido">
+              <v-list-tile-title>Aprovação de Pedido</v-list-tile-title>
+            </router-link>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <router-link to="fluxoaprovacao">
+              <v-list-tile-title>Fluxo de Aprovação</v-list-tile-title>
+            </router-link>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -31,113 +53,17 @@
       </v-btn>
     </v-toolbar>
     <v-content> 
-      <GridContainer />
-      <v-container>
-          <v-layout wrap>
-            <v-flex md12>
-            
-            </v-flex>
-          </v-layout>
-      </v-container>
-
-      <v-container grid-list-xl text-md-center>
-          <v-layout wrap>
-            <v-flex md4>
-              <v-hover>
-                  <v-card 
-                    slot-scope="{ hover }"
-                    :class="`elevation-${hover ? 12 : 2}`"
-                    class="mx-auto"
-                  >
-                  <v-card-title primary-title>
-                      <h3 class="headline mb-0">Detalhes do pedido</h3>
-                  </v-card-title>
-                  <v-card-text>                      
-                    <p class="text-md-left">Cliente:</p>
-                    <p class="text-md-left">Número:</p>
-                    <p class="text-md-left">Status:</p>
-                    <p class="text-md-left">Regional:</p>
-                    <p class="text-md-left">Tabela de preço:</p>
-                    <p class="text-md-left">Data de criação:</p>
-                    <p class="text-md-left">Tipo de venda:</p>
-                    <p class="text-md-left">Pedido foi gerado há {{daysPastCreation}} dias.</p>
-                  </v-card-text>
-                </v-card>
-              </v-hover>
-            </v-flex>
-
-            <v-flex md8>
-              <v-hover>
-                <v-card
-                  slot-scope="{ hover }"
-                  :class="`elevation-${hover ? 12 : 2}`"
-                  class="mx-auto"
-                >
-                  <v-card-title primary-title>
-                      <h3 class="headline mb-0">Totais</h3>
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-container fluid>
-                      <v-layout wrap elevation-2 mb-3>
-                        <v-flex md4><p class="text-md-left">Quantidade:</p></v-flex>
-                        <v-flex md4><p class="text-md-left">Preço bruto:</p></v-flex>
-                        <v-flex md4><p class="text-md-left">Frete:</p></v-flex>
-                      </v-layout>
-
-                      <v-layout wrap elevation-2 mt-3 mb-3>
-                          <v-flex md4><p class="text-md-left">Preço à vista:</p></v-flex>
-                          <v-flex md4><p class="text-md-left">Custo:</p></v-flex>
-                          <v-flex md4><p class="text-md-left">MB valor a vista:</p></v-flex>
-                      </v-layout>
-
-                      <v-layout wrap elevation-2 mt-3 mb-3>
-                          <v-flex md3><p class="text-md-left">MB valor à prazo:</p></v-flex>
-                          <v-flex md3><p class="text-md-left">Lucro:</p></v-flex>
-                          <v-flex md3><p class="text-md-left">Faturamento:</p></v-flex>
-                          <v-flex md3><p class="text-md-left">Comissão:</p></v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card-text>
-                </v-card>
-              </v-hover>
-            </v-flex>
-            
-            <v-flex md12>
-              <v-hover>
-                <v-card
-                  slot-scope="{ hover }"
-                  :class="`elevation-${hover ? 12 : 2}`"
-                  class="mx-auto"
-                >
-                  <v-card-title primary-title>
-                    <h3 class="headline mb-0">a</h3>
-                  </v-card-title>
-                  <v-card-text>                      
-                    <p class="text-md-left">Cliente:</p>
-                    <p class="text-md-left">Número:</p>
-                    <p class="text-md-left">Status:</p>
-                    <p class="text-md-left">Regional:</p>
-                    <p class="text-md-left">Tabela de preço:</p>
-                    <p class="text-md-left">Data de criação:</p>
-                    <p class="text-md-left">Tipo de venda:</p>
-                  </v-card-text>
-                </v-card>
-              </v-hover>
-            </v-flex>
-            
-          </v-layout>
-      </v-container>
-
+      <!-- <GridContainer /> -->
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import GridContainer from './components/GridContainer'
+// import GridContainer from './components/GridContainer'
 export default {
   components: {
-    GridContainer
+    // GridContainer
   },
   data: () => ({
     daysPastCreation: 0,

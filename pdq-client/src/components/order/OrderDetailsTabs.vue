@@ -13,22 +13,18 @@
     />
 
     <!-- tab 3 outros -->
-    <WorkFlow 
-      :tabIndex="tabIndex"
-    />
+    
   </div>
 </template>
 
 <script>
 import OrderInfo from './OrderInfo'
 import OrderItensDetails from './OrderItensDetails'
-import WorkFlow from './WorkFlowPoc'
 
   export default {
     components: {
       OrderInfo,
-      OrderItensDetails,
-      WorkFlow
+      OrderItensDetails
     },
     props: {
       tabIndex: {
