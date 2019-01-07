@@ -31,6 +31,13 @@
                 ></v-select>
               </v-flex>
 
+              <v-flex xs12 md4>
+                <v-checkbox v-model="selected" label="Cor" value="Cor" @change="changeDialog"></v-checkbox>
+                <v-checkbox v-model="selected" label="Prazo" value="Prazo"></v-checkbox>
+                <v-checkbox v-model="selected" label="Tabela Preço" value="Tabela Preço"></v-checkbox>
+                <v-checkbox v-model="selected" label="Campanha" value="Campanha"></v-checkbox>
+              </v-flex>
+
             </v-layout>
             
           </v-container>
@@ -38,17 +45,23 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn :disabled="!valid" color="success" @click="SendNewLinkData">Adicionar</v-btn>
+        <v-btn :disabled="!valid" color="success" @click="sendNewLinkData">Adicionar</v-btn>
         <v-btn color="error" @click="reset">Cancelar</v-btn>
+        <modal @closeDialog="closeDialog" :dialog="dialog"/>
       </v-card-actions>
-
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import modal from './modal'
 export default {
+  components: {
+    modal
+  },
   data: () => ({
+    dialog: false,
+    selected: [],
     selectedSourceItem: '',
     selectedTargetItem: '',
     valid: true,
@@ -63,7 +76,11 @@ export default {
       'Adm Vendas',
       'Implantado',
       'Cancelado',
-      'Reprovado'
+      'Reprovado',
+      'Cor',
+      'Prazo',
+      'Tabela Preço',
+      'Campanha',
     ],
     targetItems: [
       'Em Construção',
@@ -75,12 +92,36 @@ export default {
       'Adm Vendas',
       'Implantado',
       'Cancelado',
-      'Reprovado'
+      'Reprovado',
+      'Cor',
+      'Prazo',
+      'Tabela Preço',
+      'Campanha',
     ]
   }),
+  mounted () {
+    this.$root.$on('addNode', (newItem, setInSource) => {
+      if (setInSource) {
+        this.sourceItems.push(newItem)
+      } else {
+        this.targetItems.push(newItem)
+      }
+    })
+  },
   methods: {
-    SendNewLinkData () {
-      this.$root.$emit('AddLink', this.selectedSourceItem, this.selectedTargetItem)
+    changeDialog () {
+      this.dialog = !this.dialog
+      if (this.selected.includes('Cor')) {
+        this.dialog = true
+      }
+    },
+    closeDialog (removeSelection) {
+      if (removeSelection)
+        this.selected = this.selected.filter(element => element !== 'Cor')
+      this.dialog = !this.dialog
+    },
+    sendNewLinkData () {
+      this.$root.$emit('AddLink', this.selectedSourceItem, this.selectedTargetItem, this.selected)
     },
     reset () {
       this.$refs.form.reset()

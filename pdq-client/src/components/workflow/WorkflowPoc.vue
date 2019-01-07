@@ -18,8 +18,7 @@
 </template>
 
 <script>
-  import { ChartSankey } from 'vue-d2b'
-
+import { ChartSankey } from 'vue-d2b'
   export default {
     props: {
       tabIndex: {
@@ -91,14 +90,15 @@
           .sankey()
           .sankey()
           .nodeWidth(8)
-          .nodePadding(20)
+          .nodePadding(140)
 
         config
           .sankey()
           .nodeDraggableY(true)
           .nodeDraggableX(true)
-          .linkSourceColor('#000')
-          .linkTargetColor('#aaa')
+          // .linkSourceColor('#000')
+          // .linkTargetColor('#aaa')
+
         config
           .sankey()
 
@@ -110,16 +110,65 @@
           
       }
     }),
-    mounted () {
-      this.$root.$on('AddLink', (newSource, newTarget) => {
+    methods: {
+      verifyLink (newSource, newTarget) {
         let canChange = true
         this.chartData.links.map(element => {
-          if (element.source === newSource && element.target === newTarget) 
+          if (element.source === newSource && element.target === newTarget
+            || element.target === newSource && element.source === newTarget
+            || newSource === newTarget) 
             canChange = false
         })
-        if (canChange) {
-          let link = { source: newSource, target: newTarget,  value: 1 }
-          this.chartData.links.push(link)
+        return canChange
+      },
+      nodeAlreadyExists (itemName) {
+        for (let element of this.chartData.links) {
+          if (element.target === itemName)
+            return true
+        }
+        return false
+      },
+      newItemName (element, newSource) {
+        let initials = ''
+        newSource.split('').forEach(el => {
+          if (el === el.toUpperCase()) {
+            initials += el
+          }
+        })
+        return `${element} ${initials.replace( /\s/g, '')}`
+      },
+      async addNode (newSource, newTarget, itemName) {
+        console.log({ newSource })
+        console.log({ newTarget })
+        console.log({ itemName })
+        if (!itemName) {
+          this.chartData.links.push({ source: newSource, target: newTarget,  value: 1 })
+        } else {
+          this.chartData.nodes.push({ name: itemName })
+          this.chartData.links.push({ source: newSource, target: itemName,  value: 1 })
+          this.chartData.links.push({ source: itemName, target: newTarget,  value: 1 })
+        }
+      }
+    },
+    mounted () {
+      this.$root.$on('AddLink', (newSource, newTarget, selected) => {
+        
+        let canChangeNode = this.verifyLink(newSource, newTarget)
+        if (canChangeNode) {
+          if(selected.length > 0) {
+            for (let element of selected) {
+              this.addNode(newSource, newTarget, this.newItemName(element, newSource))
+            }
+          } else {
+            this.addNode(newSource, newTarget, null)
+          }
+        } else if (newSource !== newTarget) { // add only the validations
+          selected.forEach(element => {
+            let itemName = this.newItemName(element, newSource)
+            if (!this.nodeAlreadyExists(itemName)) {
+              this.addNode(newSource, newTarget, itemName)
+            }
+          })
         }
       })
     }
