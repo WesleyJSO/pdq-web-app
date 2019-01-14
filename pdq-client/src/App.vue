@@ -11,6 +11,17 @@
             <v-icon></v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
+            <router-link to="consultarpedido">
+              <v-list-tile-title>Consultar Pedidos</v-list-tile-title>
+            </router-link>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
             <router-link to="aprovarpedido">
               <v-list-tile-title>Aprovação de Pedido</v-list-tile-title>
             </router-link>

@@ -5,16 +5,25 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EntityScan("com.dvsmedeiros")
+@EntityScan({"com.pdq", "com.dvsmedeiros"})
 @ComponentScan({"com.pdq", "com.dvsmedeiros"})
-@EnableJpaRepositories("com.dvsmedeiros")
 @EnableAutoConfiguration
+@EnableScheduling
 @SpringBootApplication
-public class ServerApplication {
+public class ServerApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
+		System.setProperty("spring.devtools.restart.enabled", "false");
 		SpringApplication.run(ServerApplication.class, args);
+	}
+	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/api/*").allowedOrigins("*");
+		WebMvcConfigurer.super.addCorsMappings(registry);
 	}
 }

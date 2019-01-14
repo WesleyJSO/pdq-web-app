@@ -22,10 +22,20 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
 		<bce.version>1.0.3-SNAPSHOT</bce.version>
-		<order.version>1.0.1-SNAPSHOT</order.version>
+		<pedido.version>1.0.1-SNAPSHOT</pedido.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -58,8 +68,8 @@
 		
 		<dependency>
 			<groupId>com.pdq</groupId>
-			<artifactId>order-rest</artifactId>
-			<version>${order.version}</version>
+			<artifactId>pedido-rest</artifactId>
+			<version>${pedido.version}</version>
 		</dependency>
 		
 		<dependency>
@@ -67,10 +77,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
-
+	
 	<build>
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version><!--$NO-MVN-MAN-VER$-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version><!--$NO-MVN-MAN-VER$-->
+            </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

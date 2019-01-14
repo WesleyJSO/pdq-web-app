@@ -65,7 +65,6 @@ export default {
     selectedSourceItem: '',
     selectedTargetItem: '',
     valid: true,
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     sourceItems: [
       'Em Construção',
       'Gerente Distribução',

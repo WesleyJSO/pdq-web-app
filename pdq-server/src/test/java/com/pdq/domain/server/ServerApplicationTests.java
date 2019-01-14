@@ -1,16 +1,24 @@
 package com.pdq.domain.server;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ServerApplicationTests {
 
+	// @Autowired private Pedido pedido;
+		
 	@Test
-	public void contextLoads() {
+	public void givenEvenNumver_whenCheckingIsNumverEven_thenTrue() {
+		// boolean result = pedido.isNumberEven(8);
+		// Assertions.assertTrue(result);
+		// Assertions.assertTimeout(Duration.ofMillis(10000),  () -> pedido.isNumberEven(3));
 	}
-
+	
+	/*@Test
+	public void givenOddNumber_whenCheckingIsNumberEven_thenFalse() {
+		// boolean result = pedido.isNumberEven(3);
+		// Assertions.assertFalse(result);
+		Assertions.assertThrows(NullPointerException.class, () -> pedido.isNumberEven(null));
+	}*/
 }
