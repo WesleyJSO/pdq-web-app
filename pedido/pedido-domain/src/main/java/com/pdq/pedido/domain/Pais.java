@@ -1,36 +1,19 @@
 package com.pdq.pedido.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+import com.dvsmedeiros.bce.domain.IEntity;
 
-import com.dvsmedeiros.bce.domain.DomainSpecificEntity;
+import lombok.Data;
 
-//@Data
-//@EqualsAndHashCode(callSuper=false)
+@Data
 @Table
 @Entity
-@Component
-public class Pais extends DomainSpecificEntity {
+public class Pais implements IEntity {
 
+	@Id	private long idPais;
 	private String codPais;
 	private String nomPais;
-
-	public String getCodPais() {
-		return codPais;
-	}
-
-	public void setCodPais(String codPais) {
-		this.codPais = codPais;
-	}
-
-	public String getNomPais() {
-		return nomPais;
-	}
-
-	public void setNomPais(String nomPais) {
-		this.nomPais = nomPais;
-	}
-
 }

@@ -1,53 +1,25 @@
 package com.pdq.pedido.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+import com.dvsmedeiros.bce.domain.IEntity;
 
-import com.dvsmedeiros.bce.domain.DomainSpecificEntity;
+import lombok.Data;
 
-//@Data
-//@EqualsAndHashCode(callSuper=false)
+@Data
 @Table
 @Entity
-@Component
-public class Estado extends DomainSpecificEntity {
+public class Estado implements IEntity {
 
+	@Id	private long idEstado;
 	private String nomEstado;
 	private String sigla;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "pais_id")
+	@ManyToOne
+	@JoinColumn(name = "ID_PAIS")
 	private Pais pais;
-
-	public String getNomEstado() {
-		return nomEstado;
-	}
-
-	public void setNomEstado(String nomEstado) {
-		this.nomEstado = nomEstado;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
-	
-	
 }
