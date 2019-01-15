@@ -13,16 +13,16 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-public class Estado implements IEntity {
+public class Cidade implements IEntity {
 
 	@Id	
-	private long idEstado;
+	private long idCidade;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_PAIS")
-	private Pais pais;
+	@ManyToOne 
+	@JoinColumn(name = "ID_ESTADO")
+	private Estado estado;
 	
-	private String nomEstado;
-	private String sigla;
-	
+	private String nomCidade;
+	private String codigoMunicipio;
+	private String statusCidade;
 }

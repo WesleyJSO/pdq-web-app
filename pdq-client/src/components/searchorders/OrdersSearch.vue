@@ -9,39 +9,61 @@
         <v-flex xs12 sm12 md4 lg4 xl4> 
           <v-text-field 
             label="Numero do Pedido"
-            v-model="pedido.codSap"
+            v-model="filterPedido.codSap"
           />
         </v-flex>
         <v-flex xs12 sm12 md4 lg4 xl4>
-          <v-text-field 
+          <v-select 
             label="RTV"
-            v-model="pedido.rtv"
+            :items="listRtv"
+            v-model="filterPedido.rtv"
+            item-text="login"
+            no-data-text="Não foi possível carregar a lista de representantes."
+            return-object single-line
           />
         </v-flex>
         <v-flex xs12 sm12 md4 lg4 xl4>
-          <v-text-field 
+          <v-select 
             label="Regional"
-            v-model="pedido.regional"
+            :items="listRegional"
+            v-model="filterPedido.regional"
+            item-text="nomRegional"
+            no-data-text="Não foi possível carregar a lista de regionais."
+            return-object single-line
           />
         </v-flex>
       </v-layout>
       <v-layout>
-        <v-flex xs12 sm12 md4 lg4 xl4>
-          <v-text-field 
+        <v-flex xs12 sm12 md3 lg3 xl3>
+          <v-select
             label="Estado"
-            v-model="pedido.estado"
+            :items="listEstado"
+            v-model="filterPedido.estado"
+            :hint="`${filterPedido.estado.nomEstado} - ${filterPedido.estado.pais.nomPais}`"
+            item-text="nomEstado"
+            no-data-text="Não foi possível carregar a lista de estados."
+            return-object single-line
+            @change="findCidadeByIdEstado"
           />
         </v-flex>
-        <v-flex xs12 sm12 md4 lg4 xl4>
-          <v-text-field 
+        <v-flex xs12 sm12 md3 lg3 xl3>
+          <v-select
             label="Cidade"
-            v-model="pedido.cidade"
+            :items="listCidade"
+            v-model="filterPedido.cidade"
+            item-text="nomCidade"
+            no-data-text="Selecione um estado..."
+            persistent-hint return-object single-line
           />
         </v-flex>
-        <v-flex xs12 sm12 md4 lg4 xl4>
-          <v-text-field 
+        <v-flex xs12 sm12 md6 lg6 xl6>
+          <v-select 
             label="Status"
-            v-model="pedido.status"
+            :items="listStatusPedido"
+            v-model="filterPedido.statusPedido"
+            item-text="descricaoStatus"
+            no-data-text="Não foi possível carregar a lista de status do pedido."
+            return-object single-line     
           />
         </v-flex>
       </v-layout>
@@ -54,19 +76,28 @@
 <script>
 export default {
   data: () => ({
-    pedido: {}
+    valid: false,
+    filterPedido: {
+      estado: { pais: {}},
+      cidade: {},
+      statusPedido: {}
+    },
+    listRtv: [],
+    listRegional: [],
+    listEstado: [],
+    listCidade: [],
+    listStatusPedido: []
   }),
-  mounted () {
-    this.getEstados()
-    // this.getCidade()
+  async mounted () {
+    this.listRtv = await this.$_Usuario.findUsuarioByStsAtivo(true)
+    this.listRegional = await this.$_BaseAPI.getData('regional')
+    this.listEstado = await this.$_BaseAPI.getData('estado')
+    this.listStatusPedido = await this.$_BaseAPI.getData('statuspedido')
   },
   methods: {
-    getEstados () {
-      let estados = this.$_Estado.getEstados()
-      console.table(estados)
-    },
-    // getCidades () {
-    // },
+    async findCidadeByIdEstado () {
+      this.listCidade = await this.$_Cidade.findCidadeByIdEstado(this.filterPedido.estado.idEstado) 
+    },    
     validate () {
       if (this.refs.form.validate()) return
     },

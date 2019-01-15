@@ -8,13 +8,15 @@ import com.dvsmedeiros.bce.domain.IEntity;
 
 import lombok.Data;
 
+// classe usuário, vulgo RTV
 @Data
-@Table 
+@Table
 @Entity
-public class Pais implements IEntity {
-
+public class Usuario implements IEntity {
+	
 	@Id
-	private long idPais;
-	private String codPais;
-	private String nomPais;
+	private long idUsuario;
+	private String login;
+	private String senha;
+	private boolean stsAtivo;
 }

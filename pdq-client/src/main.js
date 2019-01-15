@@ -6,7 +6,9 @@ import axios from 'axios'
 import moment from 'moment'
 import router from './router'
 import BasicValidator from './rules/BasicValidator'
-import Estado from './API/Estado'
+import BaseAPI from './API/BaseAPI'
+import Cidade from './API/Cidade'
+import Usuario from './API/Usuario'
 
 moment.updateLocale('en', {
   months: [
@@ -17,11 +19,14 @@ moment.updateLocale('en', {
 
 Vue.config.productionTip = false
 
+let url = 'http://localhost:8888/api/'
+Vue.prototype.$_url = url
 Vue.prototype.$_axios = axios
-Vue.prototype.$_url = 'http://localhost:8888/'
 Vue.prototype.$_moment = moment
 Vue.prototype.$v_basic = new BasicValidator()
-Vue.prototype.$_Estado = new Estado(this.$_axios, `${this.$_url}/estado`)
+Vue.prototype.$_BaseAPI = new BaseAPI(axios, url)
+Vue.prototype.$_Cidade = new Cidade(axios, url)
+Vue.prototype.$_Usuario = new Usuario(axios, url)
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'

@@ -9,12 +9,11 @@ import com.dvsmedeiros.bce.domain.IEntity;
 import lombok.Data;
 
 @Data
-@Table 
+@Table
 @Entity
-public class Pais implements IEntity {
+public class Regional implements IEntity {
 
 	@Id
-	private long idPais;
-	private String codPais;
-	private String nomPais;
+	private long idRegional;
+	private String nomRegional;	
 }

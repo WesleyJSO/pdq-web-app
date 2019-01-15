@@ -16,6 +16,14 @@
 		<version>2.0.5.RELEASE</version>
 		<relativePath />
 	</parent>
+	
+	<dependencies>
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		    <version>1.7.4</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+	</dependencies>
 
 	<modules>
 		<module>pdq-client</module>
