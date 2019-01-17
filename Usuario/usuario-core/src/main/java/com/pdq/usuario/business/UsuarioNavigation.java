@@ -1,4 +1,4 @@
-package com.pdq.pedido.business;
+package com.pdq.usuario.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
-import com.pdq.pedido.business.impl.FindUsuarioByStsAtivo;
-import com.pdq.pedido.domain.Usuario;
+import com.pdq.usuario.domain.Usuario;
+import com.pdq.usuario.business.impl.FindUsuarioByStsAtivo;
 
 @Configuration
 public class UsuarioNavigation {

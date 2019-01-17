@@ -1,4 +1,4 @@
-package com.pdq.pedido.controller;
+package com.pdq.usuario.controller;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,8 +15,7 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
-import com.pdq.pedido.domain.Cidade;
-import com.pdq.pedido.domain.Usuario;
+import com.pdq.usuario.domain.Usuario;
 
 @Controller
 @RequestMapping("${server.controller.prefix}usuario")
@@ -34,9 +33,10 @@ public class UsuarioController extends DomainSpecificEntityController<Usuario> {
 			filter.setStsAtivo(stsAtivo);
 			BusinessCase<Usuario> aCase = new BusinessCaseBuilder<Usuario>().withName("FIND_USUARIO_BY_STS_ATIVO");
 			navigator.run(filter, aCase);
-			Optional<Stream<Cidade>> ts = aCase.getResult().getEntities();
+			Optional<Stream<Usuario>> ts = aCase.getResult().getEntities();
 
 			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
+				
 				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
 			}
 			return ResponseEntity.noContent().build();

@@ -1,4 +1,4 @@
-package com.pdq.pedido.domain;
+package com.pdq.usuario.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

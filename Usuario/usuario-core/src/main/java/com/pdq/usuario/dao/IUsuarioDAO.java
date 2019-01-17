@@ -1,9 +1,9 @@
-package com.pdq.pedido.dao;
+package com.pdq.usuario.dao;
 
 import java.util.stream.Stream;
 
 import com.dvsmedeiros.bce.domain.Filter;
-import com.pdq.pedido.domain.Usuario;
+import com.pdq.usuario.domain.Usuario;
 
 public interface IUsuarioDAO {
 
