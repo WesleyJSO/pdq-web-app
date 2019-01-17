@@ -1,4 +1,4 @@
-package com.pdq.pedido.controller;
+package com.pdq.regional.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dvsmedeiros.bce.core.controller.INavigator;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
-import com.pdq.pedido.domain.Estado;
+import com.pdq.regional.domain.Estado;
 
 @Controller
 @RequestMapping("${server.controller.prefix}estado")

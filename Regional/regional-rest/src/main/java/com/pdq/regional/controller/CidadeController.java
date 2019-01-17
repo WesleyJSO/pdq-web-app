@@ -1,4 +1,4 @@
-package com.pdq.pedido.controller;
+package com.pdq.regional.controller;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,7 +18,7 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
-import com.pdq.pedido.domain.Cidade;
+import com.pdq.regional.domain.Cidade;
 
 @Controller
 @RequestMapping("${server.controller.prefix}cidade")

@@ -1,4 +1,4 @@
-package com.pdq.pedido.business.impl;
+package com.pdq.regional.business.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
-import com.pdq.pedido.dao.impl.CidadeDAO;
-import com.pdq.pedido.domain.Cidade;
+import com.pdq.regional.dao.impl.CidadeDAO;
+import com.pdq.regional.domain.Cidade;
 
 @Component
 public class FindCidadeByIdEstado implements IStrategy<Cidade> {

@@ -1,9 +1,9 @@
-package com.pdq.pedido.dao;
+package com.pdq.regional.dao;
 
 import java.util.stream.Stream;
 
 import com.dvsmedeiros.bce.domain.Filter;
-import com.pdq.pedido.domain.Cidade;
+import com.pdq.regional.domain.Cidade;
 
 public interface ICidadeDAO {
 
