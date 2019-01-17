@@ -1,32 +1,29 @@
 <template>
   <div>
-    <v-card v-if="tabIndex === 1 && order" color="white" class="black--text">
+    <v-card v-if="tabIndex === 1 && pedido" color="white" class="black--text">
       <v-card-text>
         <v-layout>
           
           <v-layout row>
             <v-flex md-6 >
-              <p class="ma-1">Pedido Número: {{ order.pn }}</p>
-              <p class="ma-1">Status: {{ order.status }}</p>
-              <p class="ma-1">Tabela: {{ order.tabelaPreco }}</p>
-              <p class="ma-1">Regional: {{ order.regional }}</p>
-              <p class="ma-1">RTV: {{ order.rtv }}</p>
-              <p class="ma-1">Cliente Final: {{ order.clienteFinal }}</p>
-              <p class="ma-1">Cliente: {{ order.cliente }}</p>
-              <p class="ma-1">Data de Criação: {{ order.dataCriacao | userFormatDate }}</p>
-              <p class="ma-1">Tipo de Venda: {{ order.tipoVenda }}</p>
-              <p class="ma-1">Pedido foi gerado há {{ order.dataCriacao | calculateDays }} dias</p>
+              <p class="ma-2">Número do pedido: {{ pedido.codSap }}</p>
+              <p class="ma-2">Status: {{ pedido.statusPedido.descricaoStatus }}</p>
+              <p class="ma-2">Tabela: {{ pedido.listPedidoItem[0].produtoPrecoRegras.tabelaPreco.tipoTabela.desTipoTabela }}</p>
+              <p class="ma-2">Regional: {{ pedido.regional.nomRegional }}</p>
+              <p class="ma-2">RTV: {{ pedido.usuarioRtv.login }}</p>
+              <p class="ma-2">Cliente: {{ pedido.cliente.nomCliente }}</p>
+              <p class="ma-2">Classificação cliente: {{ pedido.classificacaoCliente.desClassificacaoCliente }}</p>
+              <p class="ma-2">Cidade cliente: {{ pedido.cliente.endereco.cidade.nomCidade }}</p>
+              <p class="ma-2">Data de Criação: {{ pedido.dtCriacaoPedido | userFormatDate }}</p>
+              <p class="ma-2">Tipo de Venda: {{ pedido.tipoVenda.desTipoVenda }}</p>
+              <p class="ma-2">Pedido foi gerado há {{ pedido.dtCriacaoPedido | calculateDays }} dias</p>
             </v-flex>
           </v-layout>
 
           <v-layout column>
-            <v-flex md-6 offset-md6
-              v-for="color in orderColors" :key="color.id" 
-              class="text-xs-right"
-            >
-              <v-btn
-                icon
-                :color="color.orderColor">{{ color.colorPercentage }}%
+            <v-flex v-for="color in orderColors" :key="color.id" class="text-xs-right">
+              <v-btn class="white--text" icon :color="color.orderColor">
+                {{ color.colorPercentage }}%
               </v-btn>
             </v-flex>
           </v-layout>
@@ -43,10 +40,13 @@
         type: Number,
         default: 1
       },
-      order: { 
+      pedido: { 
         type: Object,
         default: null 
       }
+    },
+    mounted () {
+      console.log(this.pedido)
     },
     data: () => ({
       orderColors: [

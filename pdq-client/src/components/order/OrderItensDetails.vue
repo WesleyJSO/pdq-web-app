@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<v-card light v-if="tabIndex === 2  && orderItens" color="white" class="black--text">
+		<v-card light v-if="tabIndex === 2 && listItemPedido">
 			<v-card-text >
 				<v-data-table
 					:headers="headers"
-					:items="orderItens"
+					:items="listItemPedido"
 					rows-per-page-text="Itens por página"
 				>
 				<template slot="items" slot-scope="props">
@@ -48,9 +48,13 @@
 
 <script>
 	export default {
+    updated () {
+      console.log(this.listItemPedido)
+    },
 		props: {
-			orderItens: {
-				type: Array
+			listItemPedido: {
+				type: Array,
+				default: () => []
 			},
       tabIndex: {
         type: Number,

@@ -2,13 +2,13 @@
   <div>
     <!-- tab 1 informações do pedido -->
     <OrderInfo 
-      :order="order"
+      :pedido="pedido"
       :tabIndex="tabIndex"
     />
 
     <!-- tab 2 informações dos itens -->
     <OrderItensDetails 
-      :orderItens="order.itensPedido"
+      :listItemPedido="pedido.listPedidoItem"
       :tabIndex="tabIndex"
     />
 
@@ -31,9 +31,9 @@ import OrderItensDetails from './OrderItensDetails'
         type: Number,
         default: 1
       },
-      order: { 
+      pedido: { 
         type: Object,
-        default: null 
+        default: () => {} 
       }
     },
     data: () => ({

@@ -85,6 +85,9 @@ export default {
 </script>
 
 <style>
+#inspire {
+  background-color: #F4F5F7
+}
 table {
 	white-space: nowrap;
 }
