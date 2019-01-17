@@ -9,6 +9,7 @@ import BasicValidator from './rules/BasicValidator'
 import BaseAPI from './API/BaseAPI'
 import Cidade from './API/Cidade'
 import Usuario from './API/Usuario'
+import Pedido from './API/Pedido'
 
 moment.updateLocale('en', {
   months: [
@@ -27,6 +28,7 @@ Vue.prototype.$v_basic = new BasicValidator()
 Vue.prototype.$_BaseAPI = new BaseAPI(axios, url)
 Vue.prototype.$_Cidade = new Cidade(axios, url)
 Vue.prototype.$_Usuario = new Usuario(axios, url)
+Vue.prototype.$_Pedido = new Pedido(axios, url)
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'
@@ -45,8 +47,7 @@ Vue.filter('vueFormatDate', function (v) {
 
 Vue.filter('calculateDays', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'
-  let today = moment(moment().format('YYYYMMDD')).format('DDD')
-  return today - moment(v).format('DDD')
+  return moment().diff(moment(v), 'days')
 })
 
 Vue.use(Vuex)
