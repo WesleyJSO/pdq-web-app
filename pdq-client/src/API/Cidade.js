@@ -5,7 +5,6 @@ export default class Cidade {
   }
   async findCidadeByIdEstado (idEstado) {
     try {
-      console.log(idEstado)
       let cidade = {
         estado: {
           idEstado: idEstado
