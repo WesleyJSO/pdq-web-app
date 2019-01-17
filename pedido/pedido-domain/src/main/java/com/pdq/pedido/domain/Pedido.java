@@ -1,24 +1,35 @@
 package com.pdq.pedido.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.dvsmedeiros.bce.domain.IEntity;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.pdq.regional.domain.Regional;
+import com.pdq.usuario.domain.Usuario;
 
 import lombok.Data;
-
 
 @Data
 @Table
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido")
 public class Pedido implements IEntity {
 
-	@Id	private String idPedido;
+	@Id
+	private String idPedido;
 	private Boolean freteDigitado;
 	private String observacaoFrete;
 	private Boolean orcamento;
@@ -36,11 +47,35 @@ public class Pedido implements IEntity {
 	private String numPedidoCli;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtSincronismo;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCreditoRural;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCriacaoPedido;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_STATUS_PEDIDO")
+	private StatusPedido statusPedido;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_REGIONAL")
+	private Regional regional;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_USUARIO_RTV")
+	private Usuario usuarioRtv;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_TIPO_VENDA")
+	private TipoVenda tipoVenda;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_CLASSIFICACAO_CLIENTE")
+	private ClassificacaoCliente classificacaoCliente;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "pedido")
+	private List<PedidoItem> listPedidoItem;
 }
