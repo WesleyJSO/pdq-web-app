@@ -1,4 +1,4 @@
-package com.pdq.pedido.domain;
+package com.pdq.regional.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,9 +11,10 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-public class ClassificacaoCliente implements IEntity {
-	
-	@Id	
-	private Long idClassificacaoCliente;
-	private String desClassificacaoCliente;
+public class CentroLucro implements IEntity {
+
+	@Id
+	private Long idCentroLucro;
+	private String descricao;
+	private String codSap;
 }

@@ -11,9 +11,11 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-public class ClassificacaoCliente implements IEntity {
+public class SetorAtividade implements IEntity {
 	
-	@Id	
-	private Long idClassificacaoCliente;
-	private String desClassificacaoCliente;
+	@Id
+	private Long idSetorAtividade;
+	private String codSetorAtividade;
+	private String desSetorAtividade;
+
 }

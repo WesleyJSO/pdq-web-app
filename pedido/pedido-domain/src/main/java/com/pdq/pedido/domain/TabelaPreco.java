@@ -1,5 +1,7 @@
 package com.pdq.pedido.domain;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,12 +16,14 @@ import lombok.Data;
 @Table
 @Entity
 public class TabelaPreco implements IEntity {
-
+	
 	@Id
 	private long idTabelaPreco;
+	private LocalDate dtIni;
+	private LocalDate dtFim;
+	private String desTabelaPreco;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_TABELA")
-	private TipoTabela TipoTabela;
-
+	private TipoTabela tipoTabela;
 }

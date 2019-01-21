@@ -17,8 +17,12 @@ public class ProdutoPrecoRegras implements IEntity {
 
 	@Id
 	private long idProdutoPreco;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ID_TABELA_PRECO")
 	private TabelaPreco tabelaPreco;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "idProduto")
+	private Produto produto;
 }

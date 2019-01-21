@@ -1,4 +1,4 @@
-package com.pdq.usuario.controller;
+package com.pdq.pedido.controller;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,36 +15,39 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
-import com.pdq.usuario.domain.Usuario;
+import com.pdq.pedido.domain.Pedido;
+import com.pdq.pedido.domain.PedidoItem;
+import com.pdq.pedido.domain.TipoTabela;
 
 @Controller
-@RequestMapping("${server.controller.prefix}usuario")
-public class UsuarioController extends DomainSpecificEntityController<Usuario> {
+@RequestMapping("${server.controller.prefix}tipotabela")
+public class TipoTabelaController extends DomainSpecificEntityController<TipoTabela> {
 
-	public UsuarioController() {
-		super(Usuario.class);
+	public TipoTabelaController() {
+		super(TipoTabela.class);
 	}
 	
-	@GetMapping(value = "findbystsativo")
-	public @ResponseBody ResponseEntity<?> findByStsAtivo(@RequestParam(name = "stsAtivo") boolean stsAtivo) {
-
+	@GetMapping(value = "findbyidpedido")
+	public @ResponseBody ResponseEntity<?> findByIdPedido(@RequestParam(name = "idPedido") String idPedido) {
 		try {
-			Usuario filter = new Usuario();
-			filter.setStsAtivo(stsAtivo);
-			BusinessCase<Usuario> aCase = new BusinessCaseBuilder<Usuario>().withName("FIND_USUARIO_BY_STS_ATIVO");
+			PedidoItem filter = new PedidoItem();
+			Pedido p = new Pedido();
+			p.setIdPedido(idPedido);
+			filter.setPedido(p);
+			BusinessCase<PedidoItem> aCase = new BusinessCaseBuilder<PedidoItem>()
+					.withName("FIND_TIPO_TABELA_BY_ID_PEDIDO");
+			
 			navigator.run(filter, aCase);
-			Optional<Stream<Usuario>> ts = aCase.getResult().getEntities();
+			Optional<Stream<TipoTabela>> ts = aCase.getResult().getEntities();
 
 			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
-				
 				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
 			}
 			return ResponseEntity.noContent().build();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseMessage.serverError("Erro ao consultar " + Usuario.class.getSimpleName());
+			return ResponseMessage.serverError("Erro ao consultar " + TipoTabela.class.getSimpleName());
 		}
-
-	}
+	}	
 }

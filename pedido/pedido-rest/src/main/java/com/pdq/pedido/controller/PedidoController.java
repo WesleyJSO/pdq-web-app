@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +26,8 @@ public class PedidoController extends DomainSpecificEntityController<Pedido> {
 		super(Pedido.class);
 	}
 	
-	@PostMapping(value = "filtro")
-	public @ResponseBody ResponseEntity<?> findEntityByFilter(@RequestBody PedidoFilter filter) {
+	@PostMapping(value = "findbyfilter")
+	public @ResponseBody ResponseEntity<?> findByFilter(@RequestBody PedidoFilter filter) {
 
 		try {
 			BusinessCase<Pedido> aCase = new BusinessCaseBuilder<Pedido>().withName("FIND_PEDIDO_BY_FILTER");

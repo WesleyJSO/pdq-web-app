@@ -12,7 +12,7 @@ import lombok.Data;
 @Table
 @Entity
 public class Unidade implements IEntity {
-
+	
 	@Id
 	private int codUnidade;
 	private String siglaUnidade;

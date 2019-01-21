@@ -1,6 +1,6 @@
 package com.pdq.pedido.domain;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,12 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.dvsmedeiros.bce.domain.IEntity;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.pdq.regional.domain.Estado;
 import com.pdq.regional.domain.Regional;
 import com.pdq.usuario.domain.Usuario;
 
@@ -25,9 +23,8 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido")
 public class Pedido implements IEntity {
-
+	
 	@Id
 	private String idPedido;
 	private Boolean freteDigitado;
@@ -45,12 +42,8 @@ public class Pedido implements IEntity {
 	private String numeroColeta;
 	private String observacao;
 	private String numPedidoCli;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtCreditoRural;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtCriacaoPedido;
+	private Instant dtCreditoRural;
+	private Instant dtCriacaoPedido;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
@@ -71,11 +64,20 @@ public class Pedido implements IEntity {
 	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_VENDA")
 	private TipoVenda tipoVenda;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_SETOR_ATIVIDADE")
+	private SetorAtividade setorAtividade;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_ESTADO_ORIGEM")
+	private Estado estadoOrigem;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLASSIFICACAO_CLIENTE")
 	private ClassificacaoCliente classificacaoCliente;
 
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "pedido")
 	private List<PedidoItem> listPedidoItem;
 }

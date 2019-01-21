@@ -12,7 +12,7 @@ import lombok.Data;
 @Table
 @Entity
 public class StatusPedido implements IEntity {
-
+	
 	@Id private long id;
 	private String descricaoStatus;
 	private int ordem;	

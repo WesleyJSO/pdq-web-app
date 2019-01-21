@@ -11,9 +11,13 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-public class ClassificacaoCliente implements IEntity {
+public class CondicaoPagamento implements IEntity {
 	
-	@Id	
-	private Long idClassificacaoCliente;
-	private String desClassificacaoCliente;
+	@Id
+	private long idCondicaoPagamento;
+	private String codSap;
+	private String condPagamento;
+	private int diasPagamento;
+	private boolean ativo;
+	
 }

@@ -85,6 +85,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>campanha-rest</artifactId>
+			<version>${pedido.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>

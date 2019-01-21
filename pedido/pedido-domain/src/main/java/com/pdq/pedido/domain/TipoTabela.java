@@ -12,7 +12,7 @@ import lombok.Data;
 @Table
 @Entity
 public class TipoTabela implements IEntity {
-
+	
 	@Id
 	private long idTipoTabela;
 	private String desTipoTabela;

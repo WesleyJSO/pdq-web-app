@@ -12,7 +12,7 @@ import lombok.Data;
 @Table
 @Entity
 public class Cultura implements IEntity {
-
+	
 	@Id
 	private long idCultura;
 	private String codCultura;
