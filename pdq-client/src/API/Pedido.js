@@ -3,12 +3,14 @@ export default class Pedido {
     this.axios = axios
     this.url = `${url}pedido`
   }
-  async findPedidoByFilter (filterPedido) {
+  async findByFilter (filterPedido) {
     try {
       // console.log(JSON.stringify(filterPedido, null, ' '))
-      let response = await this.axios.post(`${this.url}/filtro`, filterPedido)
+      let response = await this.axios.post(`${this.url}/findbyfilter`, filterPedido)
+      console.log({response})
       return response.data
     } catch (err) {
+      console.log({filterPedido})
       console.log({err})
     }
   }

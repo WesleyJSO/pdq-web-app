@@ -3,11 +3,13 @@ export default class Usuario {
     this.url = `${url}usuario`
     this.axios = axios
   }
-  async findUsuarioByStsAtivo (ativo) {
+  async findByStsAtivo (ativo) {
     try {
-      let response = await this.axios.get(`${this.url}/filtro`, {params: {stsAtivo: ativo}})
+      let response = await this.axios.get(`${this.url}/findbystsativo`, {params: {stsAtivo: ativo}})
+      console.log({response})
       return response.data
     }catch (err) {
+      console.log({ativo})
       console.log({err})
     }
   }

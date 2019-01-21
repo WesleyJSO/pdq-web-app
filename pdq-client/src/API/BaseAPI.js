@@ -6,8 +6,10 @@ export default class BaseAPI {
   async getData (path) {
     try {
       let response = await this.axios.get(`${this.url}${path}`)
+      console.log({response})
       return response.data
     } catch (err) {
+      console.log({path})
       console.log({err})
     }
   }
