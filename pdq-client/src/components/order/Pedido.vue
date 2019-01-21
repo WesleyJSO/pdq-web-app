@@ -13,14 +13,14 @@
 
 				<v-tabs-items v-model="tabs">
 					<v-tab-item>
-						<OrderDetailsTabs :pedido="pedido" :tabIndex="selectedTabIndex" />
+						<PedidoTabs :pedido="pedido" :tabIndex="tabIndex" />
 					</v-tab-item>
 				</v-tabs-items>
 
 			</v-flex>
       
 			<v-flex>
-				<Approvals />
+				<Aprovacoes />
 			</v-flex>
 
 		</v-layout>
@@ -28,27 +28,25 @@
 </template>
 
 <script>
-import OrderDetailsTabs from './OrderDetailsTabs'
-import Approvals from './Approvals'
+import PedidoTabs from './PedidoTabs'
+import Aprovacoes from './Aprovacoes'
   export default {
     components: {
-			OrderDetailsTabs,
-			Approvals
-    },
-    beforeMount () {
-      this.pedido = this.$route.params.pedido
-      this.selectedTabIndex = this.$route.params.tabIndex
+			PedidoTabs,
+			Aprovacoes
+		},
+		props: {
+      tabIndex: { type: Number, default: 1 },
+      pedido: { type: Object, default: () => {} }
     },
 		methods: {
 			handleSelectedTab(v) {
-				this.selectedTabIndex = v.id
+				this.tabIndex = v.id
 			}
     },
     data() {
       return {
-        pedido: {},
         tabs: null,
-				selectedTabIndex: 1,
 				selectedOrder: null,
 				tabItens: [
 						{id: 1, name: 'Pedido'},

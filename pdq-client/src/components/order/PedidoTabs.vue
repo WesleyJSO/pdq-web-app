@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- tab 1 informações do pedido -->
-    <OrderInfo 
+    <PedidoDetalhes 
       :pedido="pedido"
       :tabIndex="tabIndex"
     />
 
     <!-- tab 2 informações dos itens -->
-    <OrderItensDetails 
+    <PedidoItensDetalhes 
       :listItemPedido="pedido.listPedidoItem"
       :tabIndex="tabIndex"
     />
@@ -18,23 +18,17 @@
 </template>
 
 <script>
-import OrderInfo from './OrderInfo'
-import OrderItensDetails from './OrderItensDetails'
+import PedidoDetalhes from './PedidoDetalhes'
+import PedidoItensDetalhes from './PedidoItensDetalhes'
 
   export default {
     components: {
-      OrderInfo,
-      OrderItensDetails
+      PedidoDetalhes,
+      PedidoItensDetalhes
     },
-    props: {
-      tabIndex: {
-        type: Number,
-        default: 1
-      },
-      pedido: { 
-        type: Object,
-        default: () => {} 
-      }
+		props: {
+      tabIndex: { type: Number, default: 1 },
+      pedido: { type: Object, default: () => {} }
     },
     data: () => ({
     })

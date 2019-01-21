@@ -8,7 +8,7 @@
             <v-flex md-6 >
               <p class="ma-2">Número do pedido: {{ pedido.codSap }}</p>
               <p class="ma-2">Status: {{ pedido.statusPedido.descricaoStatus }}</p>
-              <p class="ma-2">Tabela: {{ pedido.listPedidoItem[0].produtoPrecoRegras.tabelaPreco.tipoTabela.desTipoTabela }}</p>
+              <!-- <p class="ma-2">Tabela: {{ tipoTabela.desTipoTabela }}</p> -->
               <p class="ma-2">Regional: {{ pedido.regional.nomRegional }}</p>
               <p class="ma-2">RTV: {{ pedido.usuarioRtv.login }}</p>
               <p class="ma-2">Cliente: {{ pedido.cliente.nomCliente }}</p>
@@ -36,19 +36,16 @@
 <script>
   export default {
     props: {
-      tabIndex: {
-        type: Number,
-        default: 1
-      },
-      pedido: { 
-        type: Object,
-        default: null 
-      }
+      tabIndex: { type: Number, default: 1 },
+      pedido: {  type: Object, default: () => {} }
     },
-    mounted () {
-      console.log(this.pedido)
+    async created () {
+      this.pedido.listPedidoItem = [{produtoPrecoRegras: {tabelaPreco: {tipoTabela:{}}}}]
+      this.tipoTabela = await this.$_TipoTabela.findByIdPedido(this.pedido.idPedido)
+        console.log(this.tipoTabela)
     },
     data: () => ({
+      tipoTabela: {},
       orderColors: [
         {
           id: 1,

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="pa-0">
     
-    <v-dialog v-model="isLoading" persistent />
+    <v-dialog v-model="snackbar" persistent />
     <v-snackbar v-model="snackbar" top right :timeout="timeout">
       <v-progress-circular v-if="progress" indeterminate :value="20"></v-progress-circular>
       {{ snackbarText }}
@@ -20,22 +20,22 @@
                 />
               </v-flex>
               <v-flex xs12 sm12 md4 lg4 xl4>
-                <v-autocomplete
-                  label="RTV"
-                  :items="listRtv"
-                  v-model="filterPedido.usuarioRtv"
-                  item-text="login"
-                  no-data-text="Não foi possível carregar a lista de representantes."
-                  return-object single-line
-                />
-              </v-flex>
-              <v-flex xs12 sm12 md4 lg4 xl4>
                 <v-autocomplete 
                   label="Regional"
                   :items="listRegional"
                   v-model="filterPedido.regional"
                   item-text="nomRegional"
                   no-data-text="Não foi possível carregar a lista de regionais."
+                  return-object single-line
+                />
+              </v-flex>
+              <v-flex xs12 sm12 md4 lg4 xl4>
+                <v-autocomplete
+                  label="RTV"
+                  :items="listRtv"
+                  v-model="filterPedido.usuarioRtv"
+                  item-text="login"
+                  no-data-text="Não foi possível carregar a lista de representantes."
                   return-object single-line
                 />
               </v-flex>
@@ -147,11 +147,11 @@ export default {
     listPedido: []
   }),
   async mounted () {
-    this.listRtv = await this.$_Usuario.findUsuarioByStsAtivo(true)
-    this.listRegional = await this.$_BaseAPI.getData('regional')
     this.listEstado = await this.$_BaseAPI.getData('estado')
-    this.listCidade = await this.$_BaseAPI.getData('cidade')
-    this.listStatusPedido = await this.$_BaseAPI.getData('statuspedido')
+    // this.listCidade = await this.$_BaseAPI.getData('cidade')
+    // this.listRegional = await this.$_BaseAPI.getData('regional')
+    // this.listStatusPedido = await this.$_BaseAPI.getData('statuspedido')
+    // this.listRtv = await this.$_Usuario.findByStsAtivo(true)
   },
   methods: {
     async findCidadeByIdEstado () {
@@ -160,13 +160,10 @@ export default {
     async search () {
       this.snackbarText = 'Pesquisando...'
       this.isLoading = this.progress = this.snackbar = true
-      this.listPedido = await this.$_Pedido.findPedidoByFilter(this.filterPedido)
+      this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido)
       this.snackbarText = 'Consulta finalizada!'
       this.snackbar = true
       this.isLoading = this.progress = false
-    },
-    redirectToItemDetail (pedido) {
-      this.$router.push({ name: 'aprovarpedido', props: true, params: { pedido: pedido } })
     },
     reset () {
       this.$refs.form.reset(),

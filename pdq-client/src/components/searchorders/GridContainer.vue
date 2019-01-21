@@ -8,7 +8,7 @@
           
           <v-card-text class="pa-0">
             <!-- Dados da consulta -->
-            <v-flex><OrdersSearch /></v-flex>
+            <v-flex><PedidoConsulta /></v-flex>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import OrdersSearch from './OrdersSearch'
+import PedidoConsulta from './PedidoConsulta'
   export default {
     components: {
-      OrdersSearch
+      PedidoConsulta
     },
     data: () => ({})
   }

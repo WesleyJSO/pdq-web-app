@@ -6,7 +6,7 @@
       <v-flex d-flex xs12 sm12 md12 lg12 xl12>
         <v-card>
           <v-card-title class="title">Detalhes do Pedido</v-card-title>
-          <v-card-text><OrderDetails /></v-card-text>
+          <v-card-text><Pedido :pedido="pedido" :tabIndex="tabIndex"/></v-card-text>
         </v-card>
       </v-flex>
       
@@ -19,7 +19,7 @@
             class="mx-auto" dark
           >
             <v-card-title class="deep-orange title text--white">Histórico de Status</v-card-title>
-            <v-card-text><OrderTimeline /></v-card-text>
+            <v-card-text><PedidoTimeline /></v-card-text>
           </v-card>
         </v-hover>
       </v-flex> -->
@@ -29,15 +29,21 @@
 </template>
 
 <script>
-// import OrderTimeline from './OrderTimeline'
-import OrderDetails from './OrderDetails'
+// import PedidoTimeline from './PedidoTimeline'
+import Pedido from './Pedido'
   export default {
     components: {
-      // OrderTimeline,
-      OrderDetails
+      // PedidoTimeline,
+      Pedido
+    },
+    async created () {
+      this.tabIndex = this.$route.params.tabIndex
+			this.pedido = this.$route.params.pedido
+      this.pedido.listPedidoItem = await this.$_PedidoItem.findByIdPedido(this.pedido.idPedido)
     },
     data: () => ({
-      lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
+      tabIndex: 1,
+      pedido: { }
     })
   }
 </script>
