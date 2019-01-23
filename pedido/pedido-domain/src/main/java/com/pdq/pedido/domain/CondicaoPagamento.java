@@ -17,7 +17,7 @@ public class CondicaoPagamento implements IEntity {
 	private long idCondicaoPagamento;
 	private String codSap;
 	private String condPagamento;
-	private int diasPagamento;
+	private Integer diasPagamento;
 	private boolean ativo;
 	
 }

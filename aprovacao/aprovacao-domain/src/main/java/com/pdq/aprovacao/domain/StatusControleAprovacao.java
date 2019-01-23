@@ -1,4 +1,4 @@
-package com.pdq.pedido.domain;
+package com.pdq.aprovacao.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,9 +11,10 @@ import lombok.Data;
 @Data
 @Table
 @Entity
-public class StatusPedido implements IEntity {
+public class StatusControleAprovacao implements IEntity {
 	
-	@Id private long id;
-	private String descricaoStatus;
-	private int ordem;
+	@Id
+	private long id;
+	private String descricao;
+
 }
