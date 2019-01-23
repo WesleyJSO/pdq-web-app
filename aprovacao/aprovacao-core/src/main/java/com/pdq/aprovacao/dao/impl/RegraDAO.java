@@ -1,4 +1,4 @@
-package com.pdq.pedido.dao.impl;
+package com.pdq.aprovacao.dao.impl;
 
 import java.util.stream.Stream;
 
@@ -10,31 +10,30 @@ import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
-import com.pdq.pedido.dao.IPedidoDAO;
-import com.pdq.pedido.domain.Pedido;
+import com.pdq.aprovacao.dao.IDAO;
+import com.pdq.aprovacao.domain.Regra;
+import com.pdq.aprovacao.filter.RegraHelper;
 import com.pdq.pedido.filter.PedidoHelper;
 
 @Repository
-public class PedidoDAO implements IPedidoDAO {
+public class RegraDAO implements IDAO<Regra> {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
-	public Stream<Pedido> filter(Filter<PedidoHelper> filter) {
+	public Stream<Regra> filter(Filter<Regra> filter) {
 
 		boolean validFilter = filter != null && filter.getEntity() != null;
 
 		if (validFilter) {
 			StringBuilder jpql = new StringBuilder();
-			PedidoHelper eFilter = filter.getEntity();
-			boolean validCodSap = !Strings.isNullOrEmpty(eFilter.getCodSap());
-			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getIdCidade() != 0;
-			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getIdRegional() != 0;
-			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getIdEstado() != 0;
-			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getIdUsuario() != 0;
-			boolean validStatusPedido = eFilter.getStatusPedido() != null && eFilter.getStatusPedido().getId() != 0;
-
+			jpql.append("select r from ").append(filter.getClass().getName()).append(" r ");
+			RegraHelper aFilter = (RegraHelper) filter.getEntity();
+			
+			if(aFilter.getIdPedido() != null)
+				jpql.append("")
+				
 			jpql.append(" select p from ").append(Pedido.class.getName()).append(" p ");
 
 			if (validCidade || validEstado)

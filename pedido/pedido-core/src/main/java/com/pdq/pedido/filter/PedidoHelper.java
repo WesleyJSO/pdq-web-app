@@ -15,8 +15,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-public class PedidoFilter implements IEntity {
+public class PedidoHelper implements IEntity {
 
+	private String idPedido;
 	private String codSap;
 	private Usuario usuarioRtv;
 	private Regional regional;

@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 public class RegraAprovacaoCor extends Regra {
 
 	@ManyToOne
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "ID_COR_PEDIDO")
 	private CorPedido corPedido;
 
 	private double percentualInicio;

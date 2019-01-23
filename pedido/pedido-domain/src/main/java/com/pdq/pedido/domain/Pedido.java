@@ -45,6 +45,8 @@ public class Pedido implements IEntity {
 	private Instant dtCreditoRural;
 	private Instant dtCriacaoPedido;
 
+	@ManyToMany
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
 	private StatusPedido statusPedido;

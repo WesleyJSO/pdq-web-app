@@ -42,7 +42,6 @@
     async created () {
       this.pedido.listPedidoItem = [{produtoPrecoRegras: {tabelaPreco: {tipoTabela:{}}}}]
       this.tipoTabela = await this.$_TipoTabela.findByIdPedido(this.pedido.idPedido)
-        console.log(this.tipoTabela)
     },
     data: () => ({
       tipoTabela: {},

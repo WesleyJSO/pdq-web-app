@@ -26,15 +26,15 @@
 
 <script>
   export default {
+    props: {
+      idPedido: { type: String, default: '' }
+    },
+    async created () {
+      this.listRegra = await $_Regra.findByIdPedido(this.idPedido)
+    },
     data: () => ({
       checkBoxColor: 'indigo',
-      aprovations: [
-					{ id: 1, description: 'Campanha', approved: false },
-					{ id: 2, description: 'Agenciamento', approved: false },
-					{ id: 3, description: 'Cor', approved: false },
-					{ id: 4, description: 'Tabela de Preço', approved: false },
-					{ id: 5, description: 'Prazo Pagamento', approved: false },
-				]
+      listRegra: []
     })
   }
 </script>

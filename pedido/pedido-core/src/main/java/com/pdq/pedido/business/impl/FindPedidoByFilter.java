@@ -6,18 +6,18 @@ import org.springframework.stereotype.Component;
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
-import com.pdq.pedido.dao.impl.PedidoDAO;
-import com.pdq.pedido.filter.PedidoFilter;
+import com.pdq.pedido.dao.IPedidoDAO;
+import com.pdq.pedido.filter.PedidoHelper;
 
 @Component
-public class FindPedidoByFilter implements IStrategy<PedidoFilter> {
+public class FindPedidoByFilter implements IStrategy<PedidoHelper> {
 	
-	@Autowired private PedidoDAO dao;
+	@Autowired private IPedidoDAO dao;
 
 	@Override
-	public void process(PedidoFilter aEntity, INavigationCase<PedidoFilter> aCase) {
+	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		if(aEntity != null) {
-			Filter<PedidoFilter> filter = new Filter<>();
+			Filter<PedidoHelper> filter = new Filter<>();
 			filter.setEntity(aEntity);
 			aCase.getResult().addEntities(dao.filter(filter));
 			return;
