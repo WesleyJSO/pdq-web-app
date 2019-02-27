@@ -4,9 +4,11 @@
 
       <!-- Detalhes do pedido -->
       <v-flex d-flex xs12 sm12 md12 lg12 xl12>
-        <v-card>
-          <v-card-title class="title">Detalhes do Pedido</v-card-title>
-          <v-card-text><Pedido :pedido="pedido" :tabIndex="tabIndex"/></v-card-text>
+        <v-card flat class="card">
+          <v-card-title class="title card">Detalhes do Pedido</v-card-title>
+          <v-card-text>
+            <Pedido :pedido="pedido" :tabIndex="tabIndex"/>
+          </v-card-text>
         </v-card>
       </v-flex>
       
@@ -47,3 +49,9 @@ import Pedido from './Pedido'
     })
   }
 </script>
+
+<style scoped>
+  .card {
+    background-color: #ECF0F1;
+  }
+</style>

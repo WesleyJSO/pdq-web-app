@@ -3,9 +3,6 @@ package com.pdq.aprovacao.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.dvsmedeiros.bce.domain.IEntity;
 

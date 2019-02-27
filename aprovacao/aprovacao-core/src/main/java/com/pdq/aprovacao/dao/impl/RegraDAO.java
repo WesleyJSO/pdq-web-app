@@ -4,16 +4,14 @@ import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
-import com.google.common.base.Strings;
 import com.pdq.aprovacao.dao.IDAO;
 import com.pdq.aprovacao.domain.Regra;
 import com.pdq.aprovacao.filter.RegraHelper;
-import com.pdq.pedido.filter.PedidoHelper;
+import com.pdq.pedido.domain.Pedido;
 
 @Repository
 public class RegraDAO implements IDAO<Regra> {
@@ -28,15 +26,15 @@ public class RegraDAO implements IDAO<Regra> {
 
 		if (validFilter) {
 			StringBuilder jpql = new StringBuilder();
-			jpql.append("select r from ").append(filter.getClass().getName()).append(" r ");
+			jpql.append("from ").append(filter.getEntity().getClass().getName()).append(" r ");
 			RegraHelper aFilter = (RegraHelper) filter.getEntity();
 			
 			if(aFilter.getIdPedido() != null)
-				jpql.append("")
+				jpql.append("");
 				
 			jpql.append(" select p from ").append(Pedido.class.getName()).append(" p ");
 
-			if (validCidade || validEstado)
+			/*if (validCidade || validEstado)
 				jpql.append(" left join p.cliente cliente "
 						+ " left join cliente.endereco endereco "
 						+ " left join endereco.cidade c ");
@@ -80,7 +78,7 @@ public class RegraDAO implements IDAO<Regra> {
 			if (validStatusPedido)
 				query.setParameter("idStatusPedido", eFilter.getStatusPedido().getId());
 
-			return query.getResultList().stream();
+			return query.getResultList().stream();*/
 		}
 		return null;
 	}

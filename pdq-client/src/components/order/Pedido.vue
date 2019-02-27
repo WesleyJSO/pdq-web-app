@@ -2,18 +2,30 @@
   <div>
 		<v-layout justify-space-between column fill-height>
 			<v-flex>
-				<v-toolbar tabs>
+				<v-toolbar tabs class="elevation-10">
 					<v-text-field class="mx-3" flat solo-inverted label="Consultar PN" prepend-inner-icon="search" />
-					<v-tabs	centered v-model="tabs" slot="extension" color="transparent">
-						<v-tab v-for="element in tabItens" :key="element.id" @click="handleSelectedTab(element)">
+					<v-tabs	
+						centered 
+						v-model="mutableTabIndex" 
+						slot="extension" 
+						color="transparent"
+					>
+						<v-tab 
+							v-for="element in tabItens" 
+							:key="element.id" 
+							@click="handleSelectedTab(element)"
+						>
 							{{ element.name }}
 						</v-tab>
 					</v-tabs>
 				</v-toolbar>
 
-				<v-tabs-items v-model="tabs">
+				<v-tabs-items 
+					v-model="tabs" 
+					class="elevation-10"
+				>
 					<v-tab-item>
-						<PedidoTabs :pedido="pedido" :tabIndex="tabIndex" />
+						<PedidoTabs :pedido="pedido" :tabIndex="mutableTabIndex" />
 					</v-tab-item>
 				</v-tabs-items>
 
@@ -41,17 +53,18 @@ import Aprovacoes from './Aprovacoes'
     },
 		methods: {
 			handleSelectedTab(v) {
-				this.tabIndex = v.id
+				this.mutableTabIndex = v.id
 			}
     },
     data() {
       return {
+				mutableTabIndex: this.tabIndex,
         tabs: null,
 				selectedOrder: null,
 				tabItens: [
-						{id: 1, name: 'Pedido'},
-						{id: 2, name: 'Itens'},
-						{id: 3, name: 'Outros'}
+						{id: 0, name: 'Pedido'},
+						{id: 1, name: 'Itens'},
+						{id: 2, name: 'Outros'}
 				]
       }
     }

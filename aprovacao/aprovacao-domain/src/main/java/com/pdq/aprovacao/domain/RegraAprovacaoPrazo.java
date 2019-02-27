@@ -2,8 +2,8 @@ package com.pdq.aprovacao.domain;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,6 +24,6 @@ public class RegraAprovacaoPrazo extends Regra {
 	private LocalDate dtFim;
 
 	@ManyToOne
-	@Column(name = "ID_USUARIO")
+	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
 }

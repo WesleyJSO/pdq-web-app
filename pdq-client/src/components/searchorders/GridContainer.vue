@@ -3,8 +3,8 @@
     <v-layout row wrap>
 
       <v-flex d-flex xs12 sm12 md12 lg12 xl12>
-        <v-card flat>
-          <v-card-title class="title">Consulta de pedidos</v-card-title>
+        <v-card flat class="card">
+          <v-card-title class="title card">Consulta de pedidos</v-card-title>
           
           <v-card-text class="pa-0">
             <!-- Dados da consulta -->
@@ -25,3 +25,9 @@ import PedidoConsulta from './PedidoConsulta'
     data: () => ({})
   }
 </script>
+
+<style scoped>
+  .card {
+    background-color: #ECF0F1;
+  }
+</style>

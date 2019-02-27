@@ -98,11 +98,21 @@
             <td>{{ props.item.codSap }}</td>
             <td>{{ props.item.statusPedido.descricaoStatus }}</td>
             <td>{{ props.item.dtCriacaoPedido | userFormatDate }}</td>
-            <td class="pt-2">
-              <router-link :to="{ name: 'aprovarpedido', params: { pedido: props.item, tabIndex: 1 } }">
-                Aprovar 
-              </router-link>
-              <v-icon small>done</v-icon>
+            <td class="pa-2 pt-0">
+              <v-list-tile 
+                slot="activator" 
+                key="aprovarpedido" 
+                :to="{ name: 'aprovarpedido', params: { pedido: props.item, tabIndex: 0 } }"
+              >
+                <v-list-tile-action>
+                  <v-icon>done</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content style="color: #1976d2">
+                  <v-list-tile-title>
+                    Aprovar
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
             </td>
           </template>
 
@@ -176,7 +186,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  
-</style>

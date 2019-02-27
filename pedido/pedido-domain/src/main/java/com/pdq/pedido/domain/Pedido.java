@@ -5,15 +5,17 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dvsmedeiros.bce.domain.IEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.pdq.aprovacao.domain.ControleAprovacao;
 import com.pdq.regional.domain.Estado;
 import com.pdq.regional.domain.Regional;
 import com.pdq.usuario.domain.Usuario;
@@ -44,8 +46,6 @@ public class Pedido implements IEntity {
 	private String numPedidoCli;
 	private Instant dtCreditoRural;
 	private Instant dtCriacaoPedido;
-
-	@ManyToMany
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
@@ -80,6 +80,13 @@ public class Pedido implements IEntity {
 	private ClassificacaoCliente classificacaoCliente;
 
 	@JsonBackReference
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "pedido")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoItem> listPedidoItem;
+
+	@JsonBackReference
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "PEDIDO_CONTROLE_APROVACAO",
+	        joinColumns = { @JoinColumn(name = "ID_PEDIDO") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "ID_CONTROLE_APROVACAO") })
+	private List<ControleAprovacao> listControleAprovacao;
 }

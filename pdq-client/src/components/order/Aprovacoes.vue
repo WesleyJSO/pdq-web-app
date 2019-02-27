@@ -1,12 +1,12 @@
 <template>
-  <v-card light>
+  <v-card light class="elevation-10">
     <v-card-title primary-title class="pa-0 pl-3 pt-2">
       <h3 class="headline">Aprovações</h3>
     </v-card-title>
     <v-card-text class="pa-0 pl-3">
       <v-container fluid>
         <v-layout row wrap>
-          <v-flex v-for="element in aprovations" :key="element.id">
+          <v-flex v-for="element in listRegra" :key="element.id">
             <v-checkbox class="pa-0 pl-3"
               :color="checkBoxColor"
               :label="element.description"
@@ -30,11 +30,13 @@
       idPedido: { type: String, default: '' }
     },
     async created () {
-      this.listRegra = await $_Regra.findByIdPedido(this.idPedido)
+      this.listRegra = await this.$_Regra.findByIdPedido(this.idPedido)
     },
-    data: () => ({
-      checkBoxColor: 'indigo',
-      listRegra: []
-    })
+    data () {
+      return {
+        checkBoxColor: 'indigo',
+        listRegra: []
+      }
+    }
   }
 </script>

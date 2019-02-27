@@ -25,27 +25,20 @@ public class PedidoItemDAO implements IPedidoItemDAO {
 		
 		if(validFilter) {
 			
-			StringBuilder jpql = new StringBuilder();
 			PedidoItem eFilter = filter.getEntity();
 			
 			boolean validIdPedido = eFilter.getPedido() != null ? eFilter.getPedido().getIdPedido() != null ? true : false : false;
 			
-			jpql.append("select pi from ").append(PedidoItem.class.getName()).append(" pi ");
-			
-			if(validIdPedido)
+			if(validIdPedido) {
+				StringBuilder jpql = new StringBuilder();
+				jpql.append("select pi from ").append(PedidoItem.class.getName()).append(" pi ");
 				jpql.append(" join fetch pi.pedido p ");
-			
-			jpql.append(" where 1=1 ");
-			
-			if(validIdPedido)
+				jpql.append(" where 1=1 ");
 				jpql.append(" and p.idPedido = :idPedido ");
-			
-			TypedQuery<PedidoItem> query = em.createQuery(jpql.toString(), PedidoItem.class);
-
-			if(validIdPedido)
+				TypedQuery<PedidoItem> query = em.createQuery(jpql.toString(), PedidoItem.class);
 				query.setParameter("idPedido", eFilter.getPedido().getIdPedido());
-			
-			return query.getResultList().stream();
+				return query.getResultList().stream();
+			}
 		}
 		return null;
 	}

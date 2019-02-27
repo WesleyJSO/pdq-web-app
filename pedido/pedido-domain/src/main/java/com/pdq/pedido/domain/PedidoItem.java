@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.dvsmedeiros.bce.domain.IEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pdq.aprovacao.domain.CorPedido;
 import com.pdq.campanha.domain.Campanha;
 
 import lombok.Data;

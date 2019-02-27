@@ -13,6 +13,18 @@ import com.pdq.usuario.domain.Usuario;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 27-02-2019 11:17:23
+ * 
+ * Persist class to control the order approval process, it will define the.
+ * @param usuario - user that have approved the order
+ * @param statusControleAprovacao - pendente, aprovado, não aprovado.
+ * @param regra - approbation rule, can be of type: deadline approval, table approval or color approval
+ * 
+ */
 @Data
 @Entity
 @Table

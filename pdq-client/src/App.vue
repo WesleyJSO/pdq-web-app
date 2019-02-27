@@ -3,69 +3,83 @@
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer" fixed app
+      style="background-color: #F2F1EF"
     >
       <v-list dense>
+        <template v-for="item in items">
+          <v-list-group
+            v-if="item.children"
+            v-model="item.model"
+            :key="item.text"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon=""
+          >
+            <v-list-tile slot="activator" :key="item.text" :to="item.link">
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="i"
+              :to="child.link"
+            ><!-- @click="" -->
+              <v-list-tile-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ child.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
 
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="consultarpedido">
-              <v-list-tile-title>Consultar Pedidos</v-list-tile-title>
-            </router-link>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-tile v-else :key="item.text" :to="item.link"> <!-- @click="" -->
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
 
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="aprovarpedido">
-              <v-list-tile-title>Aprovação de Pedido</v-list-tile-title>
-            </router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="fluxoaprovacao">
-              <v-list-tile-title>Fluxo de Aprovação</v-list-tile-title>
-            </router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-
+        </template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="blue darken-3"
-      dark app fixed
+      color="#007486"
+      dark app fixed dense
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">ProduQuimica</span>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer" />
+        <v-btn color="white" class="button-icon pa-1" depressed>
+          <img
+            src="./assets/compass-minerals.jpg"
+            alt="ProduQuimica"
+            width="70%" height="70%"
+          >
+        </v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon large>
-        <v-avatar
-          size="45px" 
-          color="grey lighten-4"
-        >
-          <img
-            src="./assets/pdq_logo.jpg"
-            alt="ProduQuimica"
-          >
-        </v-avatar>
-      </v-btn>
+      <v-avatar size="40" color="blue">
+        <span class="white--text headline">J</span>
+      </v-avatar>
     </v-toolbar>
     <v-content> 
       <!-- <GridContainer /> -->
-      <router-view />
+      <v-container fluid fill-height class="grey lighten-4">
+        <v-layout>
+          <v-flex >
+            <router-view></router-view>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -76,23 +90,42 @@ export default {
   components: {
     // GridContainer
   },
-  data: () => ({
-    daysPastCreation: 0,
-    show4: false,
-    drawer: null,
-  })
+  data () {
+    return {
+      daysPastCreation: 0,
+      drawer: null,
+      items: [
+      {
+        icon: 'keyboard_arrow_up',
+        'icon-alt': 'keyboard_arrow_down',
+        text: 'Pedido',
+        link: ``,
+        model: true,
+        children: [
+          { icon: 'search', text: 'Consultar',  link: `/consultarpedido/`},
+          // { icon: 'list_alt', text: 'Aprovar',  link: `/aprovarpedido/`},
+          { icon: 'blur_on', text: 'Fluxo de aprovação',  link: `/fluxoaprovacao/`},
+        ]
+      },
+      // { icon: 'trending_up', text: 'Relatórios', link: '/report' },
+      // { icon: 'settings', text: 'Configurações', link: '/configuration' },
+      ]
+    }
+  }
 }
 </script>
 
-<style>
-#inspire {
-  background-color: #F4F5F7
-}
-table {
-	white-space: nowrap;
-}
+<style> 
 .v-table__overflow {
-	height: 350px;
+ /* white-space: nowrap; */
+  /* overflow: hidden; */
+	max-height: 350px;
+  width: 100%;
 	overflow-y: auto;
+	overflow-x: auto;
+} 
+.button-icon {
+    height:90%;
+    width:45%;
 }
 </style>
