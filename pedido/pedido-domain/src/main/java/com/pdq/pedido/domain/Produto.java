@@ -1,26 +1,26 @@
 package com.pdq.pedido.domain;
 
-import java.io.Serializable;
-
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class Produto implements IEntity, Serializable {
-
-	private static final long serialVersionUID = -3528859604605978578L;
+@AttributeOverride(name = "id", column = @Column(name = "ID"))
+public class Produto extends DomainEntity<String> {
 	
-	@Id
-	private long id;
+	private static final long serialVersionUID = 7685245106358697123L;
+	
 	private Long idProduto;
 	private Double embalagem;
 	private Double dose;

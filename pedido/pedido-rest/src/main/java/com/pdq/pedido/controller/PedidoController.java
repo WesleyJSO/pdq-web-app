@@ -16,8 +16,14 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Pedido;
-import com.pdq.pedido.filter.PedidoHelper;
-
+import com.pdq.pedido.helper.PedidoHelper;
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 05-03-2019 11:44:34
+ *
+ */
 @Controller
 @RequestMapping("${server.controller.prefix}pedido")
 public class PedidoController extends DomainSpecificEntityController<Pedido> {
@@ -30,7 +36,9 @@ public class PedidoController extends DomainSpecificEntityController<Pedido> {
 	public @ResponseBody ResponseEntity<?> findByFilter(@RequestBody PedidoHelper filter) {
 
 		try {
-			BusinessCase<Pedido> aCase = new BusinessCaseBuilder<Pedido>().withName("FIND_PEDIDO_BY_FILTER");
+			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
+					.withName("FIND_PEDIDO_BY_FILTER");
+			
 			navigator.run(filter, aCase);
 			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
 

@@ -1,20 +1,23 @@
 package com.pdq.pedido.domain;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class Fabrica implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_FABRICA"))
+public class Fabrica extends DomainEntity<Long> {
 	
-	@Id
-	private long idFabrica;
-	private long codFabrica;
+	private static final long serialVersionUID = -7664213943083625961L;
+	
 	private String desFabrica;
 }

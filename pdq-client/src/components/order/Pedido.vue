@@ -32,7 +32,7 @@
 			</v-flex>
       
 			<v-flex>
-				<Aprovacoes />
+				<Aprovacoes :idPedido="pedido.idPedido" />
 			</v-flex>
 
 		</v-layout>

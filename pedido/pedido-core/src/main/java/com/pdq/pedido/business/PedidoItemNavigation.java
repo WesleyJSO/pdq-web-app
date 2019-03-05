@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.pdq.pedido.business.impl.FindPedidoItembyIdPedido;
-import com.pdq.pedido.domain.PedidoItem;
+import com.pdq.pedido.helper.PedidoItemHelper;
 
 @Configuration
 public class PedidoItemNavigation {
@@ -16,8 +16,8 @@ public class PedidoItemNavigation {
 	@Autowired private FindPedidoItembyIdPedido findPedidoItembyIdPedido;
 	
 	@Bean(name = "FIND_PEDIDO_ITEM_BY_ID_PEDIDO")
-	public Navigation<PedidoItem> findPedidoByFilter() {
-		return new NavigationBuilder<PedidoItem>()
+	public Navigation<PedidoItemHelper> findPedidoByFilter() {
+		return new NavigationBuilder<PedidoItemHelper>()
 				.next(findPedidoItembyIdPedido)
 				.build();
 	}

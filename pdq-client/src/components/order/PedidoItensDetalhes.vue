@@ -16,7 +16,7 @@
 						<td>{{ props.item.pedido.regional.centroLucro.descricao }}</td>
 						<td>{{ props.item.pedido.usuarioRtv.funcionario.nomFuncionario }}</td>
 						<td>{{ props.item.pedido.estadoOrigem.sigla }}</td>
-						<td>{{ props.item.produtoPrecoRegras.produto.idProduto }}</td>
+						<td>{{ props.item.produtoPrecoRegras.produto.id }}</td>
 						<td>{{ props.item.produtoPrecoRegras.produto.desProduto }}</td>
 						<td>{{ props.item.quantidade }}</td>
 						<td>{{ props.item.unidade.siglaUnidade }}</td>

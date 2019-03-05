@@ -1,25 +1,28 @@
 package com.pdq.pedido.domain;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
-import com.pdq.regional.domain.Endereco;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class Cliente implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_CLIENTE"))
+public class Cliente extends DomainEntity<String> {
+
+	private static final long serialVersionUID = -1771388937880370757L;
 	
-	@Id
-	private String idCliente;
 	private Long codSap;
 	private String nomCliente;
     private String numCelular;

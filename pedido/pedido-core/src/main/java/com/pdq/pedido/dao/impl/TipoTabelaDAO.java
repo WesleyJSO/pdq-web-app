@@ -2,25 +2,20 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
-import com.pdq.pedido.dao.ITipoTabelaDAO;
 import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.domain.TipoTabela;
+import com.pdq.pedido.helper.PedidoItemHelper;
+import com.pdq.utils.GenericDAO;
 
 @Repository
-public class TipoTabelaDAO implements ITipoTabelaDAO {
+public class TipoTabelaDAO extends GenericDAO<TipoTabela, Long> {
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	@Override
-	public Stream<TipoTabela> findByIdPedido(Filter<PedidoItem> filter) {
+	public Stream<TipoTabela> findTipoTabelaByIdPedido(Filter<PedidoItemHelper> filter) {
 
 		boolean validFilter = filter != null && filter.getEntity() != null;
 		
@@ -29,29 +24,20 @@ public class TipoTabelaDAO implements ITipoTabelaDAO {
 			StringBuilder jpql = new StringBuilder();
 			PedidoItem eFilter = filter.getEntity();
 			
-			boolean validIdPedido = eFilter.getPedido() != null ? eFilter.getPedido().getIdPedido() != null ? true : false : false;
+			boolean validIdPedido = eFilter.getPedido() != null ? eFilter.getPedido().getId() != null ? true : false : false;
 			
-			jpql.append("select tt from ").append(PedidoItem.class.getName()).append(" pi ");
-			
-			if(validIdPedido)
-				jpql.append(" join pi.pedido p "
-						+ " join pi.produtoPrecoRegras ppr "
-						+ " join ppr.tabelaPreco tp "
-						+ " join tp.tipoTabela tt ");
-			
-			jpql.append(" where 1=1 ");
-			
-			if(validIdPedido)
-				jpql.append(" and p.idPedido = :idPedido ");
-			
-			TypedQuery<TipoTabela> query = em.createQuery(jpql.toString(), TipoTabela.class);
 
-			if(validIdPedido)
-				query.setParameter("idPedido", eFilter.getPedido().getIdPedido());
+			if(validIdPedido) {
 			
-			return query.getResultList().stream();
+				jpql.append("select tt from ").append(PedidoItem.class.getName()).append(" pi ");
+				jpql.append(" join pi.produtoPrecoRegras.tabelaPreco.tipoTabela tt ");
+				jpql.append(" and pi.id = :id");
+			
+				TypedQuery<TipoTabela> query = em.createQuery(jpql.toString(), TipoTabela.class);
+				query.setParameter("idPedido", eFilter.getPedido().getId());
+				return query.getResultList().stream();
+			}
 		}
 		return null;
 	}
-
 }

@@ -1,20 +1,24 @@
 package com.pdq.pedido.domain;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class CondicaoPagamento implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_CONDICAO_PAGAMENTO"))
+public class CondicaoPagamento extends DomainEntity<Long> {
 	
-	@Id
-	private long idCondicaoPagamento;
+	private static final long serialVersionUID = -4802485891677783370L;
+	
 	private String codSap;
 	private String condPagamento;
 	private Integer diasPagamento;

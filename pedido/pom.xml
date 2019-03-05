@@ -18,9 +18,15 @@
 		<spring.boot.version>2.0.5.RELEASE</spring.boot.version>
 		<jackson.version>2.8.6</jackson.version>
 		<bce.version>1.0.3-SNAPSHOT</bce.version>
+		<pdq.version>1.0.1-SNAPSHOT</pdq.version>
 	</properties>
 	
 	<dependencies>
+		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>utils-core</artifactId>
+			<version>${pdq.version}</version>
+		</dependency>
  		<dependency> 
  		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>

@@ -3,11 +3,11 @@ export default class Cidade {
     this.url = `${url}cidade`
     this.axios = axios
   }
-  async findCidadeByIdEstado (idEstado) {
+  async findCidadeByIdEstado (id) {
     try {
       let cidade = {
         estado: {
-          idEstado: idEstado
+          id: id
         }
       }
       let response = await this.axios.post(`${this.url}/filtro`, cidade)
@@ -15,7 +15,7 @@ export default class Cidade {
       
       return response.data
     } catch (err) {
-      console.log({idEstado})
+      console.log({id})
       console.log({err})
     }
   }

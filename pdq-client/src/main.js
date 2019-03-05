@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import './plugins/vuetify'
 import App from './App.vue'
 import axios from 'axios'
 import moment from 'moment'
 import router from './router'
+import store from './store'
 import BasicValidator from './rules/BasicValidator'
 import BaseAPI from './API/BaseAPI'
 import Cidade from './API/Cidade'
@@ -54,19 +54,6 @@ Vue.filter('vueFormatDate', function (v) {
 Vue.filter('calculateDays', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'
   return moment().diff(moment(v), 'days')
-})
-
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-  state: {
-    count: 10
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
 })
 
 /* eslint-disable no-console */

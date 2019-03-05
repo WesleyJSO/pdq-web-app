@@ -32,7 +32,7 @@ public class TipoTabelaController extends DomainSpecificEntityController<TipoTab
 		try {
 			PedidoItem filter = new PedidoItem();
 			Pedido p = new Pedido();
-			p.setIdPedido(idPedido);
+			p.setId(idPedido);
 			filter.setPedido(p);
 			BusinessCase<PedidoItem> aCase = new BusinessCaseBuilder<PedidoItem>()
 					.withName("FIND_TIPO_TABELA_BY_ID_PEDIDO");

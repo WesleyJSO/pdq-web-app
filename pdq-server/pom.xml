@@ -22,7 +22,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
 		<bce.version>1.0.3-SNAPSHOT</bce.version>
-		<pedido.version>1.0.1-SNAPSHOT</pedido.version>
+		<pdq.version>1.0.1-SNAPSHOT</pdq.version>
 	</properties>
 
 	<dependencies>
@@ -50,13 +50,34 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>utils-core</artifactId>
+			<version>${pdq.version}</version>
 		</dependency>
 		
 		<!-- place every rest from each module in here -->
@@ -69,37 +90,7 @@
 		<dependency>
 			<groupId>com.pdq</groupId>
 			<artifactId>pedido-rest</artifactId>
-			<version>${pedido.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.pdq</groupId>
-			<artifactId>regional-rest</artifactId>
-			<version>${pedido.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.pdq</groupId>
-			<artifactId>usuario-rest</artifactId>
-			<version>${pedido.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.pdq</groupId>
-			<artifactId>campanha-rest</artifactId>
-			<version>${pedido.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.pdq</groupId>
-			<artifactId>aprovacao-rest</artifactId>
-			<version>${pedido.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<version>${pdq.version}</version>
 		</dependency>
 		
 	</dependencies>

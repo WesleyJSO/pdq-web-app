@@ -56,8 +56,9 @@
       color="#007486"
       dark app fixed dense
     >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" />
+      <v-divider class="mx-2" inset vertical />
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer" />
         <v-btn color="white" class="button-icon pa-1" depressed>
           <img
             src="./assets/compass-minerals.jpg"

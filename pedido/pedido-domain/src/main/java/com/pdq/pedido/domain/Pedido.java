@@ -3,32 +3,37 @@ package com.pdq.pedido.domain;
 import java.time.Instant;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.pdq.aprovacao.domain.ControleAprovacao;
-import com.pdq.regional.domain.Estado;
-import com.pdq.regional.domain.Regional;
-import com.pdq.usuario.domain.Usuario;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
-
+import lombok.EqualsAndHashCode;
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 05-03-2019 11:45:44
+ *
+ */
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class Pedido implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_PEDIDO"))
+public class Pedido extends DomainEntity<String> {
 	
-	@Id
-	private String idPedido;
+	private static final long serialVersionUID = -3072217342133443473L;
+	
 	private Boolean freteDigitado;
 	private String observacaoFrete;
 	private Boolean orcamento;
@@ -51,15 +56,15 @@ public class Pedido implements IEntity {
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
 	private StatusPedido statusPedido;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_REGIONAL")
 	private Regional regional;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO_RTV")
 	private Usuario usuarioRtv;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 
@@ -71,7 +76,7 @@ public class Pedido implements IEntity {
 	@JoinColumn(name = "ID_SETOR_ATIVIDADE")
 	private SetorAtividade setorAtividade;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ESTADO_ORIGEM")
 	private Estado estadoOrigem;
 	
@@ -83,10 +88,6 @@ public class Pedido implements IEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoItem> listPedidoItem;
 
-	@JsonBackReference
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "PEDIDO_CONTROLE_APROVACAO",
-	        joinColumns = { @JoinColumn(name = "ID_PEDIDO") }, 
-	        inverseJoinColumns = { @JoinColumn(name = "ID_CONTROLE_APROVACAO") })
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<ControleAprovacao> listControleAprovacao;
 }

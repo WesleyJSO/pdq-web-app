@@ -1,22 +1,25 @@
 package com.pdq.pedido.domain;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-public class ProdutoPrecoRegras implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_PRODUTO_PRECO"))
+public class ProdutoPrecoRegras extends DomainEntity<Long> {
 
-	@Id
-	private long idProdutoPreco;
+	private static final long serialVersionUID = 6988876037701409548L;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_TABELA_PRECO")

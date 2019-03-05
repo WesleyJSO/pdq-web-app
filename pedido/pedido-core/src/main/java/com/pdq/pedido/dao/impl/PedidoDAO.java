@@ -10,18 +10,17 @@ import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
-import com.pdq.pedido.dao.IPedidoDAO;
 import com.pdq.pedido.domain.Pedido;
-import com.pdq.pedido.filter.PedidoHelper;
+import com.pdq.pedido.helper.PedidoHelper;
+import com.pdq.utils.GenericDAO;
 
 @Repository
-public class PedidoDAO implements IPedidoDAO {
+public class PedidoDAO extends GenericDAO<Pedido, String> {
 
 	@PersistenceContext
 	private EntityManager em;
-
-	@Override
-	public Stream<Pedido> filter(Filter<PedidoHelper> filter) {
+	
+	public Stream<Pedido> filterPedidoHelper(Filter<PedidoHelper> filter) {
 
 		boolean validFilter = filter != null && filter.getEntity() != null;
 
@@ -29,10 +28,10 @@ public class PedidoDAO implements IPedidoDAO {
 			StringBuilder jpql = new StringBuilder();
 			PedidoHelper eFilter = filter.getEntity();
 			boolean validCodSap = !Strings.isNullOrEmpty(eFilter.getCodSap());
-			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getIdCidade() != 0;
-			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getIdRegional() != 0;
-			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getIdEstado() != 0;
-			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getIdUsuario() != 0;
+			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getId() != 0;
+			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getId() != 0;
+			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getId() != 0;
+			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getId() != 0;
 			boolean validStatusPedido = eFilter.getStatusPedido() != null && eFilter.getStatusPedido().getId() != 0;
 
 			jpql.append(" select p from ").append(Pedido.class.getName()).append(" p ");
@@ -56,13 +55,13 @@ public class PedidoDAO implements IPedidoDAO {
 			if (validCodSap)
 				jpql.append(" and p.codSap = :codSap");
 			if (validCidade)
-				jpql.append(" and c.idCidade = :idCidade");
+				jpql.append(" and c.id = :idCidade");
 			if (validEstado)
-				jpql.append(" and e.idEstado = :idEstado");
+				jpql.append(" and e.id = :idEstado");
 			if (validRegional)
-				jpql.append(" and r.idRegional = :idRegional");
+				jpql.append(" and r.id = :idRegional");
 			if (validUsuarioRtv)
-				jpql.append(" and u.idUsuario = :idUsuario");
+				jpql.append(" and u.id = :idUsuarioRtv");
 			if (validStatusPedido)
 				jpql.append(" and s.id = :idStatusPedido");
 			
@@ -71,13 +70,13 @@ public class PedidoDAO implements IPedidoDAO {
 			if (validCodSap)
 				query.setParameter("codSap", eFilter.getCodSap());
 			if (validCidade)
-				query.setParameter("idCidade", eFilter.getCidade().getIdCidade());
+				query.setParameter("idCidade", eFilter.getCidade().getId());
 			if (validEstado)
-				query.setParameter("idEstado", eFilter.getEstado().getIdEstado());
+				query.setParameter("idEstado", eFilter.getEstado().getId());
 			if (validRegional)
-				query.setParameter("idRegional", eFilter.getRegional().getIdRegional());
+				query.setParameter("idRegional", eFilter.getRegional().getId());
 			if (validUsuarioRtv)
-				query.setParameter("idUsuario", eFilter.getUsuarioRtv().getIdUsuario());
+				query.setParameter("idUsuarioRtv", eFilter.getUsuarioRtv().getId());
 			if (validStatusPedido)
 				query.setParameter("idStatusPedido", eFilter.getStatusPedido().getId());
 
@@ -85,5 +84,4 @@ public class PedidoDAO implements IPedidoDAO {
 		}
 		return null;
 	}
-
 }

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.pdq.pedido.business.impl.FindPedidoByFilter;
-import com.pdq.pedido.filter.PedidoHelper;
+import com.pdq.pedido.helper.PedidoHelper;
 
 @Configuration
 public class PedidoNavigation {

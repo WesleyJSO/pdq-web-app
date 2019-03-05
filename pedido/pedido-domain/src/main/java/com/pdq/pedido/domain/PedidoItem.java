@@ -4,29 +4,30 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.dvsmedeiros.bce.domain.IEntity;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.pdq.aprovacao.domain.CorPedido;
-import com.pdq.campanha.domain.Campanha;
+import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table
 @Entity	
-public class PedidoItem implements IEntity {
+@AttributeOverride(name = "id", column = @Column(name = "ID_PEDIDO_ITEM"))
+public class PedidoItem extends DomainEntity<String> {
 	
-	@Id
-	private String idPedidoItem;
+	private static final long serialVersionUID = 427916007591827486L;
+	
 	private Double quantidade;
 	private Double valorUnitParaCalculoMargem;
 	private Double valorUnitFob;
@@ -65,7 +66,7 @@ public class PedidoItem implements IEntity {
 	private LocalDate dataPagamento;
 	private LocalDate dtTxCambio;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PEDIDO")
 	private Pedido pedido;
 
@@ -90,7 +91,6 @@ public class PedidoItem implements IEntity {
 	private OrganizacaoVendas organizacaoVendas;
 
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "ID_COR")
 	private CorPedido corPedido;
 
@@ -102,7 +102,7 @@ public class PedidoItem implements IEntity {
 	@JoinColumn(name = "STATUS_APROVACAO")
 	private StatusPedido statusAprovacao;
 
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PRODUTO_PRECO_REGRAS")
 	private ProdutoPrecoRegras produtoPrecoRegras;
 
