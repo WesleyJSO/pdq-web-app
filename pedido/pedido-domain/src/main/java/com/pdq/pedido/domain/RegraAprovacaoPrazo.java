@@ -31,6 +31,7 @@ public class RegraAprovacaoPrazo extends Regra {
 	private int numeroDiasFim;
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
+	private boolean stsAtivo;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")

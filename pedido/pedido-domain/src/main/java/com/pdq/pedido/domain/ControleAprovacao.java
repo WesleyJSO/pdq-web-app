@@ -38,6 +38,10 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	
 	private boolean ativo;
 	private LocalDate dataAprovacao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PEDIDO")
+	private Pedido pedido;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO")
@@ -52,10 +56,6 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	private StatusPedido statusPedido;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PEDIDO")
-	private Pedido pedido;
-	
-	@ManyToOne
 	@JoinColumn(name = "ID_REGRA")
 	private Regra regra;
 }

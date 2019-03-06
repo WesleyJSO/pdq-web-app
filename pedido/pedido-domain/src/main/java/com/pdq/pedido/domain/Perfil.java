@@ -12,7 +12,13 @@ import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 06-03-2019 11:35:28
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Table

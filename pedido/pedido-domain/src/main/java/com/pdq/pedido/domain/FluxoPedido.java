@@ -1,9 +1,13 @@
 package com.pdq.pedido.domain;
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,6 +31,8 @@ public class FluxoPedido extends DomainEntity<Long> {
 	
 	private static final long serialVersionUID = 2132377504455504638L;
 	
+	private String beanValidacao;
+
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO_DE")
 	private StatusPedido statusPedidoDe;
@@ -35,5 +41,9 @@ public class FluxoPedido extends DomainEntity<Long> {
 	@JoinColumn(name = "ID_STATUS_PEDIDO_PARA")
 	private StatusPedido statusPedidoPara;
 	
-	private String beanValidacao;
+	@ManyToMany
+	@JoinTable(name = "FLUXO_PEDIDO_REGRA", 
+		joinColumns = { @JoinColumn(name = "ID_FLUXO_PEDIDO") }, 
+		inverseJoinColumns = { @JoinColumn(name = "ID_REGRA") })
+	private List<Regra> listRegra;
 }
