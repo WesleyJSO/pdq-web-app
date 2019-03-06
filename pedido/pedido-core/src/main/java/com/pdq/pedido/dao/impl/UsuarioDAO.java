@@ -2,9 +2,7 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +15,6 @@ import com.pdq.utils.GenericDAO;
 @Repository
 @Transactional
 public class UsuarioDAO extends GenericDAO<Usuario, Long> {
-
-	@PersistenceContext
-	private EntityManager em;
 	
 	public Stream<Usuario> filter(Filter<UsuarioHelper> filter) {
 		
@@ -98,6 +93,19 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 					.setParameter("senha", senha)
 					.getResultList()
 					.get(0);
+		}
+		return null;
+	}
+
+	public Usuario getUsuarioLogado() {
+		try {
+			String login = SecurityContextHolder
+					.getContext()
+					.getAuthentication()
+					.getName();
+			return findByLogin(login, false);
+		} catch(Exception e) {
+			// @FIXME add log system
 		}
 		return null;
 	}

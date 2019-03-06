@@ -27,5 +27,4 @@ public abstract class DomainEntity<T extends Object> implements IEntity, Seriali
 	
 	@Id
 	private T id;
-	
 }

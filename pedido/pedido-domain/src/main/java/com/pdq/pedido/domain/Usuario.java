@@ -18,7 +18,6 @@ import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.dvsmedeiros.bce.domain.IEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pdq.utils.DomainEntity;
 
@@ -31,7 +30,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "ID_USUARIO"))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Usuario extends DomainEntity<Long> implements IEntity, UserDetails {
+public class Usuario extends DomainEntity<Long> implements UserDetails {
 	
 	private static final long serialVersionUID = 9046719009131757279L;
 	

@@ -2,23 +2,26 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.helper.PedidoHelper;
 import com.pdq.utils.GenericDAO;
-
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 06-03-2019 13:20:45
+ *
+ */
 @Repository
+@Transactional
 public class PedidoDAO extends GenericDAO<Pedido, String> {
-
-	@PersistenceContext
-	private EntityManager em;
 	
 	public Stream<Pedido> filterPedidoHelper(Filter<PedidoHelper> filter) {
 
@@ -28,11 +31,11 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 			StringBuilder jpql = new StringBuilder();
 			PedidoHelper eFilter = filter.getEntity();
 			boolean validCodSap = !Strings.isNullOrEmpty(eFilter.getCodSap());
-			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getId() != 0;
-			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getId() != 0;
-			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getId() != 0;
-			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getId() != 0;
-			boolean validStatusPedido = eFilter.getStatusPedido() != null && eFilter.getStatusPedido().getId() != 0;
+			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getId() != null;
+			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getId() != null;
+			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getId() != null;
+			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getId() != null;
+			boolean validStatusPedido = eFilter.getStatusPedido() != null && eFilter.getStatusPedido().getId() != null;
 
 			jpql.append(" select p from ").append(Pedido.class.getName()).append(" p ");
 

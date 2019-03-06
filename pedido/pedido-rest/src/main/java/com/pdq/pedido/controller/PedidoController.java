@@ -37,7 +37,7 @@ public class PedidoController extends DomainSpecificEntityController<Pedido> {
 
 		try {
 			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
-					.withName("FIND_PEDIDO_BY_FILTER");
+					.withName("FILTER_PEDIDO_BY_STATUS");
 			
 			navigator.run(filter, aCase);
 			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();

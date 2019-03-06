@@ -8,7 +8,13 @@ import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.dao.impl.PedidoDAO;
 import com.pdq.pedido.helper.PedidoHelper;
-
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 06-03-2019 12:50:46
+ *
+ */
 @Component
 public class FindPedidoByFilter implements IStrategy<PedidoHelper> {
 	
