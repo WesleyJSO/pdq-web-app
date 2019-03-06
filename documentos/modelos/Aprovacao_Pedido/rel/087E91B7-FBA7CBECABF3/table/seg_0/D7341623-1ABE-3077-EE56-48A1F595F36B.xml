@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D7341623-1ABE-3077-EE56-48A1F595F36B" name="STATUS_PEDIDO">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:46:39 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="8C83755C-0B79-0338-6549-11FD8EFEA67E">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:47:03 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRICAO_STATUS" id="BEA9E15E-6CB5-AE42-CC00-43CCB4D67380">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:57:13 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>73242D3B-5764-B562-AFC9-7F0FAAFD8133</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ORDEM" id="EC36FB42-CCA0-878E-DFC4-752DAA661506">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:57:13 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="26D27D0D-86A7-A4CF-F19D-8797A716B5FC" name="PK__STS_PED">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:47:11 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8C83755C-0B79-0338-6549-11FD8EFEA67E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

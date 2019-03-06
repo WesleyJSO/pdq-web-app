@@ -1,0 +1,178 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0B07071E-3452-BE3C-66BE-05CF569D02A9" name="REGRA_APROVACAO_PRAZO">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:18:54 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_16</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="386E8837-B7E6-40CA-840B-A907CE5108F3">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:19:38 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="43908355-8815-96C3-8E80-294BF483CC30" referredColumn="B6D299B3-5443-3CFF-0AB8-A246B37A1273"/>
+</associations>
+</Column>
+<Column name="ID_USUARIO" id="25D2A5C8-DFF5-3D49-5FA0-A303E4CDBD2E">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 15:38:23 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02049B52-E59F-2C6F-B44F-EBE5A1215CFA" referredColumn="43926595-4C65-EA39-E3EE-53601967B4A1"/>
+</associations>
+</Column>
+<Column name="DESCRICAO" id="DF36224D-684E-B99D-4886-AF931F41DE88">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:29:17 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ATIVO" id="77752BB3-549C-7D8C-F2DB-C3DA573DEA34">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:29:17 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APROVADO" id="28EA93B7-6FD9-B4F6-8AF1-C4CCCAD2ED81">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:29:17 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NUMERO_DIAS_INICIO" id="D15EF022-17FA-B9F1-0E26-2111B156FA2E">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NUMERO_DIAS_FIM" id="8E089455-8849-D491-A68C-D9A66FB94798">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATA_INICIO" id="150DD050-0838-E2D8-34C9-E730B33A2C6B">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATA_FIM" id="23CD4061-686F-E3AF-30C4-450ADAFD3C95">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STS_ATIVO" id="F7867760-DC5B-317A-798D-0B74958A620B">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DT_SICRONISMO" id="83AB968B-853C-044E-207D-38149FE2A335">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:26:27 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7DBAB487-E23D-CA97-3005-672D51F06D88" name="PK_RGR_APR_PRZ">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:19:38 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="386E8837-B7E6-40CA-840B-A907CE5108F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0C8439C6-DC3E-C150-DD74-F1AD070A66EA" name="FK__RGR_APR_PRZ__RGR">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:48:56 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="386E8837-B7E6-40CA-840B-A907CE5108F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="09CB11DF-C3D8-0D63-0A89-98C1B05BD809" name="FK__RGR_APR_PRZ__USR">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 15:38:24 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25D2A5C8-DFF5-3D49-5FA0-A303E4CDBD2E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

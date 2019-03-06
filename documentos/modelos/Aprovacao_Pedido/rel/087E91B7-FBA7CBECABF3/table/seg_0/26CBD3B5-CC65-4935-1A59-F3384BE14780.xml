@@ -1,0 +1,64 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="26CBD3B5-CC65-4935-1A59-F3384BE14780" name="FLUXO_PEDIDO_REGRA">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 14:09:13 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_FLUXO_PEDIDO" id="25CFFD0E-474A-D469-271D-0B7DDD6F6EA3">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 14:09:44 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1CAA0426-D58C-96C8-E1AD-7CBCED6BC8F4" referredColumn="D738C3E1-913F-73CE-F3FE-685FEE377705"/>
+</associations>
+</Column>
+<Column name="ID_REGRA" id="3FBFDF15-1AC4-09F2-CDA9-70E5D6C52D68">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 14:10:34 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="45B4DE30-7F82-E6B1-3951-7EBC46A35F26" referredColumn="B6D299B3-5443-3CFF-0AB8-A246B37A1273"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C24E9EC5-5AA9-A0B3-D773-7EF07381848A" name="FK__FLX_PED_RGR__FLX_PED">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 14:09:44 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25CFFD0E-474A-D469-271D-0B7DDD6F6EA3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A4F8A875-9076-8269-FC8B-18BE2D2D3F90" name="FK__FLX_PED_RGR__RGR">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 14:10:34 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3FBFDF15-1AC4-09F2-CDA9-70E5D6C52D68"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

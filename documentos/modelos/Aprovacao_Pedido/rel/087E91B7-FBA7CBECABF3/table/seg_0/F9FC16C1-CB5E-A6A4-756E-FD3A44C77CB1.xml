@@ -1,0 +1,36 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F9FC16C1-CB5E-A6A4-756E-FD3A44C77CB1" name="PEDIDO">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 13:50:50 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_13</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_PEDIDO" id="1FEE6098-4472-2E63-B585-C3A0A6974CEB">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 15:39:39 UTC</createdTime>
+<commentInRDBMS>CHARACTER SET ucs2</commentInRDBMS>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5C809A97-C614-68CE-A58E-F78B136C82B2" name="PK__PED">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 15:39:39 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1FEE6098-4472-2E63-B585-C3A0A6974CEB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

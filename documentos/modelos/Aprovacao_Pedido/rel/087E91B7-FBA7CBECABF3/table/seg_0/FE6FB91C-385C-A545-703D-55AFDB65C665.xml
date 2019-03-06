@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FE6FB91C-385C-A545-703D-55AFDB65C665" name="FLUXO_PEDIDO">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:58:52 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_5</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="D738C3E1-913F-73CE-F3FE-685FEE377705">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:00:45 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_STATUS_PEDIDO_DE" id="500B1C09-9F76-AABE-C161-35BE40C6790F">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:00:45 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DC8B077A-5DC9-8851-4150-C1D38C7A9CFB" referredColumn="8C83755C-0B79-0338-6549-11FD8EFEA67E"/>
+</associations>
+</Column>
+<Column name="ID_STATUS_PEDIDO_PARA" id="DD397E67-DF6E-4E0C-AF79-EB8C701A6455">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:00:45 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1ACE8B3B-350E-564E-D4B3-0671B179FEDF" referredColumn="8C83755C-0B79-0338-6549-11FD8EFEA67E"/>
+</associations>
+</Column>
+<Column name="BEAN_VALIDACAO" id="806F6CB4-C73E-14D8-2919-1A696DECAE7E">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:00:45 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>73242D3B-5764-B562-AFC9-7F0FAAFD8133</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6201180D-BC4E-C5FB-079C-8B93F0BDE329" name="PK__FLX_PED">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:11:03 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D738C3E1-913F-73CE-F3FE-685FEE377705"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C8C5C607-1C8D-B82D-84B9-2F73A019F912" name="FK__FLX_PED__FLX_STS_PED_DE">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:05:36 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="500B1C09-9F76-AABE-C161-35BE40C6790F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C209B455-C946-465C-5EC7-E461EC932AF8" name="FK__FLX_PED__FLX_STS_PED_PARA">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:08:52 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DD397E67-DF6E-4E0C-AF79-EB8C701A6455"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

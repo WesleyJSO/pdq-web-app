@@ -1,0 +1,57 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="45B1CD93-9B66-0179-C0C9-3C55DE874BF6" name="PERFIL">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-05 18:55:50 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_PERFIL" id="58F5DBF6-3659-F1B2-A6EF-7F98772432E3">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-05 18:57:03 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DES_PERFIL" id="50AC4B0F-3A85-B2D1-F36B-0C7D352BF6AA">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-05 18:57:57 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACRONIMO" id="4F24AE25-86E2-B28C-3DA1-C0C509FB5D5D">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-05 18:57:57 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>C75FB41C-73C2-1A49-9747-9C2C426502CA</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DA8428EC-E6E5-9799-0CB4-8806ACE6259F" name="PERFIL_PK">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-05 18:57:57 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="58F5DBF6-3659-F1B2-A6EF-7F98772432E3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

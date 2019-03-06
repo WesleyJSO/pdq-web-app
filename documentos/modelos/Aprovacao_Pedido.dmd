@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Aprovacao_Pedido" id="695D9165-9FCE-3780-5519-5D4A2EFF660A" version="3.5">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:36:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>695D9165-9FCE-3780-5519-5D4A2EFF660A</designId>
+</OSDM_Design>

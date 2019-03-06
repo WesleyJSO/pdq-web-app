@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7442E7F3-1A02-55DD-D072-B429556D0792" containerWithKeyObject="68DD50CC-BB6D-406F-C4CD-2C359E6FD3FE" localFKIndex="8CD29120-0D5A-62B8-63A0-B95BFABDC930" name="FK__CTR_APR__RGR">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:29:51 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<referredTableLongName>REGRAS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>47D5DF28-D955-33F0-FAB1-AE1EBE0D8AA1</referredTableID>
+<keyObject>63C73BA5-92E4-D3C1-C227-F8639278BA65</keyObject>
+<referredKeyID>63C73BA5-92E4-D3C1-C227-F8639278BA65</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

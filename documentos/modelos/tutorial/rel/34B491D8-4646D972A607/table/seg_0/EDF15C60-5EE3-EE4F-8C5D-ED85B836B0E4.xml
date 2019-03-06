@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="EDF15C60-5EE3-EE4F-8C5D-ED85B836B0E4" name="Transactions">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:29:05 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<ordsAlias>table_4</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="transaction_id" id="B4783B51-72D6-D7DC-8815-B271D283A4E3">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:30:45 UTC</createdTime>
+<commentInRDBMS>Primary UID (unique identifier). (Unique transaction ID number)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>F0C6C574-BF3C-6B72-6DB1-6ED5A0B106B3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="transaction_date" id="F9548AC8-451D-E95C-167A-47B50B5DEFF3">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:30:45 UTC</createdTime>
+<commentInRDBMS>M (mandatory, that is, must not be null). Date and time of the transaction.</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="transaction_type" id="ABC0F5E5-3E80-3238-18E3-1D26953689B0">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:30:45 UTC</createdTime>
+<commentInRDBMS>M (mandatory, that is, must not be null). (Numeric code indicating the type of transaction, such as 1 for checking out a book.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>F0C6C574-BF3C-6B72-6DB1-6ED5A0B106B3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="book_id" directorySegmentName="seg_0" id="E16BF83D-AFEF-EBC3-18AC-50AF2119B8B7">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:21:11 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>BFED0922-43F5-8B21-ABA8-0A85C1770003</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B4170AE2-EB2C-1C03-2215-7F64469C0CB4" referredColumn="45792892-FC67-39DE-98E1-23FB671F3BB1"/>
+</associations>
+</Column>
+<Column name="patron_id" id="5C710439-5870-E963-FA4E-FCE42BD9D87D">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:33:01 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>F0C6C574-BF3C-6B72-6DB1-6ED5A0B106B3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="569CEBFD-CB08-3467-64F2-4562147A42CB" referredColumn="A7BF37FA-5C3A-A054-71C7-F01D7692E2A3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2E3A151D-9D02-648C-9A5F-B29FB0FC3EB9" name="Transactions_PK">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:04:08 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B4783B51-72D6-D7DC-8815-B271D283A4E3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="431CFBFD-1CFD-C256-E62F-2588DB12426E" name="Transactions_Books_FK">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:21:11 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E16BF83D-AFEF-EBC3-18AC-50AF2119B8B7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ECF1F108-EF9F-FD6A-F0F4-5A4BC7D28E57" name="Transactions_Patrons_FK">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:33:01 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5C710439-5870-E963-FA4E-FCE42BD9D87D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

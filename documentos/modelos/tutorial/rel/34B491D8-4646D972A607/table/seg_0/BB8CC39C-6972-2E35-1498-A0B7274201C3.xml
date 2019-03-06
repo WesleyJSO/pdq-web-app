@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BB8CC39C-6972-2E35-1498-A0B7274201C3" name="Books">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:18:46 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="book_id" id="45792892-FC67-39DE-98E1-23FB671F3BB1">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<commentInRDBMS>Primary UID (unique identifier). (The Dewey code or other book identifier.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>BFED0922-43F5-8B21-ABA8-0A85C1770003</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="title" id="3B946651-7393-E69C-DAA2-2FBF26479717">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<commentInRDBMS>M (mandatory, that is, must not be null).</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>73242D3B-5764-B562-AFC9-7F0FAAFD8133</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="author_last_name" id="D7E22CF4-44AE-79EB-B731-9F496DD1D192">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<commentInRDBMS>	M (mandatory, that is, must not be null).</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>44220B97-4294-77B2-CF2F-56219967D3DC</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="auhtor_first_name" id="5F7A7EE3-355E-B1C6-31AE-6C28651C075A">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<commentInRDBMS>(Author&apos;s first name; not mandatory, but enter it if the author has a first name.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rating" id="3933AEFB-1DBA-A2BB-A1A0-CF9DEF125F80">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<commentInRDBMS>(Librarian&apos;s personal rating of the book, from 1 (poor) to 10 (great).)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="640AEC9D-D98E-1D24-097B-32A174325002" name="Books_PK">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:34 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="45792892-FC67-39DE-98E1-23FB671F3BB1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

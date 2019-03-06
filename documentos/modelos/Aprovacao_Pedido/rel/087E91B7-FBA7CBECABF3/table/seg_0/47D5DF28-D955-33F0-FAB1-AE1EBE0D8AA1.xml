@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="47D5DF28-D955-33F0-FAB1-AE1EBE0D8AA1" name="REGRA">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:45:23 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_13</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="B6D299B3-5443-3CFF-0AB8-A246B37A1273">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:46:10 UTC</createdTime>
+<comment>Tabela de herança para tabelas de regras de aprovação</comment>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRICAO" id="E2D13B71-FBCF-44ED-B4EB-A548A6D2947B">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 16:54:28 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ATIVO" id="4E1876F8-C4BC-66E1-08BD-2F451D55C0A6">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 16:54:28 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APROVADO" id="CE4BAA99-AA68-DDF8-2DFE-59E213D7EDDB">
+<createdBy>conta</createdBy>
+<createdTime>2019-01-22 16:54:28 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="63C73BA5-92E4-D3C1-C227-F8639278BA65" name="PK__RGR">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 12:46:10 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B6D299B3-5443-3CFF-0AB8-A246B37A1273"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

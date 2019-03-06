@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2F15E7AB-1C55-7CC4-C571-793A3A3689F4" name="REGRA_APROVACAO_TABELA">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:34:12 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_17</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="3B2D0DFA-6271-8347-5AD1-C900A98E2C1D">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:34:47 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DF143F8C-1A1F-B6BF-BB52-620B437F5F70" referredColumn="B6D299B3-5443-3CFF-0AB8-A246B37A1273"/>
+</associations>
+</Column>
+<Column name="DESCRICAO" id="E3177B7E-C1A2-B71A-B452-FD28316DAF04">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:25:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ATIVO" id="81351CA7-8838-671C-584D-A71922B7F083">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:25:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APROVADO" id="C8358C03-AF29-0F96-9CEE-5D60C6BF930E">
+<createdBy>conta</createdBy>
+<createdTime>2019-03-06 13:25:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FE1C40AE-7F16-4206-214C-6E31C4DA8C23" name="PK__RGR_APR_TBL">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:34:47 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B2D0DFA-6271-8347-5AD1-C900A98E2C1D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A4101BAD-813C-C748-DFE8-08543E50F6DF" name="FK__RGR_APR_TBL__RGR">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 13:49:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B2D0DFA-6271-8347-5AD1-C900A98E2C1D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

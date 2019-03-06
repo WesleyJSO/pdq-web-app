@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="tutorial" id="37ABEDB0-6D58-0579-0C73-419117AEBE1F" version="3.5">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 09:54:26 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>37ABEDB0-6D58-0579-0C73-419117AEBE1F</designId>
+</OSDM_Design>

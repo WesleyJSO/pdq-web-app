@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="699CFE09-7C14-2BFB-E37F-0BBCBB08BDA4" mainViewID="1BD9717C-2759-3DEE-BC3C-5D5ABA4E3EA5">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 11:36:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

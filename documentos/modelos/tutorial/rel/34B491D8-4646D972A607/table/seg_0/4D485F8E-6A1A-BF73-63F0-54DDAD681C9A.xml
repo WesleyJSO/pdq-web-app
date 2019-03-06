@@ -1,0 +1,119 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4D485F8E-6A1A-BF73-63F0-54DDAD681C9A" name="Patrons">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:24:45 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<ordsAlias>table_2</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="patron_id" id="A7BF37FA-5C3A-A054-71C7-F01D7692E2A3">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>Primary UID (unique identifier). (Unique patron ID number, also called the library card number.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>F0C6C574-BF3C-6B72-6DB1-6ED5A0B106B3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="last_name" id="C039F20D-1B78-9993-C64D-7C32B98DAAA1">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>M (mandatory, that is, must not be null). 25 characters maximum.</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>44220B97-4294-77B2-CF2F-56219967D3DC</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="first_name" id="0528285F-43CC-E01C-0BF1-D3FD4B824DE4">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>(Patron&apos;s first name.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>44220B97-4294-77B2-CF2F-56219967D3DC</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="street_address" id="C625355A-C578-86DD-D0EE-D88D0A915788">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>(Patron&apos;s street address.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="city" id="56E199A3-5F4B-8FA0-BA1E-B44206F34FA8">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>(City or town where the patron lives.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>447F3CD9-E759-5EF8-935D-972020E665FB</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="state" id="D00A97A4-A99B-C256-0DA8-CAEE97E7A4B2">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>(2-letter code for the state where the patron lives.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>BCC8BD0D-E864-4810-8AB5-5B8B2405C06D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="zip" id="7D16FD23-6E91-97DD-7D4B-FE6FFBD97AE2">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>(Postal code where the patron lives.)</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>ADD3D216-9C6B-A32D-BB5D-E64F5BBE571D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="location" id="3F123C7C-F2F6-3226-B629-5F6156415F9B">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<commentInRDBMS>Oracle Spatial and Graph geometry object representing the patron&apos;s geocoded address.</commentInRDBMS>
+<ownerDesignName>tutorial</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>3</use>
+<structuredType>47E390DE-0671-C4B1-8428-0F45CBEE18F8</structuredType>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4C08A930-F3C8-AED3-42AE-C432F6D53A04" name="Patrons_PK">
+<createdBy>conta</createdBy>
+<createdTime>2018-11-30 10:27:52 UTC</createdTime>
+<ownerDesignName>tutorial</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A7BF37FA-5C3A-A054-71C7-F01D7692E2A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
