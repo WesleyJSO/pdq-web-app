@@ -39,10 +39,11 @@ public class FilterPedidoByRegionalUsuario implements IStrategy<PedidoHelper> {
 			Optional<Stream<Pedido>> streamPedido = aCase.getResult().getEntities();
 			if(streamPedido.isPresent() && Stream.of(streamPedido).count() > 0) {
 				
-				// we have a list of order, find all the regional from user
-				Usuario loggedUser =  usuarioDAO.getUsuarioLogado();
+				// we have a orders list, find all the regional from user
+				Usuario loggedUser =  usuarioDAO.getLoggedUser();
 				Filter<Usuario> filter = new Filter<>();
 				filter.setEntity(loggedUser);
+				
 				Stream<Regional> streamRegional = regionalDAO.findByUsuario(filter);
 				if(streamRegional != null && Stream.of(streamRegional).count() > 0) {
 					

@@ -152,11 +152,11 @@ export default {
     listPedido: []
   }),
   async mounted() {
-    await this.login();
-    this.listEstado = await this.$_BaseAPI.getData("estado");
-    this.listCidade = await this.$_BaseAPI.getData("cidade");
-    // this.listRegional = await this.$_BaseAPI.getData('regional')
-    // this.listStatusPedido = await this.$_BaseAPI.getData('statuspedido')
+    await this.login()
+    this.listEstado = await this.$_BaseAPI.getData("estado")
+    this.listCidade = await this.$_BaseAPI.getData("cidade")
+    this.listRegional = await this.$_BaseAPI.getData("regional")
+    this.listStatusPedido = await this.$_BaseAPI.getData("statuspedido")
     // this.listRtv = await this.$_Usuario.findByStsAtivo(true)
   },
   methods: {
@@ -164,25 +164,29 @@ export default {
      * @FIXME @MOCK user login
      */
     async login() {
-      console.log("user data persisted in store");
-      let login = "ADMIN";
-      let password = "!Quad123";
-      await this.$store.dispatch("login", { login, password });
+      console.log("user data persisted in store")
+      let login = "ADMIN"
+      let password = "!Quad123"
+      await this.$store.dispatch("login", { login, password })
     },
-    enableAproval(status) {},
-    actionColor(status) {},
+    enableAproval(status) {
+      console.log(status)
+    },
+    actionColor(status) {
+      console.log(status)
+    },
     async findCidadeByIdEstado() {
       this.listCidade = await this.$_Cidade.findCidadeByIdEstado(
         this.filterPedido.estado.id
-      );
+      )
     },
     async search() {
-      this.snackbarText = "Pesquisando...";
-      this.isLoading = this.progress = this.snackbar = true;
-      this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido);
-      this.snackbarText = "Consulta finalizada!";
-      this.snackbar = true;
-      this.isLoading = this.progress = false;
+      this.snackbarText = "Pesquisando..."
+      this.isLoading = this.progress = this.snackbar = true
+      this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido)
+      this.snackbarText = "Consulta finalizada!"
+      this.snackbar = true
+      this.isLoading = this.progress = false
     },
     reset() {
       this.$refs.form.reset(),
@@ -190,8 +194,8 @@ export default {
         (this.filterPedido = {
           estado: { pais: {} },
           cidade: { estado: {} }
-        });
+        })
     }
   }
-};
+}
 </script>

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.pdq.pedido.business.impl.FilterPedidoByRegionalUsuario;
+import com.pdq.pedido.business.impl.FilterPedidoByStatusBonificacao;
 import com.pdq.pedido.business.impl.FindPedidoByFilter;
 import com.pdq.pedido.helper.PedidoHelper;
 
@@ -15,7 +16,7 @@ public class PedidoNavigation {
 
 	@Autowired private FindPedidoByFilter findPedidoByFilter;
 	@Autowired private FilterPedidoByRegionalUsuario filterPedidoByRegionalUsuario;
-	
+	@Autowired private FilterPedidoByStatusBonificacao filterPedidoByStatusBonificacao;
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
 	public Navigation<PedidoHelper> findPedidoByFilter() {
 		return new NavigationBuilder<PedidoHelper>()
@@ -28,6 +29,7 @@ public class PedidoNavigation {
 		return new NavigationBuilder<PedidoHelper>()
 				.next(findPedidoByFilter)
 				.next(filterPedidoByRegionalUsuario)
+				.next(filterPedidoByStatusBonificacao)
 				.build();
 	}
 }

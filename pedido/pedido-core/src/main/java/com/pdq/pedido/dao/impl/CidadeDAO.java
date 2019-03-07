@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +13,15 @@ import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.Cidade;
 import com.pdq.pedido.helper.CidadeHelper;
 import com.pdq.utils.GenericDAO;
-
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 07-03-2019 10:21:25
+ *
+ */
 @Repository
+@Transactional
 public class CidadeDAO extends GenericDAO<Cidade, Long> {
 
 	@PersistenceContext

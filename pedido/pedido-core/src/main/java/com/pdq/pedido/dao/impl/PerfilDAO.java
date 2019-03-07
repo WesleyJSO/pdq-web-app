@@ -2,10 +2,13 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
 import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.Perfil;
 import com.pdq.pedido.domain.Usuario;
-import com.pdq.pedido.helper.UsuarioHelper;
 import com.pdq.utils.GenericDAO;
 /**
  * 
@@ -14,15 +17,17 @@ import com.pdq.utils.GenericDAO;
  * 06-03-2019 12:50:50
  *
  */
+@Repository
+@Transactional
 public class PerfilDAO extends GenericDAO<Perfil, Long> {
 
-	public Stream<Perfil> findByUsuario(Filter<UsuarioHelper> filter) {
+	public Stream<Perfil> findByUsuario(Filter<? extends Usuario> filter) {
 		
 		boolean validUsuario = filter != null && filter.getEntity() != null;
 		
 		if(validUsuario) {
 			StringBuilder jpql = new StringBuilder();
-			jpql.append("select p from ").append(Usuario.class.getName()).append("u ");
+			jpql.append("select p from ").append(Usuario.class.getName()).append(" u ");
 			jpql.append("fetch join u.listPerfil p ");
 			jpql.append("where u.idUsuario = :idUsuario ");
 			

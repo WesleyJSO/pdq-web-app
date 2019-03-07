@@ -14,5 +14,5 @@ public interface IDAO<T extends DomainEntity> {
 
 	T update(T aEntity);
 
-	T delete(T aEntity);	
+	T delete(T aEntity);
 }

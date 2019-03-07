@@ -13,22 +13,25 @@ import com.pdq.utils.DomainEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 07-03-2019 11:37:10
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Table
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "ID_PRODUTO_PRECO"))
-public class ProdutoPrecoRegras extends DomainEntity<Long> {
+@AttributeOverride(name = "id", column = @Column(name = "ID_USUARIO_LINHA_PRODUTO"))
+public class UsuarioLinhaProduto extends DomainEntity<String> {
 
-	private static final long serialVersionUID = 6988876037701409548L;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_TABELA_PRECO")
-	private TabelaPreco tabelaPreco;
+	private static final long serialVersionUID = -1406436909006320729L;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "idProduto")
-	private Produto produto;
+	@JoinColumn(name = "ID_USUARIO")
+	private Usuario usuario;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_LINHA_PRODUTO")

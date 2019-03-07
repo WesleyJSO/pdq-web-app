@@ -19,7 +19,7 @@ public class FindPedidoItembyIdPedido implements IStrategy<PedidoItemHelper> {
 		if(aEntity != null && aEntity.getPedido() != null && aEntity.getPedido().getId() != null) {
 			Filter<PedidoItemHelper> filter = new Filter<>();
 			filter.setEntity(aEntity);
-			aCase.getResult().addEntities(dao.findPedidoItemByIdPedido(filter));
+			aCase.getResult().addEntities(dao.findByPedidoItemIdPedido(filter));
 		}
 		
 	}

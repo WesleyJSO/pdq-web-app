@@ -11,7 +11,13 @@ import com.google.common.base.Strings;
 import com.pdq.pedido.domain.Usuario;
 import com.pdq.pedido.helper.UsuarioHelper;
 import com.pdq.utils.GenericDAO;
-
+/**
+ * 
+ * @author José Wesley Silva
+ * Muralis Assessoria e Tecnologia Ltda.
+ * 07-03-2019 11:08:24
+ *
+ */
 @Repository
 @Transactional
 public class UsuarioDAO extends GenericDAO<Usuario, Long> {
@@ -97,7 +103,7 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 		return null;
 	}
 
-	public Usuario getUsuarioLogado() {
+	public Usuario getLoggedUser() {
 		try {
 			String login = SecurityContextHolder
 					.getContext()

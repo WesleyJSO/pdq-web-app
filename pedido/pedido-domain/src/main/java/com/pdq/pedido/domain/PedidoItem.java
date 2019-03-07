@@ -70,35 +70,35 @@ public class PedidoItem extends DomainEntity<String> {
 	@JoinColumn(name = "ID_PEDIDO")
 	private Pedido pedido;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COD_UNIDADE")
 	private Unidade unidade;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CULTURA")
 	private Cultura cultura;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_MOEDA")
 	private Moeda moeda;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_FABRICA")
 	private Fabrica fabrica;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ORGANIZACAO_VENDAS")
 	private OrganizacaoVendas organizacaoVendas;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_COR")
 	private CorPedido corPedido;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CONDICAO_PAGAMENTO")
 	private CondicaoPagamento condicaoPagamento;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STATUS_APROVACAO")
 	private StatusPedido statusAprovacao;
 
