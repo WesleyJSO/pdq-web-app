@@ -36,7 +36,6 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 			boolean validEstado = eFilter.getEstado() != null && eFilter.getEstado().getId() != null;
 			boolean validUsuarioRtv = eFilter.getUsuarioRtv() != null && eFilter.getUsuarioRtv().getId() != null;
 			boolean validStatusPedido = eFilter.getStatusPedido() != null && eFilter.getStatusPedido().getId() != null;
-
 			jpql.append(" select p from ").append(Pedido.class.getName()).append(" p ");
 
 			if (validCidade || validEstado)

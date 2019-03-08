@@ -33,7 +33,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class ControleAprovacao extends DomainEntity<Long> {
-	
+
 	private static final long serialVersionUID = -1363589984284663784L;
 	
 	private boolean ativo;
@@ -58,4 +58,21 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_REGRA")
 	private Regra regra;
+
+	/**
+	 * @author Bruno Holanda
+	 * Muralis Acessoria e Tecnologia Ltda.
+	 * @date 8 de mar de 2019
+	 *
+	 * initialize class with values
+	 */
+	public ControleAprovacao(StatusPedido statusPedido, Regra regra, Pedido pedido,
+			StatusControleAprovacao statusControleAprovacao) {
+		this.statusPedido = statusPedido;
+		this.regra = regra;
+		this.pedido = pedido;
+		this.ativo = true;
+		this.statusControleAprovacao = statusControleAprovacao;
+	}
+	
 }

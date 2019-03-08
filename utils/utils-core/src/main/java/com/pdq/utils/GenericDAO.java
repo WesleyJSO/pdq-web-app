@@ -1,5 +1,8 @@
 package com.pdq.utils;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,6 +33,11 @@ public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> im
 	@Override
 	public T save(T aEntity) {
 		return repository.save(aEntity);
+	}
+	
+	@Override
+	public Stream<T> saveAll(List<T> colection) {
+		return repository.saveAll(colection).stream();
 	}
 
 	@Override

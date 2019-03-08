@@ -2,6 +2,11 @@ package com.pdq.pedido.helper;
 
 import com.pdq.pedido.domain.StatusPedido;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class StatusPedidoHelper extends StatusPedido {
 
 	private static final long serialVersionUID = -4362640317435985286L;

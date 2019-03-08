@@ -1,4 +1,8 @@
 package com.pdq.utils;
+
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * 
  * @author José Wesley Silva
@@ -11,6 +15,8 @@ package com.pdq.utils;
 public interface IDAO<T extends DomainEntity> {
 	
 	T save(T aEntity);
+	
+	Stream<T> saveAll(List<T> colection);
 
 	T update(T aEntity);
 

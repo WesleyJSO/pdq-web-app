@@ -19,4 +19,20 @@ export default class Pedido {
       })
     }
   }
+  async sendToApprovement(filterPedido) {
+    try {
+      let response = await this.axios.post(`${this.url}/computeapprovementlist`, filterPedido)
+      console.log({
+        response
+      })
+      return response.data
+    } catch (err) {
+      console.log({
+        filterPedido
+      })
+      console.log({
+        err
+      })
+    }
+  }
 }

@@ -97,8 +97,9 @@
             <td>{{ props.item.dtCriacaoPedido | userFormatDate }}</td>
             <td class="pa-2 pt-0">
               <v-list-tile
-                :disabled="enableAproval(props.statusPedido)"
-                :color="actionColor(props.statusPedido)"
+                :enabled="enableAproval(props.item.statusPedido)"
+                v-if="enableAproval(props.item.statusPedido)"
+                :color="actionColor(props.item.statusPedido)"
                 slot="activator"
                 key="aprovarpedido"
                 :to="{ name: 'aprovarpedido', params: { pedido: props.item, tabIndex: 0 } }"
@@ -108,6 +109,21 @@
                 </v-list-tile-action>
                 <v-list-tile-content style="color: #1976d2">
                   <v-list-tile-title>Aprovar</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile
+                :enabled="enableSendApprovement(props.item.statusPedido)"
+                v-else
+                :color="actionColor(props.item.statusPedido)"
+                slot="activator"
+                key="enviarpedidoaprovacao"
+                @click="sendToApprovement(props.item)"
+              >
+                <v-list-tile-action>
+                  <v-icon>done</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content style="color: #1976d2">
+                  <v-list-tile-title>Enviar para Aprovação</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </td>
@@ -169,12 +185,16 @@ export default {
       let password = "!Quad123"
       await this.$store.dispatch("login", { login, password })
     },
-    enableAproval(status) {
-      console.log(status)
+    enableAproval(status) {return !this.enableSendApprovement(status)},
+    enableSendApprovement(status){
+      let descricao = status.descricaoStatus.toUpperCase()
+      if(descricao === 'EM CONSTRUCAO'){
+        return true
+      } else {
+        return false
+      }
     },
-    actionColor(status) {
-      console.log(status)
-    },
+    actionColor(status) {console.log(status)},
     async findCidadeByIdEstado() {
       this.listCidade = await this.$_Cidade.findCidadeByIdEstado(
         this.filterPedido.estado.id
@@ -187,6 +207,15 @@ export default {
       this.snackbarText = "Consulta finalizada!"
       this.snackbar = true
       this.isLoading = this.progress = false
+    },
+    /* eslint-disable */
+    async sendToApprovement(pedido) {
+      this.snackbarText = "Enviando...";
+      this.isLoading = this.progress = this.snackbar = true;
+      pedido = await this.$_Pedido.sendToApprovement(pedido);
+      this.snackbarText = "Pedido enviado para aprovação!";
+      this.snackbar = true;
+      this.isLoading = this.progress = false;
     },
     reset() {
       this.$refs.form.reset(),
