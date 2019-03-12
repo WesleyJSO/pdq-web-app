@@ -2,7 +2,6 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

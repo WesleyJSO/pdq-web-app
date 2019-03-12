@@ -33,6 +33,7 @@ public class FluxoPedidoDAO extends GenericDAO<FluxoPedido, Long> {
 			StringBuilder jpql = new StringBuilder();
 			jpql.append("from ").append(FluxoPedido.class.getName()).append(" fp ");
 			jpql.append(" where fp.statusPedidoDe.id = :id");
+			jpql.append(" order by fp.statusPedidoPara.ordem");
 			return em.createQuery(jpql.toString(), FluxoPedido.class)
 					.setParameter("id", filter.getEntity().getStatusPedidoDe().getId())
 					.getResultList().stream();

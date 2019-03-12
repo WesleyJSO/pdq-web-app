@@ -1,5 +1,7 @@
 package com.pdq.pedido.business.impl;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,10 +20,12 @@ import com.pdq.pedido.dao.impl.StatusPedidoRegraDAO;
 import com.pdq.pedido.domain.ControleAprovacao;
 import com.pdq.pedido.domain.CorPedido;
 import com.pdq.pedido.domain.FluxoPedido;
+import com.pdq.pedido.domain.LinhaProduto;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.domain.Regra;
 import com.pdq.pedido.domain.RegraAprovacaoCor;
+import com.pdq.pedido.domain.RegraAprovacaoPrazo;
 import com.pdq.pedido.domain.StatusControleAprovacao;
 import com.pdq.pedido.domain.StatusPedido;
 import com.pdq.pedido.domain.StatusPedidoRegra;
@@ -32,28 +36,32 @@ import com.pdq.pedido.helper.StatusPedidoRegraHelper;
 import com.pdq.utils.IRepository;
 
 /**
- * @author Bruno Holanda
- * Muralis Acessoria e Tecnologia Ltda.
+ * @author Bruno Holanda Muralis Acessoria e Tecnologia Ltda.
  * @date 8 de mar de 2019
  *
  */
 @Component
 public class ComputeApprovementList implements IStrategy<PedidoHelper> {
-	
-	@Autowired private ControleAprovacaoDAO daoControleAprovacao;
-	@Autowired private FluxoPedidoDAO daoFluxoPedido;
-	@Autowired private StatusPedidoRegraDAO daoStatusPedidoRegra;
-	@Autowired private IRepository<StatusControleAprovacao, Long> statusControleAprovacaoRepository;
+
+	@Autowired
+	private ControleAprovacaoDAO daoControleAprovacao;
+	@Autowired
+	private FluxoPedidoDAO daoFluxoPedido;
+	@Autowired
+	private StatusPedidoRegraDAO daoStatusPedidoRegra;
+	@Autowired
+	private IRepository<StatusControleAprovacao, Long> statusControleAprovacaoRepository;
 	private StatusControleAprovacao statusPendente;
-	
+
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		if(aEntity != null) {
-			statusPendente = statusControleAprovacaoRepository.findById(StatusControleAprovacaoHelper.ID_PENDENTE).get();
+		if (aEntity != null) {
+			statusPendente = statusControleAprovacaoRepository.findById(StatusControleAprovacaoHelper.ID_PENDENTE)
+					.get();
 			List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
 			List<PedidoItem> listaPedidoItem = aEntity.getListPedidoItem();
 			compute(listaControleAprovacao, aEntity, listaPedidoItem, aEntity.getStatusPedido());
-			if (CollectionUtils.isEmpty(listaControleAprovacao)){
+			if (CollectionUtils.isEmpty(listaControleAprovacao)) {
 				aCase.getResult().setMessage("O pedido não se aplica a nenhuma regra cadastrada.");
 				aCase.getResult().setError();
 				aCase.suspendExecution();
@@ -69,7 +77,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 
 	private void compute(List<ControleAprovacao> listaControleAprovacao, Pedido pedido,
 			List<PedidoItem> listaPedidoItem, StatusPedido statusPedido) {
-		
+
 		Filter<FluxoPedidoHelper> fluxoFilter = new Filter<>();
 		FluxoPedidoHelper fluxoPedidoHelper = new FluxoPedidoHelper();
 		fluxoPedidoHelper.setStatusPedidoDe(statusPedido);
@@ -78,56 +86,60 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 		StatusPedidoRegraHelper statusPedidoRegraHelper = new StatusPedidoRegraHelper();
 		List<StatusPedidoRegra> statusPedidoRegras;
 		Filter<StatusPedidoRegraHelper> statusPedidoRegraFilter = new Filter<>();
-		Boolean validBean,
-				foundValidColor,
-				foundValidTerm;
-		
+		Boolean validBean, foundValidColor, foundValidTerm;
+
 		// Find flows that starts with the current status
-		List<FluxoPedido> fluxos = daoFluxoPedido.findByFluxoPedidoByIdStatusPedidoDe(fluxoFilter).collect(Collectors.toList());
-		
+		List<FluxoPedido> fluxos = daoFluxoPedido.findByFluxoPedidoByIdStatusPedidoDe(fluxoFilter)
+				.collect(Collectors.toList());
+
 		for (FluxoPedido fluxoPedido : fluxos) {
-			
+
 			validBean = true;
 			foundValidColor = false;
 			foundValidTerm = false;
 			statusPedidoPara = fluxoPedido.getStatusPedidoPara();
 			statusPedidoRegraHelper.setStatusPedido(statusPedidoPara);
 			statusPedidoRegraFilter.setEntity(statusPedidoRegraHelper);
-			statusPedidoRegras = daoStatusPedidoRegra.findRegrasByStatusPedido(statusPedidoRegraFilter).collect(Collectors.toList());
+			statusPedidoRegras = daoStatusPedidoRegra.findRegrasByStatusPedido(statusPedidoRegraFilter)
+					.collect(Collectors.toList());
 
 			// Verify status appliance to order or budget
 			if (!verifyApplianceToOrderType(pedido.getOrcamento(), statusPedidoPara))
 				continue;
-			
+
 			// Verify bean
-			if (!Strings.isNullOrEmpty(fluxoPedido.getBeanValidacao())){
+			if (!Strings.isNullOrEmpty(fluxoPedido.getBeanValidacao())) {
 				validBean = validateBean(fluxoPedido.getBeanValidacao(), pedido, listaPedidoItem);
 			}
-			
-			for (StatusPedidoRegra statusPedidoRegra : statusPedidoRegras) {
-                Regra regra = statusPedidoRegra.getRegra();
 
-                // Color rule
-                if ( !foundValidColor ) {
-                	foundValidColor = validateColor(regra, listaPedidoItem);
-                	if (foundValidColor) {
-                		listaControleAprovacao.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
-                	}
-                }
-                
-                // Payment term rule
-                if ( !foundValidTerm ) {
-                	foundValidColor = validateTerm(regra, listaPedidoItem);
-                	if (foundValidTerm) {
-                		listaControleAprovacao.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
-                	}
-                }
-            }
+			for (StatusPedidoRegra statusPedidoRegra : statusPedidoRegras) {
+				Regra regra = statusPedidoRegra.getRegra();
+
+				// Color rule
+				if (!foundValidColor) {
+					foundValidColor = validateColor(regra, listaPedidoItem);
+					if (foundValidColor) {
+						listaControleAprovacao
+								.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
+					}
+				}
+
+				// Payment term rule
+				if (!foundValidTerm) {
+					if (validateRegraPrazo(regra)) {
+						foundValidTerm = validateTerm(regra, pedido, listaPedidoItem);
+						if (foundValidTerm) {
+							listaControleAprovacao
+									.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
+						}
+					}
+				}
+			}
 			if (foundValidColor && validBean) {
 				compute(listaControleAprovacao, pedido, listaPedidoItem, statusPedidoPara);
 				return;
 			}
-				
+
 		}
 	}
 
@@ -145,34 +157,68 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 					totalCor += totalItem;
 			}
 			double porcentagemCor = totalCor * 100 / totalFobPedido;
-			if ( porcentagemCor > regraCor.getPercentualInicio() &&
-					porcentagemCor <= regraCor.getPercentualFim()) {
-	            return true;
-	        }
+			if (porcentagemCor > regraCor.getPercentualInicio() && porcentagemCor <= regraCor.getPercentualFim()) {
+				return true;
+			}
 		}
 		return false;
 	}
 
-	private boolean verifyApplianceToOrderType(Boolean orcamento, StatusPedido statusPedidoPara) {
+	private Boolean verifyApplianceToOrderType(Boolean orcamento, StatusPedido statusPedidoPara) {
 		if (orcamento)
 			if (statusPedidoPara.getAplicaOrcamento())
 				return true;
-		else
-			if (statusPedidoPara.getAplicaPedido())
+			else if (statusPedidoPara.getAplicaPedido())
 				return true;
 		return false;
-		
+
 	}
 
 	private Boolean validateBean(String beanValidacao, Pedido pedido, List<PedidoItem> listaPedidoItem) {
 		// TODO: implement beans logic
 		return null;
 	}
-	
-	private Boolean validateTerm(Regra regra, List<PedidoItem> listaPedidoItem) {
+
+	private Boolean validateRegraPrazo(Regra regra) {
+		if (regra instanceof RegraAprovacaoPrazo) {
+			RegraAprovacaoPrazo regraPrazo = new RegraAprovacaoPrazo();
+			if (regraPrazo.isAtivo() && LocalDate.now().isAfter(regraPrazo.getDataVigenciaInicio())
+					&& LocalDate.now().isBefore(regraPrazo.getDataVigenciaFim())) {
+				return true;
+			}
+		}
 		return false;
-		
 	}
-	
+
+	private Boolean validateTerm(Regra regra, Pedido pedido, List<PedidoItem> listaPedidoItem) {
+
+		RegraAprovacaoPrazo regraPrazo = (RegraAprovacaoPrazo) regra;
+		for (PedidoItem pedidoItem : listaPedidoItem) {
+			LinhaProduto linhaProduto = pedidoItem.getProdutoPrecoRegras().getLinhaProduto();
+			// Verify product line before perform term calculation
+			if (regraPrazo.getLstLinhaProduto().contains(linhaProduto)) {
+				Integer periodo = pedidoItem.getCondicaoPagamento().getDiasPagamento() == null ? 0
+						: Integer.valueOf(pedidoItem.getCondicaoPagamento().getDiasPagamento());
+				LocalDate dIni = LocalDate.from(pedido.getDtCriacaoPedido());
+				LocalDate dFim;
+				if (pedidoItem.getDataPagamento() != null) {
+					dFim = LocalDate.from(pedidoItem.getDataPagamento());
+				} else if (pedidoItem.getDataFaturamento() != null) {
+					dFim = LocalDate.from(pedidoItem.getDataFaturamento());
+				} else {
+					return false;
+				}
+
+				int prazoPagamento = (int) (periodo + dIni.until(dFim, ChronoUnit.DAYS));
+
+				if (prazoPagamento >= regraPrazo.getPrazoPagamentoInicio()
+						&& prazoPagamento <= regraPrazo.getPrazoPagamentoFim()) {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
 
 }
