@@ -41,18 +41,15 @@ import com.pdq.utils.IRepository;
 public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 	
 	@Autowired private ControleAprovacaoDAO daoControleAprovacao;
-	
 	@Autowired private FluxoPedidoDAO daoFluxoPedido;
-	
 	@Autowired private StatusPedidoRegraDAO daoStatusPedidoRegra;
-	
 	@Autowired private IRepository<StatusControleAprovacao, Long> statusControleAprovacaoRepository;
+	private StatusControleAprovacao statusPendente;
 	
-	@Autowired private StatusControleAprovacao statusPendente = statusControleAprovacaoRepository.findById(StatusControleAprovacaoHelper.ID_PENDENTE).get();
-
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		if(aEntity != null) {
+			statusPendente = statusControleAprovacaoRepository.findById(StatusControleAprovacaoHelper.ID_PENDENTE).get();
 			List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
 			List<PedidoItem> listaPedidoItem = aEntity.getListPedidoItem();
 			compute(listaControleAprovacao, aEntity, listaPedidoItem, aEntity.getStatusPedido());
