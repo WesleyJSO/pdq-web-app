@@ -6,6 +6,7 @@ import moment from 'moment'
 import router from './router'
 import store from './store'
 import BasicValidator from './rules/BasicValidator'
+import StatusPedidoValidator from './rules/StatusPedidoValidator'
 import BaseAPI from './API/BaseAPI'
 import Cidade from './API/Cidade'
 import Usuario from './API/Usuario'
@@ -14,6 +15,7 @@ import PedidoItem from './API/PedidoItem'
 import TipoTabela from './API/TipoTabela'
 import Regra from './API/Regra'
 import Regional from './API/Regional'
+import StatusPedido from './API/StatusPedido'
 
 moment.updateLocale('en', {
   months: [
@@ -29,6 +31,7 @@ Vue.prototype.$_url = url
 Vue.prototype.$_axios = axios
 Vue.prototype.$_moment = moment
 Vue.prototype.$v_basic = new BasicValidator()
+Vue.prototype.$v_StatusPedido = new StatusPedidoValidator()
 Vue.prototype.$_BaseAPI = new BaseAPI(axios, url)
 Vue.prototype.$_Cidade = new Cidade(axios, url)
 Vue.prototype.$_Usuario = new Usuario(axios, url)
@@ -37,6 +40,8 @@ Vue.prototype.$_PedidoItem = new PedidoItem(axios, url)
 Vue.prototype.$_TipoTabela = new TipoTabela(axios, url)
 Vue.prototype.$_Regra = new Regra(axios, url)
 Vue.prototype.$_Regional = new Regional(axios, url)
+Vue.prototype.$_StatusPedido = new StatusPedido(axios, url)
+
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'

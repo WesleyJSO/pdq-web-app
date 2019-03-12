@@ -18,6 +18,8 @@ public interface IDAO<T extends DomainEntity> {
 	
 	Stream<T> saveAll(List<T> colection);
 
+	Stream<T> findAll();
+	
 	T update(T aEntity);
 
 	T delete(T aEntity);

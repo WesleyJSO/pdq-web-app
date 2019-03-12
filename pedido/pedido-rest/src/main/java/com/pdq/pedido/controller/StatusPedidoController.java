@@ -13,5 +13,4 @@ public class StatusPedidoController extends DomainSpecificEntityController<Statu
 	public StatusPedidoController () {
 		super(StatusPedido.class);		
 	}
-	
 }

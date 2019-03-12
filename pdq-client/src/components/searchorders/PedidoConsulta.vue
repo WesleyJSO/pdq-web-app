@@ -98,21 +98,20 @@
             <td>{{ props.item.dtCriacaoPedido | userFormatDate }}</td>
             <td class="pa-2 pt-0">
               <v-list-tile
-                :enabled="enableAproval(props.item.statusPedido)"
-                v-if="enableAproval(props.item.statusPedido)"
-                :color="actionColor(props.item.statusPedido)"
                 slot="activator"
                 key="aprovarpedido"
+                :color="selectColor(!$v_StatusPedido.validApprovalStatus(props.item.statusPedido.id))"
+                :disabled="!$v_StatusPedido.validApprovalStatus(props.item.statusPedido.id)"
                 :to="{ name: 'aprovarpedido', params: { pedido: props.item, tabIndex: 0 } }"
               >
                 <v-list-tile-action>
                   <v-icon>done</v-icon>
                 </v-list-tile-action>
-                <v-list-tile-content style="color: #1976d2">
+                <v-list-tile-content>
                   <v-list-tile-title>Aprovar</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-list-tile
+              <!-- <v-list-tile
                 :enabled="enableSendApprovement(props.item.statusPedido)"
                 v-else
                 :color="actionColor(props.item.statusPedido)"
@@ -125,8 +124,9 @@
                 </v-list-tile-action>
                 <v-list-tile-content style="color: #1976d2">
                   <v-list-tile-title>Enviar para Aprovação</v-list-tile-title>
+                  <v-list-tile-title>Aprovar</v-list-tile-title>
                 </v-list-tile-content>
-              </v-list-tile>
+              </v-list-tile> -->
             </td>
           </template>
 
@@ -169,10 +169,11 @@ export default {
     listPedido: []
   }),
   async mounted() {
+    
+    this.snackbarActiveInitiate(false)
+
     await this.login()
     
-    this.listRtv = await this.$_Usuario.findByStsAtivo(true)
-
     this.listEstado = await this.$_BaseAPI.getData("estado")
     this.listEstado.sort((e1, e2) => (e1.nomEstado > e2.nomEstado) ? 1 : -1)
 
@@ -183,6 +184,9 @@ export default {
     this.listCidade.sort((e1, e2) => (e1.nomCidade > e2.nomCidade) ? 1 : -1)
     
     this.listRegional = await this.$_Regional.findByUsuarioLogado()
+    this.listRtv = await this.$_Usuario.findByStsAtivo(true)
+
+    this.snackBarFinish()
   },
   methods: {
     /**
@@ -193,6 +197,11 @@ export default {
       let login = "ADMIN"
       let password = "!Quad123"
       await this.$store.dispatch("login", { login, password })
+    },
+    selectColor(valid) {
+      if(valid) {
+        return '#1976d2'
+      }
     },
     enableAproval(status) {return !this.enableSendApprovement(status)},
     enableSendApprovement(status){
@@ -216,9 +225,17 @@ export default {
       )
     },
     async search() {
-      this.snackbarText = "Pesquisando..."
-      this.isLoading = this.progress = this.snackbar = true
+      this.snackbarActiveInitiate(true)
       this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido)
+      this.snackBarFinish()
+    },
+    snackbarActiveInitiate(blockLoad) {
+      this.snackbarText = "Pesquisando..."
+      if(blockLoad)
+        this.isLoading = true
+      this.progress = this.snackbar = true
+    },
+    snackBarFinish() {
       this.snackbarText = "Consulta finalizada!"
       this.snackbar = true
       this.isLoading = this.progress = false

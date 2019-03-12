@@ -39,7 +39,12 @@ public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> im
 	public Stream<T> saveAll(List<T> colection) {
 		return repository.saveAll(colection).stream();
 	}
-
+	
+	@Override
+	public Stream<T> findAll() {
+		return repository.findAll().stream();
+	}
+	
 	@Override
 	public T update(T aEntity) {
 		return repository.save(aEntity);

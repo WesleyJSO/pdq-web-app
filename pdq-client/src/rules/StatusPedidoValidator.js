@@ -1,0 +1,37 @@
+export default class StatusPedidoValidator {
+  constructor() {
+    this.STS_APROVACAO_GERENTE_REGIONAL = 2
+    this.STS_APROVACAO_GERENTE_COMERCIAL = 3
+    this.STS_APROVACAO_DIRETOR_COMERCIAL = 4
+    this.STS_APROVACAO_GERENTE_DISTRIBUICAO = 5
+    this.STS_AR = 6
+    this.STS_VERIFICACAO_ADM_VENDAS = 8
+    this.STS_APROVACAO_SUPERA = 14
+    this.STS_APROVACAO_BONIFICACAO_GP = 15
+    this.STS_APROVACAO_PRAZO = 16
+    this.STS_ADM_VENDAS_APROVADO_PRAZO_PGMT = 17
+    this.STS_APROVACAO_SUPERA_GMT = 19
+    this.STS_APROVACAO_BONIFICACAO_DIRETOR = 20
+
+    this.listApprovalStatus = [
+      this.STS_APROVACAO_GERENTE_REGIONAL,
+      this.STS_APROVACAO_GERENTE_COMERCIAL,
+      this.STS_APROVACAO_DIRETOR_COMERCIAL,
+      this.STS_APROVACAO_GERENTE_DISTRIBUICAO,
+      this.STS_AR,
+      this.STS_VERIFICACAO_ADM_VENDAS,
+      this.STS_APROVACAO_SUPERA,
+      this.STS_APROVACAO_BONIFICACAO_GP,
+      this.STS_APROVACAO_PRAZO,
+      this.STS_ADM_VENDAS_APROVADO_PRAZO_PGMT,
+      this.STS_APROVACAO_SUPERA_GMT,
+      this.STS_APROVACAO_BONIFICACAO_DIRETOR,
+    ]
+  }
+
+  validApprovalStatus(id) {
+    if(id)
+      return this.listApprovalStatus.includes(id)
+    return false
+  }
+}

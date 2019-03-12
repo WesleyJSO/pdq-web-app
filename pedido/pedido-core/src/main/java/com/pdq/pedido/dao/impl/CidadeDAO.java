@@ -2,8 +2,6 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -23,9 +21,6 @@ import com.pdq.utils.GenericDAO;
 @Repository
 @Transactional
 public class CidadeDAO extends GenericDAO<Cidade, Long> {
-
-	@PersistenceContext
-	private EntityManager em;
 
 	public Stream<Cidade> findCidadeByIdEstado(Filter<CidadeHelper> filter) {
 
