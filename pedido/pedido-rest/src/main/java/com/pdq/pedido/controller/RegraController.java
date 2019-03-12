@@ -42,9 +42,9 @@ public class RegraController extends DomainSpecificEntityController<Regra> {
 			}
 			return ResponseEntity.noContent().build();
 
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 			return ResponseMessage.serverError("Erro ao consultar " + Regra.class.getSimpleName());
 		}
-	}	
+	}
 }

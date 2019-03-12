@@ -8,7 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -40,14 +40,14 @@ public class Funcionario extends DomainEntity<Long> {
 	private String email;
 	private String observacao;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "funcionario", cascade = CascadeType.ALL)
-	private Usuario usuario;
+	/*@OneToOne(fetch = FetchType.LAZY, mappedBy = "funcionario", cascade = CascadeType.ALL)
+	private Usuario usuario;*/
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_ENDERECO")
 	private Endereco endereco;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_END_COB")
 	private Endereco enderecoCobranca;
 }

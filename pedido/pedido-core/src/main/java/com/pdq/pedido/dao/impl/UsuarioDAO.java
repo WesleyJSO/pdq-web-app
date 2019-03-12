@@ -2,6 +2,7 @@ package com.pdq.pedido.dao.impl;
 
 import java.util.stream.Stream;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import com.pdq.utils.GenericDAO;
 @Transactional
 public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 	
-	public Stream<Usuario> filter(Filter<UsuarioHelper> filter) {
+	public Stream<Usuario> filter(Filter<? extends UsuarioHelper> filter) {
 		
 		boolean validFilter = filter != null && filter.getEntity() != null;
 		
@@ -30,21 +31,16 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 		jpql.append("select u from ").append(Usuario.class.getName()).append(" u ");
 		
 		jpql.append(" where 1=1 ");
-		jpql.append(" and u.stsAtivo = :stsAtivo ");
+		jpql.append(" and u.stsAtivo = :stsAtivo");
 		
-		if(validFilter)
-			// sem filtros por enquanto, ainda não existe essa necessidade.
+		if(validFilter) {
 			return em.createQuery(jpql.toString(), Usuario.class)
-					.setParameter("stsAtivo", filter.getEntity().isStsAtivo())
-					.getResultList()
-					.stream()
-					.sorted((u1, u2) -> u1.getLogin().compareTo(u2.getLogin()));
-		else
-			return em.createQuery(jpql.toString(), Usuario.class)
-					.setParameter("stsAtivo", true)
-					.getResultList()
-					.stream()
-					.sorted((u1, u2) -> u1.getLogin().compareTo(u2.getLogin()));
+				.setParameter("stsAtivo", filter.getEntity().getStsAtivo())
+				.getResultList()
+				.stream()
+				.sorted((e1, e2) -> e1.getLogin().compareTo(e2.getLogin()));			
+		}
+		return null;
 	}
 
 	public Usuario findBySenha(String senha) {
@@ -74,7 +70,7 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 			
 			if(fetchPerfil)
 				jpql.append("left join fetch u.listPerfil p ");
-
+			
 			jpql.append(" where login = :login");
 			
 			return em.createQuery(jpql.toString(), Usuario.class)
@@ -97,6 +93,23 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 			return em.createQuery(jpql.toString(), Usuario.class)
 					.setParameter("login", login)
 					.setParameter("senha", senha)
+					.getResultList()
+					.get(0);
+		}
+		return null;
+	}
+
+	public Usuario findById(UsuarioHelper usuario) {
+		
+		boolean validId = usuario != null && usuario.getId() != null;
+		
+		if(validId) {
+			StringBuilder jpql = new StringBuilder();
+			jpql.append("from ").append(Usuario.class.getName()).append(" u ");
+			jpql.append(" where id = :id");
+			
+			return em.createQuery(jpql.toString(), Usuario.class)
+					.setParameter("id", usuario.getId())
 					.getResultList()
 					.get(0);
 		}

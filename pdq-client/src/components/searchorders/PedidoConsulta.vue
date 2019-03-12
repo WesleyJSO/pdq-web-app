@@ -17,22 +17,23 @@
               </v-flex>
               <v-flex xs12 sm12 md4 lg4 xl4>
                 <v-autocomplete
-                  label="Regional"
-                  :items="listRegional"
-                  v-model="filterPedido.regional"
-                  item-text="nomRegional"
-                  no-data-text="Não foi possível carregar a lista de regionais."
-                  return-object
-                  single-line
-                />
-              </v-flex>
-              <v-flex xs12 sm12 md4 lg4 xl4>
-                <v-autocomplete
                   label="RTV"
                   :items="listRtv"
                   v-model="filterPedido.usuarioRtv"
                   item-text="login"
                   no-data-text="Não foi possível carregar a lista de representantes."
+                  return-object
+                  single-line
+                  @change="findRegionalByIdUsuario"
+                />
+              </v-flex>
+              <v-flex xs12 sm12 md4 lg4 xl4>
+                <v-autocomplete
+                  label="Regional"
+                  :items="listRegional"
+                  v-model="filterPedido.regional"
+                  item-text="nomRegional"
+                  no-data-text="Não foi possível carregar a lista de regionais."
                   return-object
                   single-line
                 />
@@ -169,11 +170,19 @@ export default {
   }),
   async mounted() {
     await this.login()
+    
+    this.listRtv = await this.$_Usuario.findByStsAtivo(true)
+
     this.listEstado = await this.$_BaseAPI.getData("estado")
-    this.listCidade = await this.$_BaseAPI.getData("cidade")
-    this.listRegional = await this.$_BaseAPI.getData("regional")
+    this.listEstado.sort((e1, e2) => (e1.nomEstado > e2.nomEstado) ? 1 : -1)
+
     this.listStatusPedido = await this.$_BaseAPI.getData("statuspedido")
-    // this.listRtv = await this.$_Usuario.findByStsAtivo(true)
+    this.listStatusPedido.sort((e1, e2) => (e1.descricaoStatus > e2.descricaoStatus) ? 1 : -1)
+
+    this.listCidade = await this.$_BaseAPI.getData("cidade")
+    this.listCidade.sort((e1, e2) => (e1.nomCidade > e2.nomCidade) ? 1 : -1)
+    
+    this.listRegional = await this.$_Regional.findByUsuarioLogado()
   },
   methods: {
     /**
@@ -195,8 +204,14 @@ export default {
       }
     },
     actionColor(status) {console.log(status)},
+    async findRegionalByIdUsuario() {
+      console.log(this.filterPedido)
+      this.listRegional = await this.$_Regional.findByIdUsuario(
+        this.filterPedido.usuarioRtv.id
+      )
+    },
     async findCidadeByIdEstado() {
-      this.listCidade = await this.$_Cidade.findCidadeByIdEstado(
+      this.listCidade = await this.$_Cidade.findByIdEstado(
         this.filterPedido.estado.id
       )
     },

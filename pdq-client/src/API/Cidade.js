@@ -3,7 +3,7 @@ export default class Cidade {
     this.url = `${url}cidade`
     this.axios = axios
   }
-  async findCidadeByIdEstado (id) {
+  async findByIdEstado (id) {
     try {
       let cidade = {
         estado: {

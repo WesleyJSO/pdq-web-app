@@ -13,6 +13,7 @@ import Pedido from './API/Pedido'
 import PedidoItem from './API/PedidoItem'
 import TipoTabela from './API/TipoTabela'
 import Regra from './API/Regra'
+import Regional from './API/Regional'
 
 moment.updateLocale('en', {
   months: [
@@ -35,6 +36,7 @@ Vue.prototype.$_Pedido = new Pedido(axios, url)
 Vue.prototype.$_PedidoItem = new PedidoItem(axios, url)
 Vue.prototype.$_TipoTabela = new TipoTabela(axios, url)
 Vue.prototype.$_Regra = new Regra(axios, url)
+Vue.prototype.$_Regional = new Regional(axios, url)
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'

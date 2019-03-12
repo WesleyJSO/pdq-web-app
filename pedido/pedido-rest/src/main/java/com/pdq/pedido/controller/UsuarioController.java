@@ -16,6 +16,7 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Usuario;
+import com.pdq.pedido.helper.UsuarioHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}usuario")
@@ -26,10 +27,10 @@ public class UsuarioController extends DomainSpecificEntityController<Usuario> {
 	}
 	
 	@GetMapping(value = "findbystsativo")
-	public @ResponseBody ResponseEntity<?> findByStsAtivo(@RequestParam(name = "stsAtivo") boolean stsAtivo) {
+	public @ResponseBody ResponseEntity<?> findByStsAtivo(@RequestParam(name = "stsAtivo") Boolean stsAtivo) {
 
 		try {
-			Usuario filter = new Usuario();
+			UsuarioHelper filter = new UsuarioHelper();
 			filter.setStsAtivo(stsAtivo);
 			BusinessCase<Usuario> aCase = new BusinessCaseBuilder<Usuario>().withName("FIND_USUARIO_BY_STS_ATIVO");
 			navigator.run(filter, aCase);

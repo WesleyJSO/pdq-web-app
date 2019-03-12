@@ -41,7 +41,10 @@ public class CidadeDAO extends GenericDAO<Cidade, Long> {
 			jpql.append(" where e.id = :id ");
 			TypedQuery<Cidade> query = em.createQuery(jpql.toString(), Cidade.class);
 			query.setParameter("id", filter.getEntity().getEstado().getId());
-			return query.getResultList().stream();
+			return query
+					.getResultList()
+					.stream()
+					.sorted((e1, e2) -> e1.getNomCidade().compareTo(e2.getNomCidade()));
 		}
 		return null;
 	}

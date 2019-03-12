@@ -42,7 +42,8 @@ public class RegionalDAO extends GenericDAO<Regional, Long> {
 			return em.createQuery(jpql.toString(), Regional.class)
 					.setParameter("idUsuario", filter.getEntity().getId())
 					.getResultList()
-					.stream();
+					.stream()
+					.sorted((e1, e2) -> e1.getNomRegional().compareTo(e2.getNomRegional()));
 		}
 		return null;
 	}
