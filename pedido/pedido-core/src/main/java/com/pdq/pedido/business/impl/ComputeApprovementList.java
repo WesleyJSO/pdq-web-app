@@ -4,16 +4,21 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
+import com.dvsmedeiros.bce.domain.Result;
 import com.google.common.base.Strings;
+import com.pdq.pedido.bean.aprovacao.RegraAprovacaoValidator;
 import com.pdq.pedido.dao.impl.ControleAprovacaoDAO;
 import com.pdq.pedido.dao.impl.FluxoPedidoDAO;
 import com.pdq.pedido.dao.impl.StatusPedidoRegraDAO;
@@ -52,6 +57,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 	@Autowired
 	private IRepository<StatusControleAprovacao, Long> statusControleAprovacaoRepository;
 	private StatusControleAprovacao statusPendente;
+	private Map<String, RegraAprovacaoValidator> beansRegrasAprovacao;
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
@@ -175,8 +181,10 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 	}
 
 	private Boolean validateBean(String beanValidacao, Pedido pedido, List<PedidoItem> listaPedidoItem) {
-		// TODO: implement beans logic
-		return null;
+
+		RegraAprovacaoValidator regraAprovacaoValidator = beansRegrasAprovacao.get(beanValidacao);
+		Result result = regraAprovacaoValidator.validar(pedido, listaPedidoItem);
+		return (Boolean) result.getEntity();
 	}
 
 	private Boolean validateRegraPrazo(Regra regra) {
@@ -219,6 +227,10 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 		}
 		return false;
 
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		beansRegrasAprovacao = applicationContext.getBeansOfType(RegraAprovacaoValidator.class);
 	}
 
 }

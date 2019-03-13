@@ -19,6 +19,8 @@ public class CondicaoPagamento extends DomainEntity<Long> {
 	
 	private static final long serialVersionUID = -4802485891677783370L;
 	
+	public static final Long[] IDS_CONDICOES_SUPERA = {50l};
+	
 	private String codSap;
 	private String condPagamento;
 	private Integer diasPagamento;
