@@ -1,13 +1,8 @@
 package com.pdq.pedido.domain;
 
-import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.pdq.utils.DomainEntity;
@@ -35,9 +30,4 @@ public class StatusPedido extends DomainEntity<Long> {
 	private Boolean aplicaPedido;
 	private Boolean aplicaOrcamento;
 	
-	@ManyToMany
-	@JoinTable(name = "PERFIL_STATUS_PEDIDO", 
-		joinColumns = { @JoinColumn(name = "ID_STATUS_PEDIDO") }, 
-		inverseJoinColumns = { @JoinColumn(name = "ID_PERFIL") })
-	private List<Perfil> listPerfil;
 }

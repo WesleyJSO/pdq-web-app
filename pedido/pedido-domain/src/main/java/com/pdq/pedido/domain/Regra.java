@@ -3,8 +3,11 @@ package com.pdq.pedido.domain;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.pdq.utils.DomainEntity;
 
@@ -27,5 +30,8 @@ public abstract class Regra extends DomainEntity<Long> {
 	private static final long serialVersionUID = 4203772712737613752L;
 	private String descricao;
 	private boolean ativo;
-	private boolean aprovado;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PERFIL_APROVADOR")
+	private Perfil perfilAprovador;
 }
