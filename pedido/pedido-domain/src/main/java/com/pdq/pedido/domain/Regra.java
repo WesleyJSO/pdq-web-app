@@ -32,6 +32,6 @@ public abstract class Regra extends DomainEntity<Long> {
 	private boolean ativo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PERFIL_APROVADOR")
+	@JoinColumn(name = "ID_PERFIL")
 	private Perfil perfilAprovador;
 }
