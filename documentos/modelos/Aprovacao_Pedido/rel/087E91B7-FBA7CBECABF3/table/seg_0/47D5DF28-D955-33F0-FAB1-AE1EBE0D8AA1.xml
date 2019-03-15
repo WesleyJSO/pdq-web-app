@@ -25,9 +25,9 @@
 <createdTime>2019-01-22 16:54:28 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -43,17 +43,20 @@
 <ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="APROVADO" id="CE4BAA99-AA68-DDF8-2DFE-59E213D7EDDB">
-<createdBy>conta</createdBy>
-<createdTime>2019-01-22 16:54:28 UTC</createdTime>
+<Column name="ID_PERFIL" id="F14C5EC4-1DD6-EAD6-8E95-26EF9C660777">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-03-15 14:06:41 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT034</logicalDatatype>
-<dataTypeSize>1 BYTE</dataTypeSize>
-<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E1FCB5C1-1E13-5D37-7EEA-9391C9702EC5" referredColumn="58F5DBF6-3659-F1B2-A6EF-7F98772432E3"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -66,6 +69,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="B6D299B3-5443-3CFF-0AB8-A246B37A1273"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4E343E46-9AF5-B3CA-5AEE-91879CCA3259" name="FK__RGR_PER">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-03-15 14:06:41 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F14C5EC4-1DD6-EAD6-8E95-26EF9C660777"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

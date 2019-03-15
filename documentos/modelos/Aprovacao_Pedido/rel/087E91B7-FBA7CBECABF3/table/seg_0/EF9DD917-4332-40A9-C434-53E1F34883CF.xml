@@ -60,18 +60,6 @@
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="APROVADO" id="BC2CF323-7FBC-79DB-D2D9-38F98D4CE1BD">
-<createdBy>conta</createdBy>
-<createdTime>2019-03-06 13:28:41 UTC</createdTime>
-<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT034</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="PERCENTUAL_INICIO" id="0F01C426-6993-3311-DFEC-EA8CEA53CBB1">
 <createdBy>conta</createdBy>
 <createdTime>2018-11-30 13:06:21 UTC</createdTime>

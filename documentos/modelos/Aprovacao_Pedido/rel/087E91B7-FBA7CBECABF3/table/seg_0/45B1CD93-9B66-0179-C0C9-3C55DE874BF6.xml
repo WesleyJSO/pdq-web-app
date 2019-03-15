@@ -23,9 +23,9 @@
 <createdTime>2019-03-05 18:57:57 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -34,9 +34,9 @@
 <createdTime>2019-03-05 18:57:57 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>C75FB41C-73C2-1A49-9747-9C2C426502CA</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

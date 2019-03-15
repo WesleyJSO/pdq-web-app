@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="3BFBCDA6-99E6-A088-E19C-A292C26869DB" containerWithKeyObject="17F31850-7B39-080D-14B7-F9B3173B47AD" localFKIndex="1C079E73-A284-97A3-6EA7-058E6D9652C7" name="FK__PER_STS_PED__PER">
-<createdBy>conta</createdBy>
-<createdTime>2019-03-05 18:58:04 UTC</createdTime>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E1FCB5C1-1E13-5D37-7EEA-9391C9702EC5" containerWithKeyObject="47D5DF28-D955-33F0-FAB1-AE1EBE0D8AA1" localFKIndex="4E343E46-9AF5-B3CA-5AEE-91879CCA3259" name="FK__RGR_PER">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-03-15 14:06:41 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
 <referredTableLongName>PERFIL</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>

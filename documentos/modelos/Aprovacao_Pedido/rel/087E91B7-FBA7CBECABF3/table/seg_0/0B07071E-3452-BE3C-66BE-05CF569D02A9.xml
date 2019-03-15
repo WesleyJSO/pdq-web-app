@@ -60,18 +60,6 @@
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="APROVADO" id="28EA93B7-6FD9-B4F6-8AF1-C4CCCAD2ED81">
-<createdBy>conta</createdBy>
-<createdTime>2019-03-06 13:29:17 UTC</createdTime>
-<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT034</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="NUMERO_DIAS_INICIO" id="D15EF022-17FA-B9F1-0E26-2111B156FA2E">
 <createdBy>conta</createdBy>
 <createdTime>2018-11-30 13:26:27 UTC</createdTime>

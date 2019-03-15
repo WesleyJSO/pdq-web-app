@@ -27,25 +27,13 @@
 <createdTime>2019-03-06 13:25:00 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>1AEBB2AA-BE11-BEA6-8D09-598E5FDF81C5</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ATIVO" id="81351CA7-8838-671C-584D-A71922B7F083">
-<createdBy>conta</createdBy>
-<createdTime>2019-03-06 13:25:00 UTC</createdTime>
-<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT034</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="APROVADO" id="C8358C03-AF29-0F96-9CEE-5D60C6BF930E">
 <createdBy>conta</createdBy>
 <createdTime>2019-03-06 13:25:00 UTC</createdTime>
 <ownerDesignName>Aprovacao_Pedido</ownerDesignName>
