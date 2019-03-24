@@ -5,40 +5,50 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+	/**
+	 * initial application data
+	 */
 	state: {
 		status: '',
 		token: localStorage.getItem('user-token') || '',
 		user: localStorage.getItem('user') || "{}"
 	},
+
+	/**
+	 * used for non async actions
+	 */
 	mutations: {
-		auth_request(state) {
+		AUTH_REQUEST(state) {
 			state.status = 'loading'
 		},
-		auth_success(state, token, user) {
+		AUTH_SUCCESS(state, { token, user }) {
 			state.status = 'success'
 			state.token = token
 			state.user = user
 		},
-		auth_error(state) {
+		AUTH_ERROR(state) {
 			state.status = 'error'
 		},
-		logout(state) {
+		LOGOUT(state) {
 			state.status = ''
 			state.token = ''
 		},
 	},
+
+	/**
+	 * used for asycn actions, 
+	 * when commit is called we are mutating some data
+	 */
 	actions: {
 		login({ commit }, user) {
 			return new Promise((resolve, reject) => {
-				commit('auth_request')
-				console.log({ user })
+				commit('AUTH_REQUEST')
 				axios({
 						url: 'http://localhost:8888/api/login',
 						data: user,
 						method: 'POST'
 					})
 					.then(resp => {
-						console.log({ resp })
 						const token = resp.headers.authorization
 						const user = resp.data
 						const roles = user.authorities.map(role => role.authority)
@@ -49,36 +59,56 @@ export default new Vuex.Store({
 							token
 						}
 						localStorage.setItem('user', JSON.stringify(parsedUser))
-						// Add the following line:
 						axios.defaults.headers.common['Authorization'] = token
-						commit('auth_success', token, user, roles)
+						commit('AUTH_SUCCESS',{ token, user })
 						resolve(resp)
 					})
 					.catch(err => {
 						console.log({ err })
-						commit('auth_error')
+						commit('AUTH_ERROR')
 						localStorage.removeItem('user-token')
 						localStorage.removeItem('user')
 						reject(err)
 					})
 			})
 		},
-		logout({
-			commit
-		}) {
-			return new Promise((resolve, reject) => {
-				console.log(reject)
-				commit('logout')
+		logout({ commit }) {
+			return new Promise((resolve) => {
+				commit('LOGOUT')
 				localStorage.removeItem('user-token')
 				localStorage.removeItem('user')
+				localStorage.removeItem('Authorization')
 				delete axios.defaults.headers.common['Authorization']
+				resolve()
+			})
+		},
+		setToken({ commit }, validUser) {
+			return new Promise((resolve) => {
+				const token = 'Bearer  '.concat(validUser.token)
+				const user = validUser
+				const roles = user.authorities.map(role => role.authority)
+				localStorage.setItem('user-token', token)
+				let parsedUser = {
+					user: user.username,
+					roles,
+					token
+				}
+				localStorage.setItem('user', JSON.stringify(parsedUser))
+				axios.defaults.headers.common['Authorization'] = token
+				commit('AUTH_SUCCESS', { token, user })
 				resolve()
 			})
 		}
 	},
+
+	/**
+	 * simple getters for fetch data inside the store 
+	 * that is in state and is not a state variable 
+	 * (when some manipulation is needed)
+	 */
 	getters: {
 		isLoggedIn: state => !!state.token,
 		authStatus: state => state.status,
-		loggedUser: state => state.user ? JSON.parse(state.user) : {}
+    loggedUser: state => state.user ? state.user : null
 	}
 })

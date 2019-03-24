@@ -34,8 +34,23 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		Usuario credentials = objectMapper.readValue(request.getInputStream(), Usuario.class);
 		
+		Usuario credentials = null;
+		try {
+			credentials = objectMapper.readValue(request.getInputStream(), Usuario.class);
+			request.getSession().setAttribute("login", credentials.getLogin());
+			request.getSession().setAttribute("password", credentials.getSenha());
+		} catch(Exception e) {
+			e.printStackTrace();
+			Object login = request.getSession().getAttribute("login");
+			Object password = request.getSession().getAttribute("password");
+			if(login != null && password != null) {
+				credentials = new Usuario();
+				credentials.setLogin(login.toString());
+				credentials.setSenha(password.toString());
+			}
+		}
+
 		/**
 		 * stores sent password to later encrypt with BCryptPasswordEncoder in the Security service class
 		 */

@@ -1,6 +1,7 @@
 package com.pdq.utils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -12,15 +13,17 @@ import java.util.stream.Stream;
  * @param <T>
  */
 @SuppressWarnings("rawtypes")
-public interface IDAO<T extends DomainEntity> {
+public interface IDAO<T extends DomainEntity, R extends Object> {
 	
-	T save(T aEntity);
-	
-	Stream<T> saveAll(List<T> colection);
+	Optional<Stream<T>> saveAll(List<T> colection);
 
-	Stream<T> findAll();
-	
-	T update(T aEntity);
+	Optional<Stream<T>> findAll(T entity);
 
-	T delete(T aEntity);
+	Optional<T> findById(R id, T clazz);
+	
+	Optional<T> save(T aEntity);
+	
+	Optional<T> update(T aEntity);
+
+	Optional<T> delete(T aEntity);
 }

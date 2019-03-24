@@ -12,14 +12,14 @@ import com.pdq.pedido.helper.CidadeHelper;
 @Component
 public class FindCidadeByIdEstado implements IStrategy<CidadeHelper> {
 	
-	@Autowired private CidadeDAO dao;
+	@Autowired private CidadeDAO cidadeDAO;
 	
 	@Override
 	public void process(CidadeHelper aEntity, INavigationCase<CidadeHelper> aCase) {
 		if(aEntity != null && aEntity.getEstado() != null) {
 			Filter<CidadeHelper> filter = new Filter<>();
 			filter.setEntity(aEntity);
-			aCase.getResult().addEntities(dao.findCidadeByIdEstado(filter));
+			aCase.getResult().addEntities(cidadeDAO.findCidadeByIdEstado(filter));
 		}
 	}
 }

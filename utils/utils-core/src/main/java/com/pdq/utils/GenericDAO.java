@@ -1,6 +1,10 @@
 package com.pdq.utils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
@@ -22,37 +26,92 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Service
 @Transactional
-public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> implements IDAO<T> {
-
+public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> implements IDAO<T, R> {
+	
+	private static final String REPOSITORY ="Repository";
+	
 	@PersistenceContext
 	protected EntityManager em;
 	
 	@Autowired
-	protected IRepository<T, R> repository;
+	private Map<String, IRepository<T, R>> mapRepository;
+	
+	/**
+	 * 
+	 * @author José Wesley Silva
+	 * 24-03-2019 12:29:59
+	 * 
+	 * Fetch the repository from a @Autowired map of repositories,
+	 * the repository need to be name following 
+	 * the pattern DomainEntityName with the string Repository in order to work.
+	 * 
+	 * @param clazz - the entity that is needed to fetch his repository
+	 * @return the repository from the informed entity if any exists.
+	 */
+	private Optional<IRepository<T, R>> getRepository(T clazz) {
+		IRepository<T, R> repository = null;
+		Optional<IRepository<T, R>> optionalRepository = Optional.ofNullable(repository);
+		for(Entry<String, IRepository<T, R>> entry : mapRepository.entrySet())
+			if(entry.getKey()
+					.equals(clazz
+							.getClass()
+							.getSimpleName()
+							.toLowerCase()
+							.replace("helper", "")
+							.concat(REPOSITORY))) {
+				optionalRepository = Optional.of(entry.getValue());
+				break;
+			}	
+		return optionalRepository;
+		
+	}
+	
+	@Override
+	public Optional<T> findById(R id, T clazz) {
+		if(getRepository(clazz).isPresent())
+			return getRepository(clazz).get().findById(id);
+		return Optional.ofNullable(clazz);
+	}
+	
+	@Override
+	public Optional<Stream<T>> saveAll(List<T> collection) {
+		Optional<Stream<T>> optionalStream = Optional.ofNullable(collection.stream());
+		if(getRepository(collection.get(0)).isPresent())
+			optionalStream = Optional
+					.of(getRepository(collection.get(0))
+							.get()
+							.saveAll(collection)
+							.stream());
+		return optionalStream;
+	}
+	
+	@Override
+	public Optional<Stream<T>> findAll(T entity) {
+		List<T> list = new ArrayList<>();
+		Optional<Stream<T>> optionalStream = Optional.ofNullable(list.stream());
+		if(getRepository(entity).isPresent())
+			optionalStream = Optional
+					.of(getRepository(entity)
+							.get()
+							.findAll()
+							.stream());
+		return optionalStream;
+	}
+	
+	@Override
+	public Optional<T> save(T aEntity) {
+		getRepository(aEntity).ifPresent(r -> r.save(aEntity));
+		return Optional.of(aEntity);
+	}
+	
+	@Override
+	public Optional<T> update(T aEntity) {
+		return save(aEntity);
+	}
 
 	@Override
-	public T save(T aEntity) {
-		return repository.save(aEntity);
-	}
-	
-	@Override
-	public Stream<T> saveAll(List<T> colection) {
-		return repository.saveAll(colection).stream();
-	}
-	
-	@Override
-	public Stream<T> findAll() {
-		return repository.findAll().stream();
-	}
-	
-	@Override
-	public T update(T aEntity) {
-		return repository.save(aEntity);
-	}
-
-	@Override
-	public T delete(T aEntity) {
-		repository.delete(aEntity);
-		return aEntity;
+	public Optional<T> delete(T aEntity) {
+		getRepository(aEntity).ifPresent(r -> r.delete(aEntity));
+		return Optional.of(aEntity);
 	}
 }

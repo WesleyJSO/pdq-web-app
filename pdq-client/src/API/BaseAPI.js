@@ -3,10 +3,18 @@ export default class BaseAPI {
     this.url = `${url}`
     this.axios = axios
   }
+  async authenticate() {
+    try {
+      let response = await this.axios.post(`${this.url}authenticate`)
+      return response
+    } catch (err) {
+      console.log({err})
+      return err
+    }
+  }
   async getData (path) {
     try {
       let response = await this.axios.get(`${this.url}${path}`)
-      console.log({response})
       return response.data
     } catch (err) {
       console.log({path})

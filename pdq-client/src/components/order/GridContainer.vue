@@ -40,13 +40,14 @@ import Pedido from './Pedido'
     },
     async created () {
       this.tabIndex = this.$route.params.tabIndex
-			this.pedido = this.$route.params.pedido
-      this.pedido.listPedidoItem = await this.$_PedidoItem.findByIdPedido(this.pedido.idPedido)
+      this.pedido = this.$route.params.pedido
     },
-    data: () => ({
-      tabIndex: 1,
-      pedido: { }
-    })
+    data () {
+      return {
+        tabIndex: 1,
+        pedido: {}
+      }
+    }
   }
 </script>
 

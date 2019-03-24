@@ -11,8 +11,6 @@ export default class Cidade {
         }
       }
       let response = await this.axios.post(`${this.url}/filtro`, cidade)
-      console.log({response})
-      
       return response.data
     } catch (err) {
       console.log({id})

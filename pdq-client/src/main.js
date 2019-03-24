@@ -16,6 +16,7 @@ import TipoTabela from './API/TipoTabela'
 import Regra from './API/Regra'
 import Regional from './API/Regional'
 import StatusPedido from './API/StatusPedido'
+import Funcionario from './API/Funcionario'
 
 moment.updateLocale('en', {
   months: [
@@ -41,6 +42,7 @@ Vue.prototype.$_TipoTabela = new TipoTabela(axios, url)
 Vue.prototype.$_Regra = new Regra(axios, url)
 Vue.prototype.$_Regional = new Regional(axios, url)
 Vue.prototype.$_StatusPedido = new StatusPedido(axios, url)
+Vue.prototype.$_Funcionario = new Funcionario(axios, url)
 
 
 Vue.filter('userFormatDate', function (v) {

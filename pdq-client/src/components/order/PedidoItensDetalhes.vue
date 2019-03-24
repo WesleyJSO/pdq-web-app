@@ -1,9 +1,9 @@
 <template>
-	<v-card light v-if="tabIndex === 1 && listItemPedido">
+	<v-card light v-if="tabIndex === 1 && listPedidoItem">
 		<v-card-text>
 				<v-data-table
 					:headers="headers"
-					:items="listItemPedido"
+					:items="listPedidoItem"
 					rows-per-page-text="Itens por página"
 				>
 				<template slot="items" slot-scope="props">
@@ -12,7 +12,7 @@
 							<v-btn icon class="white--text" :color="itemColor(props.item.corPedido.id)" />
 						</td>
 						<td>{{ props.item.motivoErroSap }}</td>
-						<td>{{ props.item.produtoPrecoRegras.tabelaPreco.dtIni }}</td>
+						<td>{{ props.item.produtoPrecoRegras.tabelaPreco.dtIni | userFormatDate }}</td>
 						<td>{{ props.item.pedido.regional.centroLucro.descricao }}</td>
 						<td>{{ props.item.pedido.usuarioRtv.funcionario.nomFuncionario }}</td>
 						<td>{{ props.item.pedido.estadoOrigem.sigla }}</td>
@@ -23,7 +23,7 @@
 						<td>{{ props.item.pedido.tipoVenda.desTipoVenda }}</td>
 						<td>{{ props.item.organizacaoVendas.desOrganizacaoVendas }}</td>
 						<td>{{ props.item.fabrica.desFabrica }}</td>
-						<td>{{ props.item.dataFaturamento }}</td>
+						<td>{{ props.item.dataFaturamento | userFormatDate }}</td>
 						<td>{{ props.item.pedido.setorAtividade.desSetorAtividade }}</td>
 						<td>{{ props.item.pedido.cliente.canalDistribuicao.desCanalDistribuicao }}</td>
 						<td>{{ props.item.condicaoPagamento.condPagamento }}</td>
@@ -41,7 +41,7 @@
 							props.item.listCampanha.nomCampanha
 						</td>
 						<td>{{ props.item.cultura.desCultura }}</td>
-						<td>{{ props.item.dataFaturamento }}</td>
+						<td>{{ props.item.dataFaturamento | userFormatDate }}</td>
 					
 					</template>
 				</v-data-table>
@@ -53,21 +53,30 @@
 	export default {
     methods: {
       itemColor (id) {
-        if (id === 1) return 'blue'// azul
-        else if (id === 2) return 'yellow' // amarelo
-        else if (id === 3) return 'green' // verde
-        else if (id === 4) return 'red' // vermelho
-        else if (id === 5) return 'black' // preto
+        if (id === 1) return 'blue'
+        else if (id === 2) return 'yellow' 
+        else if (id === 3) return 'green' 
+        else if (id === 4) return 'red' 
+        else if (id === 5) return 'black'
       }
 		},
 		props: {
-			listItemPedido: { type: Array, default: () => [] },
+			pedido: { type: Object, default: () => {} },
       tabIndex: { type: Number, default: 1 }
+		},
+		async beforeMount () {
+			let funcionario = await this.$_Funcionario.findByIdUsuario(this.pedido.usuarioRtv.id)
+			this.listPedidoItem = await this.$_PedidoItem.findByIdPedido(this.pedido.id)
+			if(this.listPedidoItem) {
+				this.listPedidoItem.map(element => element.pedido.usuarioRtv.funcionario = funcionario)
+			}
+			console.log(this.listPedidoItem)
 		},
 		data () {
 			return {
+				listPedidoItem: [],
 				headers: [
-					{ text: 'Cor', value: 'id', align: 'left' },
+					{ id: 'headerId', text: 'Cor', value: 'id', align: 'left' },
 					{ text: 'Motivo Erro', value: 'motivoErroSap', align: 'left' },
 					{ text: 'Data Vigência Tabela', value: 'dtIni', align: 'left' },
 					{ text: 'Centro Lucro', value: 'descricao', align: 'left' },

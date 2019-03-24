@@ -6,7 +6,6 @@ export default class Usuario {
   async findByStsAtivo (ativo) {
     try {
       let response = await this.axios.get(`${this.url}/findbystsativo`, {params: {stsAtivo: ativo}})
-      console.log({response})
       return response.data
     }catch (err) {
       console.log({ativo})

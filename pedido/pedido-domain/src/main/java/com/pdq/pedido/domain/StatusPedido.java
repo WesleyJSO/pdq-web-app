@@ -27,7 +27,7 @@ public class StatusPedido extends DomainEntity<Long> {
 	
 	private String descricaoStatus;
 	private int ordem;
-	private Boolean aplicaPedido;
-	private Boolean aplicaOrcamento;
+	/*private Boolean aplicaPedido;
+	private Boolean aplicaOrcamento;*/
 	
 }

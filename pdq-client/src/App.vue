@@ -107,8 +107,8 @@ export default {
 
 <style>
 .v-table__overflow {
-  /* white-space: nowrap;
-  overflow: hidden; */
+  white-space: nowrap;
+  overflow: hidden;
   max-height: 350px;
   width: 100%;
   overflow-y: auto;

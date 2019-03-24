@@ -110,8 +110,8 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 					.collect(Collectors.toList());
 
 			// Verify status appliance to order or budget
-			if (!verifyApplianceToOrderType(pedido.getOrcamento(), statusPedidoPara))
-				continue;
+			/*if (!verifyApplianceToOrderType(pedido.getOrcamento(), statusPedidoPara))
+				continue;*/
 
 			// Verify bean
 			if (!Strings.isNullOrEmpty(fluxoPedido.getBeanValidacao())) {
@@ -170,7 +170,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 		return false;
 	}
 
-	private Boolean verifyApplianceToOrderType(Boolean orcamento, StatusPedido statusPedidoPara) {
+	/*private Boolean verifyApplianceToOrderType(Boolean orcamento, StatusPedido statusPedidoPara) {
 		if (orcamento)
 			if (statusPedidoPara.getAplicaOrcamento())
 				return true;
@@ -178,7 +178,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper> {
 				return true;
 		return false;
 
-	}
+	}*/
 
 	private Boolean validateBean(String beanValidacao, Pedido pedido, List<PedidoItem> listaPedidoItem) {
 
