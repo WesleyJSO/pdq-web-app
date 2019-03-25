@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.dvsmedeiros.bce.domain.Result;
-import com.pdq.pedido.bean.aprovacao.RegraAprovacaoValidator;
 import com.pdq.pedido.dao.impl.CondicaoPagamentoDAO;
 import com.pdq.pedido.domain.CondicaoPagamento;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.helper.CondicaoPagamentoHelper;
+import com.pdq.pedido.helper.RegraHelper;
 
 /**
  * @author Bruno Holanda - Muralis
@@ -22,8 +22,8 @@ import com.pdq.pedido.helper.CondicaoPagamentoHelper;
  *
  */
 @Component
-public class ProgramaSuperaRegraAprovacao implements RegraAprovacaoValidator {
-
+public class ProgramaSuperaRegraAprovacao extends RegraAprovacao {
+	
 	@Autowired
 	private CondicaoPagamentoDAO condicaoPagamentoDao;
 
@@ -49,6 +49,11 @@ public class ProgramaSuperaRegraAprovacao implements RegraAprovacaoValidator {
 
 		result.addEntity(false);
 		return result;
+	}
+
+	@Override
+	public String getRegraDescricao() {
+		return RegraHelper.DESCRICAO_REGRA_BEAN_SUPERA;
 	}
 
 }

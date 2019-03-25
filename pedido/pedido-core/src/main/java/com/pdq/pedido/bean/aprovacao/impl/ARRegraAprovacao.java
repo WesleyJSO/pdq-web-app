@@ -14,27 +14,25 @@ import com.pdq.pedido.helper.RegraHelper;
  * @date 13 de mar de 2019
  *
  */
-
 @Component
-public class GerenteDistribuicaoRegraAprovacao extends RegraAprovacao {
-	
+public class ARRegraAprovacao extends RegraAprovacao {
+
 	@Override
 	public Result validar(Pedido pedido, List<PedidoItem> lstPedidoItem) {
 
 		Result result = new Result();
-
-		if (pedido.getVendaAgenciada()) {
+		
+		if (pedido.getAr()) {
 			result.addEntity(true);
 		} else {
 			result.addEntity(false);
 		}
-
 		return result;
 	}
 
 	@Override
 	public String getRegraDescricao() {
-		return RegraHelper.DESCRICAO_REGRA_BEAN_GERENTE_DISTRIBUICAO;
+		return RegraHelper.DESCRICAO_REGRA_BEAN_AR;
 	}
 
 }
