@@ -1,5 +1,6 @@
 package com.pdq.pedido.business.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,7 @@ public class FillPeditoItemList implements IStrategy<PedidoHelper> {
 			List<PedidoItem> listaPedidoItem = aEntity.getListPedidoItem();
 			// Verify null or empty list
 			if(CollectionUtils.isEmpty(listaPedidoItem)) {
+				listaPedidoItem = new ArrayList<>();
 				Filter<PedidoItemHelper> filter = new Filter<>();
 				PedidoItemHelper pih = new PedidoItemHelper();
 				pih.setPedido(aEntity);
