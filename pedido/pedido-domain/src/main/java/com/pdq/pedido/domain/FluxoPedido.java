@@ -46,4 +46,8 @@ public class FluxoPedido extends DomainEntity<Long> {
 		joinColumns = { @JoinColumn(name = "ID_FLUXO_PEDIDO") }, 
 		inverseJoinColumns = { @JoinColumn(name = "ID_REGRA") })
 	private List<Regra> listRegra;
+	
+
+	private Boolean aplicaPedido;
+	private Boolean aplicaOrcamento;
 }

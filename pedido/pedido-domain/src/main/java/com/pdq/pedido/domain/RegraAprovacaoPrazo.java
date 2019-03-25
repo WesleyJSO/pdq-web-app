@@ -27,28 +27,28 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-@Table(name = "REGRAS_APROVACAO_PRAZO")
+@Table(name = "REGRA_APROVACAO_PRAZO")
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "ID_REGRA_PRAZO"))
+@AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class RegraAprovacaoPrazo extends Regra {
 
 	private static final long serialVersionUID = -8928966767401397813L;
 	
-	@Column(name = "NUM_DIAS_INI")
+	@Column(name = "NUMERO_DIAS_INICIO")
 	private Integer prazoPagamentoInicio;
 
-	@Column(name = "NUM_DIAS_FIM")
+	@Column(name = "NUMERO_DIAS_FIM")
 	private Integer prazoPagamentoFim;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_USUARIO_APROVADOR")
+	@JoinColumn(name = "ID_USUARIO")
 	private Usuario aprovador;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "APROVACAO_PRAZO_LINHA_PRODUTO", joinColumns = { @JoinColumn(name = "ID_REGRA_PRAZO") }, inverseJoinColumns = { @JoinColumn(name = "ID_LINHA_PRODUTO") })
     private List<LinhaProduto> lstLinhaProduto;
 
-	@Column(name = "DT_INI")
+	@Column(name = "DT_INICIO")
 	private LocalDate dataVigenciaInicio;
 
 	@Column(name = "DT_FIM")
@@ -60,8 +60,4 @@ public class RegraAprovacaoPrazo extends Regra {
 	@Column(name = "DT_SINCRONISMO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSincronismo;
-
-	@ManyToOne
-	@JoinColumn(name = "ID_USUARIO")
-	private Usuario usuario;
 }
