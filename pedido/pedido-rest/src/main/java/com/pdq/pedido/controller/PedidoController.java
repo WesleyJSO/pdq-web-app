@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,7 +67,7 @@ public class PedidoController extends DomainSpecificEntityController<Pedido> {
 	 * @param pedido
 	 * @return ResponseEntity
 	 */
-	@PutMapping(value = "computeapprovementlist")
+	@PostMapping(value = "computeapprovementlist")
 	public @ResponseBody ResponseEntity<?> computeApprovementList(@RequestBody PedidoHelper pedido) {
 
 		try {
@@ -76,14 +75,13 @@ public class PedidoController extends DomainSpecificEntityController<Pedido> {
 					.withName("COMPUTE_APPROVEMENT_LIST");
 			
 			navigator.run(pedido, aCase);
-			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
 			
 			Result result = aCase.getResult();
 
 			if (result.hasError()) {
 				return ResponseMessage.serverError(result.getMessage());
 			}
-			return ResponseEntity.ok(ts.get().findFirst().get());
+			return ResponseEntity.ok(result);
 
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
