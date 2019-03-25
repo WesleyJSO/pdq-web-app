@@ -48,4 +48,46 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 		}
 		return null;
 	}
+	
+	public Stream<Regra> findRegraByDescricao(Filter<RegraHelper> filter) {
+
+		boolean validFilter = filter != null 
+				&& filter.getEntity() != null 
+				&& !Strings.isNullOrEmpty(((RegraHelper)filter.getEntity()).getDescricao());
+
+		if (validFilter) {
+			StringBuilder jpql = new StringBuilder();
+			jpql.append("select r from ").append(Regra.class.getName()).append(" r ")
+				.append(" where r.descricao = :descricao");
+			
+			return em.createQuery(jpql.toString(), Regra.class)
+					.setParameter("descricao", filter.getEntity().getDescricao())
+					.getResultList().stream();
+		}
+		return null;
+	}
+	
+	public Stream<Regra> findRegrasByIdStatusPedido(Filter<RegraHelper> filter) {
+
+		boolean validFilter = filter != null && filter.getEntity() != null
+				&& filter.getEntity().getIdStatusPedido() != null;
+
+		if (validFilter) {
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append("select r from ").append(Regra.class.getName()).append(" r ")
+					.append(" join r.listStatusPedido sp")
+					.append(" where sp.id = :id");
+			TypedQuery<Regra> query = em
+					.createQuery(jpql.toString(), Regra.class)
+					.setParameter("id", filter.getEntity().getIdStatusPedido());
+			
+			List<Regra> listRegra = new ArrayList<>();
+			query.getResultList()
+				.forEach(element -> listRegra.add(element));
+			
+			return listRegra.stream();
+		}
+		return null;
+	}
 }
