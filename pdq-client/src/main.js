@@ -33,16 +33,16 @@ Vue.prototype.$_axios = axios
 Vue.prototype.$_moment = moment
 Vue.prototype.$v_basic = new BasicValidator()
 Vue.prototype.$v_StatusPedido = new StatusPedidoValidator()
-Vue.prototype.$_BaseAPI = new BaseAPI(axios, url)
-Vue.prototype.$_Cidade = new Cidade(axios, url)
-Vue.prototype.$_Usuario = new Usuario(axios, url)
-Vue.prototype.$_Pedido = new Pedido(axios, url)
-Vue.prototype.$_PedidoItem = new PedidoItem(axios, url)
-Vue.prototype.$_TipoTabela = new TipoTabela(axios, url)
-Vue.prototype.$_Regra = new Regra(axios, url)
-Vue.prototype.$_Regional = new Regional(axios, url)
-Vue.prototype.$_StatusPedido = new StatusPedido(axios, url)
-Vue.prototype.$_Funcionario = new Funcionario(axios, url)
+Vue.prototype.$_BaseAPI = new BaseAPI(store, axios, url)
+Vue.prototype.$_Cidade = new Cidade(store, axios, url)
+Vue.prototype.$_Usuario = new Usuario(store, axios, url)
+Vue.prototype.$_Pedido = new Pedido(store, axios, url)
+Vue.prototype.$_PedidoItem = new PedidoItem(store, axios, url)
+Vue.prototype.$_TipoTabela = new TipoTabela(store, axios, url)
+Vue.prototype.$_Regra = new Regra(store, axios, url)
+Vue.prototype.$_Regional = new Regional(store, axios, url)
+Vue.prototype.$_StatusPedido = new StatusPedido(store, axios, url)
+Vue.prototype.$_Funcionario = new Funcionario(store, axios, url)
 
 
 Vue.filter('userFormatDate', function (v) {

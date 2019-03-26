@@ -3,12 +3,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.pdq</groupId>
 	<artifactId>utils</artifactId>
 	<packaging>pom</packaging>
 	<name>utils-codebase</name>
-	<version>1.0.1-SNAPSHOT</version>
-
+	
+	<parent>
+		<groupId>com.pdq</groupId>
+		<artifactId>produquimica-web-app</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+	
   	<properties>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.ordering.outputEncoding>UTF-8</project.ordering.outputEncoding>
@@ -23,7 +27,6 @@
  		<dependency> 
  		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.4</version>
 		    <scope>provided</scope>
 		</dependency>
 	</dependencies>

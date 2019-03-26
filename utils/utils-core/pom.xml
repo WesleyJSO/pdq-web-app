@@ -20,17 +20,20 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<version>${spring.boot.version}</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>com.dvsmedeiros</groupId>
 			<artifactId>bce-core</artifactId>
 			<version>${bce.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.dvsmedeiros</groupId>
+			<artifactId>bce-rest</artifactId>
+			<version>${bce.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

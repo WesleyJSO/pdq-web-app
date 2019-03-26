@@ -1,5 +1,6 @@
 export default class Cidade {
-  constructor(axios, url) {
+  constructor(store, axios, url) {
+    this.store = store
     this.url = `${url}cidade`
     this.axios = axios
   }
@@ -10,11 +11,13 @@ export default class Cidade {
           id: id
         }
       }
+      this.store.commit('SHOW_LOADER')
       let response = await this.axios.post(`${this.url}/filtro`, cidade)
+      this.store.commit('CLOSE_LOADER')
       return response.data
     } catch (err) {
-      console.log({id})
-      console.log({err})
+      this.store.commit('CLOSE_LOADER')
+      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
     }
   }
 }

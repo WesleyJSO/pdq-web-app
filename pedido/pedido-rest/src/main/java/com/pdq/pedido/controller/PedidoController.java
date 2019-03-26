@@ -8,19 +8,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.bce.domain.Result;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.helper.PedidoHelper;
+import com.pdq.utils.DomainEntityController;
 /**
  * 
  * @author José Wesley Silva
@@ -30,12 +32,39 @@ import com.pdq.pedido.helper.PedidoHelper;
  */
 @Controller
 @RequestMapping("${server.controller.prefix}pedido")
-public class PedidoController extends DomainSpecificEntityController<Pedido> {
+public class PedidoController extends DomainEntityController<Pedido, String> {
 	
 	final static Logger LOG = LoggerFactory.getLogger( PedidoController.class );
 	
 	public PedidoController() {
 		super(Pedido.class);
+	}
+	
+	@GetMapping(value = "findbycodsap")
+	public @ResponseBody ResponseEntity<?> findByCodSap(@RequestParam(name = "codSap") String codSap) {
+
+		try {
+			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
+					.withName("FILTER_BY_COD_SAP");
+			
+			PedidoHelper p = new PedidoHelper();
+			p.setCodSap(codSap);
+			applicationFacade.find(p, aCase);
+
+			Optional<Pedido> ts = aCase.getResult().getEntity();
+
+			if (ts.isPresent() && Stream.of(ts.get()).count() > 0)
+				return ResponseEntity.ok(ts.get());
+			else if(aCase.getResult().hasError())
+				return ResponseMessage.serverError(aCase.getResult().getMessage());
+			else
+				return ResponseEntity.noContent().build();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseMessage.serverError("Erro ao consultar " + Pedido.class.getSimpleName());
+		}
+
 	}
 	
 	@PostMapping(value = "findbyfilter")

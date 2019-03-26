@@ -1,25 +1,30 @@
 export default class Regional {
-    constructor(axios, url) {
-      this.axios = axios
-      this.url = `${url}regional`
-    }
-    async findByUsuarioLogado () {
-      try {
-        let response = await this.axios.get(`${this.url}/findbyusuariologado`)
-        return response.data
-      } catch (err) {   
-        console.log({err})
-      }
-    }
-
-    async findByIdUsuario (id) {
-      try {
-        let response = await this.axios.get(`${this.url}/findbyidusuario`, { params: { idUsuario: id } } )
-        
-        return response.data
-      } catch (err) {   
-        console.log({id})
-        console.log({err})
-      }
+  constructor(store, axios, url) {
+    this.store = store
+    this.axios = axios
+    this.url = `${url}regional`
+  }
+  async findByUsuarioLogado () {
+    try {
+      this.store.commit('SHOW_LOADER')
+      let response = await this.axios.get(`${this.url}/findbyusuariologado`)
+      this.store.commit('CLOSE_LOADER')
+      return response.data
+    } catch (err) {   
+      this.store.commit('CLOSE_LOADER')
+      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
     }
   }
+
+  async findByIdUsuario (id) {
+    try {
+      this.store.commit('SHOW_LOADER')
+      let response = await this.axios.get(`${this.url}/findbyidusuario`, { params: { idUsuario: id } } )
+      this.store.commit('CLOSE_LOADER')
+      return response.data
+    } catch (err) {   
+      this.store.commit('CLOSE_LOADER')
+      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
+    }
+  }
+}

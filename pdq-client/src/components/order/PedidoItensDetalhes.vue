@@ -2,6 +2,7 @@
 	<v-card light v-if="tabIndex === 1 && listPedidoItem">
 		<v-card-text>
 				<v-data-table
+          v-model="listPedidoItem"
 					:headers="headers"
 					:items="listPedidoItem"
 					rows-per-page-text="Itens por página"
@@ -16,7 +17,7 @@
 						<td>{{ props.item.pedido.regional.centroLucro.descricao }}</td>
 						<td>{{ props.item.pedido.usuarioRtv.funcionario.nomFuncionario }}</td>
 						<td>{{ props.item.pedido.estadoOrigem.sigla }}</td>
-						<td>{{ props.item.produtoPrecoRegras.produto.id }}</td>
+						<td>{{ props.item.pedido.codSap }}</td>
 						<td>{{ props.item.produtoPrecoRegras.produto.desProduto }}</td>
 						<td>{{ props.item.quantidade }}</td>
 						<td>{{ props.item.unidade.siglaUnidade }}</td>
@@ -27,7 +28,8 @@
 						<td>{{ props.item.pedido.setorAtividade.desSetorAtividade }}</td>
 						<td>{{ props.item.pedido.cliente.canalDistribuicao.desCanalDistribuicao }}</td>
 						<td>{{ props.item.condicaoPagamento.condPagamento }}</td>
-						<td>{{ props.item.dataPagamento }}</td>
+						<td v-if="props.item.dataPagamento"> {{ props.item.dataPagamento | userFormatDate }}</td>
+						<td v-else>{{ props.item.dataPagamento }}</td>
 						<td>{{ props.item.pedido.codSap }}</td>
 						<td>{{ props.item.pedido.cliente.codSap }}</td>
 						<td>{{ props.item.pedido.cliente.nomCliente }}</td>
@@ -64,13 +66,38 @@
 			pedido: { type: Object, default: () => {} },
       tabIndex: { type: Number, default: 1 }
 		},
+		watch: {
+			pedido: function (newOrder) {
+        this.$_PedidoItem.findByIdPedido(newOrder.id)
+        .then(response => {
+          this.$_Funcionario.findByIdUsuario(newOrder.usuarioRtv.id)
+          .then(resp => {
+            this.listPedidoItem = response || []
+            this.listPedidoItem.map(element => element.pedido.usuarioRtv.funcionario = resp)
+          })
+        })
+        /**
+         * @REMOVE parou de funcionario depois de adicionar o loader
+          let pedidoItem = new Promise(() => {
+            this.$_PedidoItem.findByIdPedido(newOrder.id)
+          })
+          let funcionario = new Promise(() => {
+            this.$_Funcionario.findByIdUsuario(newOrder.usuarioRtv.id)
+          })
+          Promise.all([funcionario, pedidoItem])
+          .then((result) => {
+            this.listPedidoItem = result[1] || []
+            this.listPedidoItem.map(element => element.pedido.usuarioRtv.funcionario = result[0])
+          })
+        */
+			}
+		},
 		async beforeMount () {
 			let funcionario = await this.$_Funcionario.findByIdUsuario(this.pedido.usuarioRtv.id)
 			this.listPedidoItem = await this.$_PedidoItem.findByIdPedido(this.pedido.id)
 			if(this.listPedidoItem) {
 				this.listPedidoItem.map(element => element.pedido.usuarioRtv.funcionario = funcionario)
 			}
-			console.log(this.listPedidoItem)
 		},
 		data () {
 			return {
