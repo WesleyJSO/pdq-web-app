@@ -29,12 +29,12 @@ public class PedidoItemController extends DomainSpecificEntityController<PedidoI
 	}
 
 	@GetMapping(value = "findbyidpedido")
-	public @ResponseBody ResponseEntity<?> findByIdPedido(@RequestParam(name = "idPedido") String idPedido) {
+	public @ResponseBody ResponseEntity<?> findByIdPedido(@RequestParam(name = "id") String id) {
 
 		try {
 			PedidoItemHelper filter = new PedidoItemHelper();
 			Pedido p = new Pedido();
-			p.setId(idPedido);
+			p.setId(id);
 			filter.setPedido(p);
 			BusinessCase<PedidoItemHelper> aCase = new BusinessCaseBuilder<PedidoItemHelper>()
 					.withName("FIND_PEDIDO_ITEM_BY_ID_PEDIDO");

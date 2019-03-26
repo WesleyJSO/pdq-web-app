@@ -1,5 +1,6 @@
 package com.pdq.pedido.dao.impl;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,10 +73,13 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
 			
 			jpql.append(" where login = :login");
 			
-			return em.createQuery(jpql.toString(), Usuario.class)
+			List<Usuario> listUsuario = em.createQuery(jpql.toString(), Usuario.class)
 					.setParameter("login", login)
-					.getResultList()
-					.get(0);
+					.getResultList();
+			
+			if(listUsuario != null && !listUsuario.isEmpty())
+				return listUsuario.get(0);
+			
 		}
 		return null;
 	}

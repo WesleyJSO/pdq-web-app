@@ -101,7 +101,7 @@
                 slot="activator"
                 key="aprovarpedido"
                 :color="selectColor(!$v_StatusPedido.validApprovalStatus(props.item.statusPedido.id))"
-                :disabled="!$v_StatusPedido.validApprovalStatus(props.item.statusPedido.id)"
+                :disabled="$v_StatusPedido.validApprovalStatus(props.item.statusPedido.id)"
                 :to="{ name: 'aprovarpedido', params: { pedido: props.item, tabIndex: 0 } }"
               >
                 <v-list-tile-action>
@@ -172,7 +172,7 @@ export default {
     
     this.snackbarActiveInitiate(false)
 
-    await this.login()
+    // await this.login()
     
     this.listEstado = await this.$_BaseAPI.getData("estado")
     this.listEstado.sort((e1, e2) => (e1.nomEstado > e2.nomEstado) ? 1 : -1)
@@ -192,12 +192,11 @@ export default {
     /**
      * @FIXME @MOCK user login
      */
-    async login() {
-      console.log("user data persisted in store")
-      let login = "ADMIN"
-      let password = "!Quad123"
-      await this.$store.dispatch("login", { login, password })
-    },
+    // async login() {
+    //   let login = "ADMIN"
+    //   let password = "!Quad123"
+    //   await this.$store.dispatch("login", { login, password })
+    // },
     selectColor(valid) {
       if(valid) {
         return '#1976d2'
@@ -212,9 +211,7 @@ export default {
         return false
       }
     },
-    actionColor(status) {console.log(status)},
     async findRegionalByIdUsuario() {
-      console.log(this.filterPedido)
       this.listRegional = await this.$_Regional.findByIdUsuario(
         this.filterPedido.usuarioRtv.id
       )

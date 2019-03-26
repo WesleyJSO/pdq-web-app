@@ -47,12 +47,14 @@ public class TokenAuthenticationService extends ApplicationEntity {
 		String token = request.getHeader(HEADER_STRING);
 
 		if (token != null) {
-			String login = Jwts.parser().setSigningKey(SECRET)
-					.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-					.getBody().getSubject();
-
-			Usuario load = usuarioDAO.findByLogin(login, true);
+				String login = Jwts.parser().setSigningKey(SECRET)
+						.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+						.getBody().getSubject();
+			
+				Usuario load = usuarioDAO.findByLogin(login, true);
 			if (load != null) {
+				long end = System.currentTimeMillis();
+				getLogger(this.getClass()).debug("Authenticated in: " + (end - start) + " ms.");
 				return new UsernamePasswordAuthenticationToken(load, null, load.getAuthorities());
 			}
 		}

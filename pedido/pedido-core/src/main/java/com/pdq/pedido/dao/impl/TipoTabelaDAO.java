@@ -30,11 +30,11 @@ public class TipoTabelaDAO extends GenericDAO<TipoTabela, Long> {
 			if(validIdPedido) {
 			
 				jpql.append("select tt from ").append(PedidoItem.class.getName()).append(" pi ");
-				jpql.append(" join pi.produtoPrecoRegras.tabelaPreco.tipoTabela tt ");
-				jpql.append(" and pi.id = :id");
+				jpql.append("join pi.produtoPrecoRegras.tabelaPreco.tipoTabela tt ");
+				jpql.append("where pi.id = :id");
 			
 				TypedQuery<TipoTabela> query = em.createQuery(jpql.toString(), TipoTabela.class);
-				query.setParameter("idPedido", eFilter.getPedido().getId());
+				query.setParameter("id", eFilter.getPedido().getId());
 				return query.getResultList().stream();
 			}
 		}

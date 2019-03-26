@@ -38,8 +38,8 @@
       pedido: {  type: Object, default: () => {} }
     },
     async created () {
-      this.pedido.listPedidoItem = [{produtoPrecoRegras: {tabelaPreco: {tipoTabela:{}}}}]
-      this.tipoTabela = await this.$_TipoTabela.findByIdPedido(this.pedido.idPedido)
+      this.pedido.listPedidoItem = [ { produtoPrecoRegras: { tabelaPreco: { tipoTabela:{ } } } } ]
+      this.tipoTabela = await this.$_TipoTabela.findByIdPedido(this.pedido.id)
     },
     data: () => ({
       tipoTabela: {},

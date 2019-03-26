@@ -8,7 +8,7 @@
 
     <!-- tab 1 informações dos itens -->
     <PedidoItensDetalhes 
-      :listItemPedido="pedido.listPedidoItem"
+      :pedido="pedido"
       :tabIndex="tabIndex"
     />
 
@@ -30,8 +30,9 @@ import PedidoItensDetalhes from './PedidoItensDetalhes'
       tabIndex: { type: Number, default: 0 },
       pedido: { type: Object, default: () => {} }
     },
-    data: () => ({
-    })
+    data () {
+      return { }
+    }
   }
 </script>
 

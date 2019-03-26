@@ -30,6 +30,7 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 		if (validFilter) {
 			StringBuilder jpql = new StringBuilder();
 			PedidoHelper eFilter = filter.getEntity();
+			boolean validId = !Strings.isNullOrEmpty(eFilter.getId());
 			boolean validCodSap = !Strings.isNullOrEmpty(eFilter.getCodSap());
 			boolean validCidade = eFilter.getCidade() != null && eFilter.getCidade().getId() != null;
 			boolean validRegional = eFilter.getRegional() != null && eFilter.getRegional().getId() != null;
@@ -54,6 +55,8 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 
 			jpql.append(" where 1=1 ");
 
+			if (validId)
+				jpql.append(" and p.id = :idPedido");
 			if (validCodSap)
 				jpql.append(" and p.codSap = :codSap");
 			if (validCidade)
@@ -69,6 +72,8 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 			
 			TypedQuery<Pedido> query = em.createQuery(jpql.toString(), Pedido.class);
 
+			if (validId)
+				query.setParameter("idPedido", eFilter.getId());
 			if (validCodSap)
 				query.setParameter("codSap", eFilter.getCodSap());
 			if (validCidade)

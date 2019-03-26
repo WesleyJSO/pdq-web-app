@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.session.SessionManagementFilter;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,6 +21,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${server.controller.prefix}")
 	private String prefix;
 	
+	/**
+	 *  we will keep using the old encoder, it is still used in the old application,
+	 *  @FIXME should be changed to BCrypt and the logic replaced in booth systems.
+	 */
 	@Autowired private SecurityService user;
 	private static PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 	// private static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -35,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/static/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/login").anonymous()
+		.antMatchers(HttpMethod.POST, "/api/authenticate").anonymous()
 		.antMatchers(HttpMethod.POST, "/h2/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/h2/**").permitAll()
 		.anyRequest().authenticated()
@@ -42,6 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		// filter login requests
 		.addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+
+		.addFilterBefore(new JWTGetAuthenticationTokenFilter("/api/authenticate", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 		
 		// filtra outras requisições para verificar a presença do JWT no header
 		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

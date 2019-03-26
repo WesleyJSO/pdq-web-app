@@ -32,7 +32,7 @@
 			</v-flex>
       
 			<v-flex>
-				<Aprovacoes :idPedido="pedido.idPedido" />
+				<Aprovacoes :idPedido="pedido.id" />
 			</v-flex>
 
 		</v-layout>
@@ -48,7 +48,7 @@ import Aprovacoes from './Aprovacoes'
 			Aprovacoes
 		},
 		props: {
-      tabIndex: { type: Number, default: 1 },
+      tabIndex: { type: Number, default: 0 },
       pedido: { type: Object, default: () => {} }
     },
 		methods: {
@@ -56,7 +56,7 @@ import Aprovacoes from './Aprovacoes'
 				this.mutableTabIndex = v.id
 			}
     },
-    data() {
+    data () {
       return {
 				mutableTabIndex: this.tabIndex,
         tabs: null,

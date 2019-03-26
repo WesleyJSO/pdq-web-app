@@ -1,6 +1,7 @@
 package com.pdq.pedido.business.impl;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,11 +48,11 @@ public class FilterPedidoByRegionalUsuario implements IStrategy<PedidoHelper> {
 				Stream<Regional> streamRegional = regionalDAO.findByUsuario(filter);
 				if(streamRegional != null && Stream.of(streamRegional).count() > 0) {
 					
-					Stream<Pedido> streamFiltered = streamPedido.get()
+					Supplier<Stream<Pedido>> streamFiltered = () -> streamPedido.get()
 							.filter(p -> streamRegional.collect(Collectors.toList()).contains(p.getRegional()));
 					
 					aCase.getResult().clear();
-					aCase.getResult().addEntities(streamFiltered);
+					aCase.getResult().addEntities(streamFiltered.get());
 				}
 			}
 			return;

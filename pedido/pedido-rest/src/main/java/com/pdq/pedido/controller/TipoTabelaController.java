@@ -16,8 +16,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Pedido;
-import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.domain.TipoTabela;
+import com.pdq.pedido.helper.PedidoItemHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}tipotabela")
@@ -28,13 +28,13 @@ public class TipoTabelaController extends DomainSpecificEntityController<TipoTab
 	}
 	
 	@GetMapping(value = "findbyidpedido")
-	public @ResponseBody ResponseEntity<?> findByIdPedido(@RequestParam(name = "idPedido") String idPedido) {
+	public @ResponseBody ResponseEntity<?> findByIdPedido(@RequestParam(name = "id") String id) {
 		try {
-			PedidoItem filter = new PedidoItem();
+			PedidoItemHelper filter = new PedidoItemHelper();
 			Pedido p = new Pedido();
-			p.setId(idPedido);
+			p.setId(id);
 			filter.setPedido(p);
-			BusinessCase<PedidoItem> aCase = new BusinessCaseBuilder<PedidoItem>()
+			BusinessCase<PedidoItemHelper> aCase = new BusinessCaseBuilder<PedidoItemHelper>()
 					.withName("FIND_TIPO_TABELA_BY_ID_PEDIDO");
 			
 			navigator.run(filter, aCase);
