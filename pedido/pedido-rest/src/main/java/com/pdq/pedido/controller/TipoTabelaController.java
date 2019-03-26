@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.TipoTabela;
 import com.pdq.pedido.helper.PedidoItemHelper;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}tipotabela")
-public class TipoTabelaController extends DomainSpecificEntityController<TipoTabela> {
+public class TipoTabelaController extends DomainEntityController<TipoTabela, Long> {
 
 	public TipoTabelaController() {
 		super(TipoTabela.class);

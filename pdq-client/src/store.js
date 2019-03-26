@@ -9,6 +9,10 @@ export default new Vuex.Store({
 	 * initial application data
 	 */
 	state: {
+		show: false,
+		message: '',
+		showLoader: false,
+		loaderMessage: 'Aguarde um momento...',
 		status: '',
 		token: localStorage.getItem('user-token') || '',
 		user: localStorage.getItem('user') || "{}"
@@ -32,6 +36,22 @@ export default new Vuex.Store({
 		LOGOUT(state) {
 			state.status = ''
 			state.token = ''
+		},
+		SHOW_SNACKBAR(state, message) {
+			state.message = message
+			state.show = true
+		},
+		CLOSE_SNACKBAR: (state) => {
+			state.show = false
+			state.message = ''
+		},
+		SHOW_LOADER(state, loaderMessage) {
+			state.showLoader = true
+			state.loaderMessage = loaderMessage || 'Aguarde um momento...'
+		},
+		CLOSE_LOADER(state) {
+			state.showLoader = false
+			state.loaderMessage = 'Aguarde um momento...'
 		},
 	},
 

@@ -1,15 +1,18 @@
 export default class PedidoItem {
-  constructor(axios, url) {
+  constructor(store, axios, url) {
+    this.store = store
     this.axios = axios
     this.url = `${url}pedidoitem`
   }
   async findByIdPedido (id) {
     try {
+      this.store.commit('SHOW_LOADER')
       let response = await this.axios.get(`${this.url}/findbyidpedido`, { params: { id } })
+      this.store.commit('CLOSE_LOADER')
       return response.data
     } catch (err) {
-      console.log({id})      
-      console.log({err})
+      this.store.commit('CLOSE_LOADER')
+      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
     }
   }
 }

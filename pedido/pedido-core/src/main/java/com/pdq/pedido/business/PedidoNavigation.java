@@ -8,6 +8,7 @@ import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.pdq.pedido.business.impl.ComputeApprovementList;
 import com.pdq.pedido.business.impl.FillPeditoItemList;
+import com.pdq.pedido.business.impl.FilterByCodSap;
 import com.pdq.pedido.business.impl.FilterPedidoByRegionalUsuario;
 import com.pdq.pedido.business.impl.FilterPedidoByStatusBonificacao;
 import com.pdq.pedido.business.impl.FindPedidoByFilter;
@@ -19,7 +20,7 @@ public class PedidoNavigation {
 	@Autowired private FindPedidoByFilter findPedidoByFilter;
 	@Autowired private FilterPedidoByRegionalUsuario filterPedidoByRegionalUsuario;
 	@Autowired private FilterPedidoByStatusBonificacao filterPedidoByStatusBonificacao;
-	
+	@Autowired private FilterByCodSap filterByCodSap;
 	@Autowired private FillPeditoItemList fillPeditoItemList;
 	@Autowired private ComputeApprovementList computeApprovementList;
 	
@@ -44,6 +45,13 @@ public class PedidoNavigation {
 		return new NavigationBuilder<PedidoHelper>()
 				.next(fillPeditoItemList)
 				.next(computeApprovementList)
+				.build();
+	}
+	
+	@Bean(name = "FILTER_BY_COD_SAP")
+	public Navigation<PedidoHelper> filterByCodSap() {
+		return new NavigationBuilder<PedidoHelper>()
+				.next(filterByCodSap)
 				.build();
 	}
 }

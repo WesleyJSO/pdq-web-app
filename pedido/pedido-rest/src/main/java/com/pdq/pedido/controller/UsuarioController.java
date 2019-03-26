@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Usuario;
 import com.pdq.pedido.helper.UsuarioHelper;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}usuario")
-public class UsuarioController extends DomainSpecificEntityController<Usuario> {
+public class UsuarioController extends DomainEntityController<Usuario, Long> {
 
 	public UsuarioController() {
 		super(Usuario.class);

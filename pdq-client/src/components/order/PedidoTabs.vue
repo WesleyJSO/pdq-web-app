@@ -1,16 +1,22 @@
 <template>
   <div>
     <!-- tab 0 informações do pedido -->
-    <PedidoDetalhes 
-      :pedido="pedido"
-      :tabIndex="tabIndex"
-    />
+    
+    <transition name="fade">
+      <PedidoDetalhes 
+        :pedido="pedido"
+        :tabIndex="tabIndex"
+      />
+    </transition>
 
     <!-- tab 1 informações dos itens -->
-    <PedidoItensDetalhes 
-      :pedido="pedido"
-      :tabIndex="tabIndex"
-    />
+    
+    <transition name="fade">
+      <PedidoItensDetalhes 
+        :pedido="pedido"
+        :tabIndex="tabIndex"
+      />
+    </transition>
 
     <!-- tab 2 outros -->
     

@@ -6,12 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dvsmedeiros.bce.core.controller.INavigator;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Estado;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}estado")
-public class EstadoController extends DomainSpecificEntityController<Estado> {
+public class EstadoController extends DomainEntityController<Estado, Long> {
 	
 	@Autowired
 	@Qualifier("navigator")

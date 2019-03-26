@@ -2,7 +2,9 @@ package com.pdq.pedido.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,14 +40,17 @@ public class FillPeditoItemList implements IStrategy<PedidoHelper> {
 				PedidoItemHelper pih = new PedidoItemHelper();
 				pih.setPedido(aEntity);
 				filter.setEntity(pih);
-				listaPedidoItem.addAll(dao.findByPedidoItemIdPedido(filter).collect(Collectors.toList()));
-				if(CollectionUtils.isEmpty(listaPedidoItem)){
-					aCase.getResult().setMessage("Nenhum item de venda foi encontrado.");
-					aCase.getResult().setError();
-					aCase.suspendExecution();
-					return;
+				Optional<Stream<PedidoItem>> optionalPedidoItem = dao.findByPedidoItemIdPedido(filter);
+				if(optionalPedidoItem.isPresent()) {					
+					listaPedidoItem.addAll(optionalPedidoItem.get().collect(Collectors.toList()));
+					if(CollectionUtils.isEmpty(listaPedidoItem)){
+						aCase.getResult().setMessage("Nenhum item de venda foi encontrado.");
+						aCase.getResult().setError();
+						aCase.suspendExecution();
+						return;
+					}
+					aEntity.setListPedidoItem(listaPedidoItem);
 				}
-				aEntity.setListPedidoItem(listaPedidoItem);
 			}
 			return;
 		}

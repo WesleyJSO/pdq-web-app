@@ -1,12 +1,5 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-dialog v-model="snackbar" persistent/>
-    <v-snackbar v-model="snackbar" top right :timeout="timeout">
-      <v-progress-circular v-if="progress" indeterminate :value="20"></v-progress-circular>
-      {{ snackbarText }}
-      <v-btn color="pink" flat @click="isLoading = false">Fechar</v-btn>
-    </v-snackbar>
-
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container fluid class="pl-3 pr-3 pt-0">
         <v-card class="elevation-10">
@@ -79,7 +72,7 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="success" :loading="isLoading" @click="search">Pesquisar</v-btn>
+            <v-btn color="success" @click="search">Pesquisar</v-btn>
             <v-btn color="warning" @click="reset">Limpar</v-btn>
           </v-card-actions>
         </v-card>
@@ -142,6 +135,7 @@
 <script>
 export default {
   data: () => ({
+    valid: false,
     headers: [
       { text: "Nome do cliente", value: "nomCliente", align: "left" },
       { text: "Regional", value: "nomRegional", align: "left" },
@@ -151,12 +145,6 @@ export default {
       { text: "Data de criação", value: "dtCriacaoPedido", align: "left" },
       { text: "Ações", value: "acoes", align: "center", sortable: false }
     ],
-    timeout: 2000,
-    isLoading: false,
-    valid: false,
-    progress: false,
-    snackbar: false,
-    snackbarText: "Pesquisando...",
     filterPedido: {
       estado: { pais: {} },
       cidade: { estado: {} }
@@ -169,11 +157,6 @@ export default {
     listPedido: []
   }),
   async mounted() {
-    
-    this.snackbarActiveInitiate(false)
-
-    // await this.login()
-    
     this.listEstado = await this.$_BaseAPI.getData("estado")
     this.listEstado.sort((e1, e2) => (e1.nomEstado > e2.nomEstado) ? 1 : -1)
 
@@ -185,18 +168,8 @@ export default {
     
     this.listRegional = await this.$_Regional.findByUsuarioLogado()
     this.listRtv = await this.$_Usuario.findByStsAtivo(true)
-
-    this.snackBarFinish()
   },
   methods: {
-    /**
-     * @FIXME @MOCK user login
-     */
-    // async login() {
-    //   let login = "ADMIN"
-    //   let password = "!Quad123"
-    //   await this.$store.dispatch("login", { login, password })
-    // },
     selectColor(valid) {
       if(valid) {
         return '#1976d2'
@@ -222,33 +195,14 @@ export default {
       )
     },
     async search() {
-      this.snackbarActiveInitiate(true)
       this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido)
-      this.snackBarFinish()
-    },
-    snackbarActiveInitiate(blockLoad) {
-      this.snackbarText = "Pesquisando..."
-      if(blockLoad)
-        this.isLoading = true
-      this.progress = this.snackbar = true
-    },
-    snackBarFinish() {
-      this.snackbarText = "Consulta finalizada!"
-      this.snackbar = true
-      this.isLoading = this.progress = false
     },
     /* eslint-disable */
     async sendToApprovement(pedido) {
-      this.snackbarText = "Enviando...";
-      this.isLoading = this.progress = this.snackbar = true;
       pedido = await this.$_Pedido.sendToApprovement(pedido);
-      this.snackbarText = "Pedido enviado para aprovação!";
-      this.snackbar = true;
-      this.isLoading = this.progress = false;
     },
     reset() {
       this.$refs.form.reset(),
-        (this.isLoading = false),
         (this.filterPedido = {
           estado: { pais: {} },
           cidade: { estado: {} }

@@ -1,6 +1,5 @@
 package com.pdq.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -51,17 +50,18 @@ public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> im
 	private Optional<IRepository<T, R>> getRepository(T clazz) {
 		IRepository<T, R> repository = null;
 		Optional<IRepository<T, R>> optionalRepository = Optional.ofNullable(repository);
-		for(Entry<String, IRepository<T, R>> entry : mapRepository.entrySet())
-			if(entry.getKey()
+		for(Entry<String, IRepository<T, R>> entry : mapRepository.entrySet()) {
+			if(entry.getKey().toLowerCase()
 					.equals(clazz
 							.getClass()
 							.getSimpleName()
-							.toLowerCase()
 							.replace("helper", "")
-							.concat(REPOSITORY))) {
+							.concat(REPOSITORY)
+							.toLowerCase())) {
 				optionalRepository = Optional.of(entry.getValue());
 				break;
 			}	
+		}
 		return optionalRepository;
 		
 	}
@@ -87,20 +87,18 @@ public abstract class GenericDAO<T extends DomainEntity<R>, R extends Object> im
 	
 	@Override
 	public Optional<Stream<T>> findAll(T entity) {
-		List<T> list = new ArrayList<>();
-		Optional<Stream<T>> optionalStream = Optional.ofNullable(list.stream());
-		if(getRepository(entity).isPresent())
-			optionalStream = Optional
-					.of(getRepository(entity)
-							.get()
-							.findAll()
-							.stream());
-		return optionalStream;
+		@SuppressWarnings("unchecked")		
+		Optional<List<T>> listEntity = Optional.ofNullable((List<T>) em
+				.createQuery("from ".concat(entity.getClass().getName()), entity.getClass())
+				.getResultList());
+		return Optional.ofNullable(listEntity.isPresent() ? listEntity.get().stream() : Stream.of(entity));
 	}
 	
 	@Override
 	public Optional<T> save(T aEntity) {
-		getRepository(aEntity).ifPresent(r -> r.save(aEntity));
+		Optional<IRepository<T, R>> repository = getRepository(aEntity);
+		if(repository.isPresent())
+			aEntity = repository.get().save(aEntity);
 		return Optional.of(aEntity);
 	}
 	

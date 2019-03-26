@@ -1,15 +1,16 @@
 package com.pdq.pedido.dao.impl;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.Cidade;
-import com.pdq.pedido.helper.CidadeHelper;
+import com.pdq.pedido.repository.CidadeRepository;
 import com.pdq.utils.GenericDAO;
 /**
  * 
@@ -22,25 +23,9 @@ import com.pdq.utils.GenericDAO;
 @Transactional
 public class CidadeDAO extends GenericDAO<Cidade, Long> {
 
-	public Stream<Cidade> findCidadeByIdEstado(Filter<CidadeHelper> filter) {
+	@Autowired private CidadeRepository cidadeRepository;
 
-		boolean validFilter = filter != null 
-				&& filter.getEntity() != null
-				&& filter.getEntity().getEstado() != null
-				&& filter.getEntity().getEstado().getId() != null;
-
-		if (validFilter) {
-			StringBuilder jpql = new StringBuilder();
-			jpql.append("select c from ").append(Cidade.class.getName()).append(" c ");
-			jpql.append(" join fetch c.estado e ");
-			jpql.append(" where e.id = :id ");
-			TypedQuery<Cidade> query = em.createQuery(jpql.toString(), Cidade.class);
-			query.setParameter("id", filter.getEntity().getEstado().getId());
-			return query
-					.getResultList()
-					.stream()
-					.sorted((e1, e2) -> e1.getNomCidade().compareTo(e2.getNomCidade()));
-		}
-		return null;
+	public Optional<Stream<Cidade>> findByEstadoId(Filter<? extends Cidade> filter) {
+		return Optional.ofNullable(cidadeRepository.findByEstadoId(filter.getEntity().getEstado().getId()).stream());		
 	}
 }

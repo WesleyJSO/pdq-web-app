@@ -17,13 +17,13 @@ import com.dvsmedeiros.bce.core.controller.INavigator;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Cidade;
 import com.pdq.pedido.helper.CidadeHelper;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}cidade")
-public class CidadeController extends DomainSpecificEntityController<Cidade> {
+public class CidadeController extends DomainEntityController<Cidade, Long> {
 
 	@Autowired
 	@Qualifier("navigator")
@@ -40,7 +40,7 @@ public class CidadeController extends DomainSpecificEntityController<Cidade> {
 			BusinessCase<CidadeHelper> aCase = new BusinessCaseBuilder<CidadeHelper>()
 					.withName("FIND_CIDADE_BY_ID_ESTADO");
 			
-			navigator.run(filter, aCase);
+			applicationFacade.find(filter, aCase);
 			Optional<Stream<CidadeHelper>> ts = aCase.getResult().getEntities();
 
 			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {

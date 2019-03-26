@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Funcionario;
 import com.pdq.pedido.helper.FuncionarioHelper;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}funcionario")
-public class FuncionarioController extends DomainSpecificEntityController<Funcionario> {
+public class FuncionarioController extends DomainEntityController<Funcionario, Long> {
 
 	public FuncionarioController() {
 		super(Funcionario.class);

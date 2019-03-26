@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
-import com.dvsmedeiros.rest.rest.controller.DomainSpecificEntityController;
 import com.pdq.pedido.domain.Regra;
 import com.pdq.pedido.helper.RegraHelper;
+import com.pdq.utils.DomainEntityController;
 
 @Controller
 @RequestMapping("${server.controller.prefix}regra")
-public class RegraController extends DomainSpecificEntityController<Regra> {
+public class RegraController extends DomainEntityController<Regra, Long> {
 
 	public RegraController() {
 		super(Regra.class);

@@ -1,5 +1,7 @@
 <template>
   <v-app id="inspire">
+    <Snackbar />
+    <Loader />
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -62,7 +64,9 @@
       <v-container fluid fill-height class="grey lighten-4">
         <v-layout>
           <v-flex>
-            <router-view></router-view>
+            <transition name="fade">
+              <router-view></router-view>
+            </transition>
           </v-flex>
         </v-layout>
       </v-container>
@@ -72,9 +76,11 @@
 
 <script>
 // import GridContainer from './components/GridContainer'
+import Snackbar from './components/shared/Snackbar'
+import Loader from './components/shared/Loader'
 export default {
   components: {
-    // GridContainer
+    Snackbar, Loader // GridContainer
   },
   data() {
     return {
@@ -117,5 +123,11 @@ export default {
 .button-icon {
   height: 90%;
   width: 45%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

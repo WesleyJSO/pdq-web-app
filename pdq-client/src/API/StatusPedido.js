@@ -1,6 +1,7 @@
 export default class StatusPedido {
-    constructor(axios, url) {
-      this.axios = axios
-      this.url = `${url}statuspedido`
-    }
+  constructor(store, axios, url) {
+    this.store = store
+    this.axios = axios
+    this.url = `${url}statuspedido`
   }
+}
