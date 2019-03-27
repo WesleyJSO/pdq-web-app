@@ -23,3 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Projeto ###
+src/main/resources/public/*.html
+src/main/resources/public/**
