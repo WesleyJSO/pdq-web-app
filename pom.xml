@@ -28,7 +28,6 @@
 	<modules>
 		<module>pdq-client</module>
 		<module>pdq-server</module>
-		<module>utils-core</module>
 	</modules>
 	
 </project>

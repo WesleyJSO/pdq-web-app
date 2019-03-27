@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
@@ -19,12 +18,10 @@ import com.pdq.pedido.helper.RegraHelper;
 import com.pdq.utils.GenericDAO;
 
 @Repository
+@Transactional
 public class RegraDAO extends GenericDAO<Regra, Long> {
-
-	@PersistenceContext
-	private EntityManager em;
-
-	public Stream<Regra> findControleAprovacaoByIdPedido(Filter<RegraHelper> filter) {
+	
+	public Stream<Regra> findControleAprovacaoByIdPedido(Filter<? extends Regra> filter) {
 
 		boolean validFilter = filter != null 
 				&& filter.getEntity() != null 
@@ -49,7 +46,7 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 		return null;
 	}
 	
-	public Stream<Regra> findRegraByDescricao(Filter<RegraHelper> filter) {
+	public Stream<Regra> findRegraByDescricao(Filter<? extends Regra> filter) {
 
 		boolean validFilter = filter != null 
 				&& filter.getEntity() != null 
@@ -67,10 +64,10 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 		return null;
 	}
 	
-	public Stream<Regra> findRegrasByIdStatusPedido(Filter<RegraHelper> filter) {
+	public Stream<Regra> findRegrasByIdStatusPedido(Filter<? extends Regra> filter) {
 
 		boolean validFilter = filter != null && filter.getEntity() != null
-				&& filter.getEntity().getIdStatusPedido() != null;
+				&& ((RegraHelper) filter.getEntity()).getIdStatusPedido() != null;
 
 		if (validFilter) {
 
@@ -80,7 +77,7 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 					.append(" where sp.id = :id");
 			TypedQuery<Regra> query = em
 					.createQuery(jpql.toString(), Regra.class)
-					.setParameter("id", filter.getEntity().getIdStatusPedido());
+					.setParameter("id", ((RegraHelper) filter.getEntity()).getIdStatusPedido());
 			
 			List<Regra> listRegra = new ArrayList<>();
 			query.getResultList()

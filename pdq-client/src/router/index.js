@@ -74,11 +74,11 @@ router.beforeEach((to, from, next) => {
             break
         }
       }
-      change ? next() : window.location.href = "http://localhost:8081/compassminerals/login.jsf"
+      change ? next() : window.location.href = process.env.VUE_APP_S3_URL_LOGIN
     }
   } catch (err) {
     console.log({err})
-    window.location.href = "http://localhost:8081/compassminerals/login.jsf"
+    window.location.href = process.env.VUE_APP_S3_URL_LOGIN
   } 
 })
 

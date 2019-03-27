@@ -5,16 +5,10 @@
 
 // vue.config.js
 module.exports = {
-    runtimeCompiler: true,
-    devServer: {
-      proxy: {
-        '/api': {
-          target: 'http://localhost:9999',
-          ws: true,
-          changeOrigin: true
-        }
-      }
-    },
-    outputDir: 'target/dist',
-    assetsDir: 'static'
-  }
+  outputDir: 'target/dist',
+  assetsDir: 'static',
+  runtimeCompiler: true,
+  devServer: {
+    port: 8081,
+  },
+}

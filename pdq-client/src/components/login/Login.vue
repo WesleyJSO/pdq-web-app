@@ -29,7 +29,7 @@ export default {
         }
       } else {
         store.dispatch('logout')
-        window.location.href = "http://localhost:8081/compassminerals/login.jsf"
+        window.location.href = process.env.VUE_APP_S3_URL_LOGIN
       }
     },
     async authenticate () {

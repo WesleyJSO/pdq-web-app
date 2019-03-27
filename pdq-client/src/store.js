@@ -64,7 +64,7 @@ export default new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				commit('AUTH_REQUEST')
 				axios({
-						url: 'http://localhost:8888/api/login',
+						url: process.env.VUE_APP_BASE_URL,
 						data: user,
 						method: 'POST'
 					})

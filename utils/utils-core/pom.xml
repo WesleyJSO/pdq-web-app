@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	
-	<artifactId>utils-core</artifactId>
 	<packaging>jar</packaging>
 
+	<artifactId>utils-core</artifactId>
 	<name>utils-core</name>
 	<description>Utils Core</description>
 
@@ -20,6 +20,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<version>${spring.boot.version}</version>
 			</dependency>
 		<dependency>
 			<groupId>com.dvsmedeiros</groupId>
@@ -34,6 +35,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

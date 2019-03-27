@@ -27,7 +27,7 @@ moment.updateLocale('en', {
 
 Vue.config.productionTip = false
 
-let url = 'http://localhost:8888/api/'
+let url = process.env.VUE_APP_BASE_URL
 Vue.prototype.$_url = url
 Vue.prototype.$_axios = axios
 Vue.prototype.$_moment = moment

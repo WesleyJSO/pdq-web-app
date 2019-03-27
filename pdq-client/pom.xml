@@ -60,6 +60,9 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
+							<!-- Alternate modes between the .env files, 
+								the mode should point to a .env file in the root directory, 
+								if any then production is selected as default -->
 							<arguments>run build</arguments>
 						</configuration>
 					</execution>

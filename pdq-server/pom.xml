@@ -27,9 +27,9 @@
 
 	<dependencies>
 		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter-api</artifactId>
-		    <scope>test</scope>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -67,16 +67,22 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.pdq</groupId>
 			<artifactId>utils-core</artifactId>
+			<version>${pdq.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>pedido-domain</artifactId>
 			<version>${pdq.version}</version>
 		</dependency>
 		
@@ -86,57 +92,60 @@
 			<artifactId>bce-rest</artifactId>
 			<version>${bce.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.pdq</groupId>
 			<artifactId>pedido-rest</artifactId>
 			<version>${pdq.version}</version>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.0</version><!--$NO-MVN-MAN-VER$-->
+				<version>2.22.0</version><!--$NO-MVN-MAN-VER$ -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.22.0</version><!--$NO-MVN-MAN-VER$-->
+				<version>2.22.0</version><!--$NO-MVN-MAN-VER$ -->
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 			<plugin>
-		      <artifactId>maven-resources-plugin</artifactId>
-		      <executions>
-		        <execution>
-		          <id>copy Vue.js frontend content</id>
-		          <phase>generate-resources</phase>
-		          <goals>
-		            <goal>copy-resources</goal>
-		          </goals>
-		          <configuration>
-		            <outputDirectory>src/main/resources/public</outputDirectory>
-		            <overwrite>true</overwrite>
-		            <resources>
-		              <resource>
-		                <directory>${project.parent.basedir}/pdq-client/target/dist</directory>
-		                <includes>
-		                  <include>static/</include>
-		                  <include>index.html</include>
-		                  <include>favicon.ico</include>
-		                </includes>
-		              </resource>
-		            </resources>
-		          </configuration>
-		        </execution>
-		      </executions>
-		    </plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy Vue.js frontend content</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/main/resources/public</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>${project.parent.basedir}/pdq-client/target/dist</directory>
+									<includes>
+										<include>static/</include>
+										<include>index.html</include>
+										<include>favicon.ico</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
