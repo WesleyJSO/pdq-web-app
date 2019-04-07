@@ -1,6 +1,7 @@
 package com.pdq.pedido.domain;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pdq.utils.DomainEntity;
@@ -87,6 +90,10 @@ public class Pedido extends DomainEntity<String> {
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoItem> listPedidoItem;
+	
+	@Column(name = "DT_ALTER_APROVACAO")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dtAlteracaoAprovacao;
 
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<ControleAprovacao> listControleAprovacao;

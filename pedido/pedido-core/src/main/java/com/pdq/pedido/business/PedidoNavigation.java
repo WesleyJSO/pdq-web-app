@@ -6,12 +6,14 @@ import org.springframework.context.annotation.Configuration;
 
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
+import com.pdq.pedido.business.impl.ChangeStatus;
 import com.pdq.pedido.business.impl.ComputeApprovementList;
 import com.pdq.pedido.business.impl.FillPeditoItemList;
 import com.pdq.pedido.business.impl.FilterByCodSap;
 import com.pdq.pedido.business.impl.FilterPedidoByRegionalUsuario;
 import com.pdq.pedido.business.impl.FilterPedidoByStatusBonificacao;
 import com.pdq.pedido.business.impl.FindPedidoByFilter;
+import com.pdq.pedido.business.impl.GenerateStatusHistory;
 import com.pdq.pedido.helper.PedidoHelper;
 
 @Configuration
@@ -23,6 +25,7 @@ public class PedidoNavigation {
 	@Autowired private FilterByCodSap filterByCodSap;
 	@Autowired private FillPeditoItemList fillPeditoItemList;
 	@Autowired private ComputeApprovementList computeApprovementList;
+	@Autowired private ChangeStatus changeStatus;
 	
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
 	public Navigation<PedidoHelper> findPedidoByFilter() {
@@ -43,8 +46,10 @@ public class PedidoNavigation {
 	@Bean(name = "COMPUTE_APPROVEMENT_LIST")
 	public Navigation<PedidoHelper> computeApprovementList() {
 		return new NavigationBuilder<PedidoHelper>()
+				.next(findPedidoByFilter)
 				.next(fillPeditoItemList)
 				.next(computeApprovementList)
+				.next(changeStatus)
 				.build();
 	}
 	

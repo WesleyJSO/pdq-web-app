@@ -85,7 +85,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 				aCase.suspendExecution();
 			} else {
 				controleAprovacaoDao.saveAll(listaControleAprovacao);
-				
+				aCase.getResult().addEntities(listaControleAprovacao.stream());
 			}
 
 			return;
