@@ -2,9 +2,12 @@ package com.pdq.pedido.business.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
@@ -22,6 +25,7 @@ import com.pdq.pedido.helper.StatusControleAprovacaoHelper;
  * @date 7 de abr de 2019
  *
  */
+@Component
 public class ChangeStatus implements IStrategy<PedidoHelper> {
 
 	@Autowired
@@ -29,15 +33,17 @@ public class ChangeStatus implements IStrategy<PedidoHelper> {
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		if (aEntity != null && aEntity.getId() != null) {
-			Pedido pedido = aEntity;
-			List<ControleAprovacao> listControleAprovacao = aCase.getResult().getEntities();
+		Optional<Pedido> optionalPedido =  aCase.getResult().getEntity();
+		Pedido pedido = optionalPedido.get();
+		if (pedido != null && pedido.getId() != null) {
+			Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
+			List<ControleAprovacao> listControleAprovacao = optional.get().collect(Collectors.toList());
 			if (!CollectionUtils.isEmpty(listControleAprovacao)) {
 				StatusPedido newStatus = findStatus(listControleAprovacao);
 				if (null != newStatus) {
 					pedido.setStatusPedido(newStatus);
 					pedido.setDtAlteracaoAprovacao(new Date());
-					pedidoDAO.save(aEntity);
+					pedidoDAO.save(pedido);
 				} else {
 					error(aCase, "Não há status pendentes.", true);
 				}

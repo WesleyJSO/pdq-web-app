@@ -69,20 +69,17 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		if (aEntity != null) {
+		Optional<Pedido> optional =  aCase.getResult().getEntity();
+		Pedido pedido = optional.get();
+		if (pedido != null) {
 			statusPendente = statusControleAprovacaoDao.findById(StatusControleAprovacaoHelper.ID_PENDENTE);
 			List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
-			List<PedidoItem> listaPedidoItem = aEntity.getListPedidoItem();
+			List<PedidoItem> listaPedidoItem = pedido.getListPedidoItem();
 			LOG.info("Chamada do método compute da strategy ComputeApprovementList.");
-			if (!compute(listaControleAprovacao, aEntity, listaPedidoItem, aEntity.getStatusPedido())) {
-				aCase.getResult()
-						.setMessage("O fluxo de aprovação computado não termina em status IMPLANTADO ou APROVADO.");
-				aCase.getResult().setError();
-				aCase.suspendExecution();
+			if (!compute(listaControleAprovacao, pedido, listaPedidoItem, pedido.getStatusPedido())) {
+				error(aCase, "O fluxo de aprovação computado não termina em status IMPLANTADO ou APROVADO.", true);
 			} else if (CollectionUtils.isEmpty(listaControleAprovacao)) {
-				aCase.getResult().setMessage("O pedido não se aplica a nenhuma regra cadastrada.");
-				aCase.getResult().setError();
-				aCase.suspendExecution();
+				error(aCase, "O pedido não se aplica a nenhuma regra cadastrada.", true);
 			} else {
 				controleAprovacaoDao.saveAll(listaControleAprovacao);
 				aCase.getResult().addEntities(listaControleAprovacao.stream());
@@ -90,9 +87,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 
 			return;
 		}
-		aCase.getResult().setMessage("Entidade Pedido não encontrada.");
-		aCase.getResult().setError();
-		aCase.suspendExecution();
+		error(aCase, "O pedido não se aplica a nenhuma regra cadastrada.", true);
 	}
 
 	private Boolean compute(List<ControleAprovacao> listaControleAprovacao, Pedido pedido,
@@ -257,8 +252,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 						: Integer.valueOf(pedidoItem.getCondicaoPagamento().getDiasPagamento());
 				Instant dIni = pedido.getDtCriacaoPedido();
 				Instant dFim;
-				// LocalDate dIni = LocalDate.from(pedido.getDtCriacaoPedido());
-				// LocalDate dFim;
+				// LocalDate dIni = Loca
 				if (pedidoItem.getDataPagamento() != null) {
 					dFim = Instant.from(
 							pedidoItem.getDataPagamento().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
@@ -284,6 +278,13 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		beansRegrasAprovacao = applicationContext.getBeansOfType(RegraAprovacaoValidator.class);
+	}
+	
+	private void error(INavigationCase<PedidoHelper> aCase, String message, boolean suspend) {
+		aCase.getResult().setError();
+		aCase.getResult().setMessage(message);
+		if (suspend)
+			aCase.suspendExecution();
 	}
 
 }

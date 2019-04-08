@@ -105,11 +105,11 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 			
 			navigator.run(pedido, aCase);
 			
-			Result result = aCase.getResult();
+			Result result = new Result();
 
-			if (result.hasError()) {
-				return ResponseMessage.serverError(result.getMessage());
-			}
+			if (aCase.getResult().hasError())
+				result.setError();
+			result.setMessage(aCase.getResult().getMessage());
 			return ResponseEntity.ok(result);
 
 		} catch (Exception e) {

@@ -13,7 +13,7 @@ import com.pdq.pedido.business.impl.FilterByCodSap;
 import com.pdq.pedido.business.impl.FilterPedidoByRegionalUsuario;
 import com.pdq.pedido.business.impl.FilterPedidoByStatusBonificacao;
 import com.pdq.pedido.business.impl.FindPedidoByFilter;
-import com.pdq.pedido.business.impl.GenerateStatusHistory;
+import com.pdq.pedido.business.impl.FindPedidoById;
 import com.pdq.pedido.helper.PedidoHelper;
 
 @Configuration
@@ -26,6 +26,7 @@ public class PedidoNavigation {
 	@Autowired private FillPeditoItemList fillPeditoItemList;
 	@Autowired private ComputeApprovementList computeApprovementList;
 	@Autowired private ChangeStatus changeStatus;
+	@Autowired private FindPedidoById findPedidoById;
 	
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
 	public Navigation<PedidoHelper> findPedidoByFilter() {
@@ -46,7 +47,7 @@ public class PedidoNavigation {
 	@Bean(name = "COMPUTE_APPROVEMENT_LIST")
 	public Navigation<PedidoHelper> computeApprovementList() {
 		return new NavigationBuilder<PedidoHelper>()
-				.next(findPedidoByFilter)
+				.next(findPedidoById)
 				.next(fillPeditoItemList)
 				.next(computeApprovementList)
 				.next(changeStatus)
