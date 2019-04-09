@@ -21,4 +21,5 @@ public class PedidoHelper extends Pedido {
 	
 	private Estado estado;
 	private Cidade cidade;
+	private String observacaoHistorico;
 }

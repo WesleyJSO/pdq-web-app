@@ -34,16 +34,18 @@ public class ChangeStatus implements IStrategy<PedidoHelper> {
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optionalPedido =  aCase.getResult().getEntity();
-		Pedido pedido = optionalPedido.get();
+		Pedido pedido = optionalPedido.isPresent() ? optionalPedido.get() : null;
 		if (pedido != null && pedido.getId() != null) {
 			Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
-			List<ControleAprovacao> listControleAprovacao = optional.get().collect(Collectors.toList());
+			List<ControleAprovacao> listControleAprovacao = optional.isPresent() ? optional.get().collect(Collectors.toList()) : null;
 			if (!CollectionUtils.isEmpty(listControleAprovacao)) {
+				aCase.getResult().addEntity("oldStatus", pedido.getStatusPedido());
 				StatusPedido newStatus = findStatus(listControleAprovacao);
 				if (null != newStatus) {
 					pedido.setStatusPedido(newStatus);
 					pedido.setDtAlteracaoAprovacao(new Date());
 					pedidoDAO.save(pedido);
+					aCase.getResult().addEntities(listControleAprovacao.stream());
 				} else {
 					error(aCase, "Não há status pendentes.", true);
 				}

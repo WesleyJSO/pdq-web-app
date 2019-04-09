@@ -70,7 +70,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optional =  aCase.getResult().getEntity();
-		Pedido pedido = optional.get();
+		Pedido pedido = optional.isPresent() ? optional.get() : null;
 		if (pedido != null) {
 			statusPendente = statusControleAprovacaoDao.findById(StatusControleAprovacaoHelper.ID_PENDENTE);
 			List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
