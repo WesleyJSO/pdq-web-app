@@ -104,22 +104,6 @@
                   <v-list-tile-title>Aprovar</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <!-- <v-list-tile
-                :enabled="enableSendApprovement(props.item.statusPedido)"
-                v-else
-                :color="actionColor(props.item.statusPedido)"
-                slot="activator"
-                key="enviarpedidoaprovacao"
-                @click="sendToApprovement(props.item)"
-              >
-                <v-list-tile-action>
-                  <v-icon>done</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content style="color: #1976d2">
-                  <v-list-tile-title>Enviar para Aprovação</v-list-tile-title>
-                  <v-list-tile-title>Aprovar</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile> -->
             </td>
           </template>
 
@@ -175,15 +159,6 @@ export default {
         return '#1976d2'
       }
     },
-    enableAproval(status) {return !this.enableSendApprovement(status)},
-    enableSendApprovement(status){
-      let descricao = status.descricaoStatus.toUpperCase()
-      if(descricao === 'EM CONSTRUCAO'){
-        return true
-      } else {
-        return false
-      }
-    },
     async findRegionalByIdUsuario() {
       this.listRegional = await this.$_Regional.findByIdUsuario(
         this.filterPedido.usuarioRtv.id
@@ -196,10 +171,6 @@ export default {
     },
     async search() {
       this.listPedido = await this.$_Pedido.findByFilter(this.filterPedido)
-    },
-    /* eslint-disable */
-    async sendToApprovement(pedido) {
-      pedido = await this.$_Pedido.sendToApprovement(pedido);
     },
     reset() {
       this.$refs.form.reset(),

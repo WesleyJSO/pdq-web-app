@@ -26,15 +26,4 @@ export default class Pedido {
       this.store.commit('SHOW_SNACKBAR', err.response.data.message)
     }
   }
-  async sendToApprovement(filterPedido) {
-    try {
-      this.store.commit('SHOW_LOADER')
-      let response = await this.axios.post(`${this.url}/computeapprovementlist`, filterPedido)
-      this.store.commit('CLOSE_LOADER')
-      return response.data
-    } catch (err) {
-      this.store.commit('CLOSE_LOADER')
-      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
-    }
-  }
 }
