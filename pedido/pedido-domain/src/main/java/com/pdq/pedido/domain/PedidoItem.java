@@ -53,7 +53,7 @@ public class PedidoItem extends DomainEntity<String> {
 	private Double encargosFinanceiros;
 	private Double valorJurosUnitario;
 	private Double porcJuros;
-	private Double volumeTotalKg;
+	private Double volumeTotalEmKg;
 	private String embalagem;
 	private String codOrdemSap;
 	private String motivoErroSap;

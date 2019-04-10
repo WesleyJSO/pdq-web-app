@@ -10,8 +10,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,6 +58,10 @@ public class Pedido extends DomainEntity<String> {
 	private Instant dtCreditoRural;
 	private Instant dtCriacaoPedido;
 	
+	@OneToOne
+	@JoinColumn(name = "ID_VENDEDOR_AGENCIADO")
+	private VendedorSap vendedorAgenciado;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
 	private StatusPedido statusPedido;
@@ -97,4 +104,8 @@ public class Pedido extends DomainEntity<String> {
 
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<ControleAprovacao> listControleAprovacao;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "CAMPANHA_PEDIDO", joinColumns = { @JoinColumn(name = "ID_PEDIDO") }, inverseJoinColumns = { @JoinColumn(name = "ID_CAMPANHA")} )
+	private List<Campanha> lstCampanhas;
 }
