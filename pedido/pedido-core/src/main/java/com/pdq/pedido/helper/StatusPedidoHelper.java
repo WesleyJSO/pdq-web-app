@@ -30,6 +30,7 @@ public class StatusPedidoHelper extends StatusPedido {
 	public static final Long ID_STATUS_ADM_VENDAS_APROVADO_PRAZO_PGMT = 17l;
 	public static final Long ID_STATUS_APROVACAO_SUPERA_GMT = 19l;
 	public static final Long ID_STATUS_APROVACAO_BONIFICACAO_DIRETOR = 20l;
+	public static final Long[] IDS_STATUS_NAO_APROVACAO = {ID_STATUS_EM_CONSTRUCAO, ID_STATUS_NAO_APROVADO, ID_STATUS_ERRO, ID_STATUS_IMPLANTADO, ID_STATUS_APROVADO, ID_STATUS_RECUSADO, ID_STATUS_CANCELADO};
 
 	public static Boolean isEndStatus(StatusPedido status){
 		if (status.getId().equals(ID_STATUS_IMPLANTADO)

@@ -252,7 +252,6 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 						: Integer.valueOf(pedidoItem.getCondicaoPagamento().getDiasPagamento());
 				Instant dIni = pedido.getDtCriacaoPedido();
 				Instant dFim;
-				// LocalDate dIni = Loca
 				if (pedidoItem.getDataPagamento() != null) {
 					dFim = Instant.from(
 							pedidoItem.getDataPagamento().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
