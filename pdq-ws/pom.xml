@@ -1,0 +1,210 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.pdq</groupId>
+	<artifactId>pdq-ws</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.1-SNAPSHOT</version>
+	<name>pdq-ws</name>
+	<description>PDQ WS</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.version>1.8</java.version>
+
+		<spring.boot.version>2.0.5.RELEASE</spring.boot.version>
+		<spring.ws.version>3.0.3.RELEASE</spring.ws.version>
+		<slf4j.version>1.7.26</slf4j.version>
+		<apache.httpclient.version>4.5.8</apache.httpclient.version>
+
+		<sap.wsdl.download>false</sap.wsdl.download>
+		<sap.wsdl.compile>true</sap.wsdl.compile>
+		<sap.wsdl.username>WEBART_IT</sap.wsdl.username>
+
+		<!-- QA -->
+		<sap.wsdl.password>Servico*1</sap.wsdl.password>
+
+		<!-- PROD -->
+		<!-- <sap.wsdl.password>Servico*P1</sap.wsdl.password> -->
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>${spring.ws.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${apache.httpclient.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- <plugin> <artifactId>maven-antrun-plugin</artifactId> <executions> 
+				<execution> <phase>initialize</phase> <goals> <goal>run</goal> </goals> <configuration> 
+				<target name="downloadWSDL" if="${sap.wsdl.download}"> <setproxy proxyhost="10.230.231.27" 
+				proxyport="3128" /> QA <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/z_bloq_cad_s3/500/z_bloq_cad_s3/z_bloq_cad_s3?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_sap_bloq_cli.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/z_alt_cad_s3/500/z_alt_cad_s3/z_alt_cad_s3?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_sap_alt_cli.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/z_cons_pre_s3/500/z_cons_pre_s3/z_cons_pre_s3?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_sap_cons_cli.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/z_pre_cad_s3/500/z_pre_cad_s3/z_pre_cad_s3?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_sap_cad_cli.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_pre_cad_cliente_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_pre_cad_cliente_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_estrutura_venda_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_cad_estrut_venda_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_centro_lucro_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_centro_lucro_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_taxa_cambio_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_taxa_cambio_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_outros_cad_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_outros_cad_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_fab_centro_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_fab_centro_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_utiliz_cultura_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_utiliz_cultura_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_transportadora_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_transportadora_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_representante_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_representante_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_material_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_material_sap.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_tributos_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_tributos_sap.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_cliente_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_cliente_sap.wsdl" username="${sap.wsdl.username}" 
+				password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_campos_mat_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_campos_mat_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_pedido_novo_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_pedido_novo_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_consulta_cpf_cnpj_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_consulta_cpf_cnpj_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_ord_venda_status_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_ord_venda_status_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> <get src="http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/s3/z_cond_pagto_sap?sap-client=500" 
+				dest="${basedir}/src/main/resources/META-INF/wsdl/z_cad_cond_pagto_sap.wsdl" 
+				username="${sap.wsdl.username}" password="${sap.wsdl.password}" /> </target> 
+				</configuration> </execution> </executions> </plugin> -->
+
+			<!-- Generate SOAP classes in target/generated-sources/xjc/com/s3/sap... -->
+			<!-- <plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> <artifactId>maven-jaxb2-plugin</artifactId> 
+				<version>0.13.1</version> <executions> <execution> <id>One</id> <phase>generate-resources</phase> 
+				<goals> <goal>generate</goal> </goals> <configuration> <schemaLanguage>WSDL</schemaLanguage> 
+				<generatePackage>TESTE</generatePackage> <schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_cad_estrut_venda_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Two</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_campos_mat_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_campos_mat_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Three</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_centro_lucro_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_centro_lucro_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Four</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_cliente_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_cliente_sap.wsdl</include> </includes> </fileset> </schema> 
+				</schemas> </configuration> </execution> <execution> <id>Five</id> <phase>generate-resources</phase> 
+				<goals> <goal>generate</goal> </goals> <configuration> <schemaLanguage>WSDL</schemaLanguage> 
+				<generatePackage>com.s3.sap.z_consulta_cpf_cnpj_sap</generatePackage> <schemas> 
+				<schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_consulta_cpf_cnpj_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Six</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_fab_centro_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_fab_centro_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Seven</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_material_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_material_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Eight</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_ord_venda_status_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_ord_venda_status_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Nine</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_outros_cad_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_outros_cad_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Ten</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_pedido_novo_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_pedido_novo_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Eleven</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_pre_cad_cliente_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_pre_cad_cliente_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Twelve</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_representante_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_representante_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Thirteen</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_sap_alt_cli</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_sap_alt_cli.wsdl</include> </includes> </fileset> </schema> 
+				</schemas> </configuration> </execution> <execution> <id>Fourteen</id> <phase>generate-resources</phase> 
+				<goals> <goal>generate</goal> </goals> <configuration> <schemaLanguage>WSDL</schemaLanguage> 
+				<generatePackage>com.s3.sap.z_sap_bloq_cli</generatePackage> <schemas> <schema> 
+				<fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_sap_bloq_cli.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Fifteen</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_sap_cad_cli</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_sap_cad_cli.wsdl</include> </includes> </fileset> </schema> 
+				</schemas> </configuration> </execution> <execution> <id>Sixteen</id> <phase>generate-resources</phase> 
+				<goals> <goal>generate</goal> </goals> <configuration> <schemaLanguage>WSDL</schemaLanguage> 
+				<generatePackage>com.s3.sap.z_sap_cons_cli</generatePackage> <schemas> <schema> 
+				<fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_sap_cons_cli.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Seventeen</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_taxa_cambio_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_taxa_cambio_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Eighteen</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_transportadora_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_transportadora_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Nineteen</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_tributos_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_tributos_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> <execution> <id>Twenty</id> 
+				<phase>generate-resources</phase> <goals> <goal>generate</goal> </goals> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.s3.sap.z_utiliz_cultura_sap</generatePackage> 
+				<schemas> <schema> <fileset> <directory>${basedir}/src/main/resources/META-INF/wsdl</directory> 
+				<includes> <include>z_utiliz_cultura_sap.wsdl</include> </includes> </fileset> 
+				</schema> </schemas> </configuration> </execution> </executions> </plugin> -->
+
+		</plugins>
+	</build>
+</project>

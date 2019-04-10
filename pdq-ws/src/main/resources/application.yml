@@ -1,0 +1,5 @@
+client:
+  uri: http://wsq1.produquimica.com.br:8002/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/z_alt_cad_s3/500/z_alt_cad_s3/z_alt_cad_s3?sap-client=500
+  login: WEBART_IT
+  password: Servico*1
+  Id_Acesso: U8PAE6tLek2o2St
