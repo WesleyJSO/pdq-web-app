@@ -90,9 +90,12 @@ public class SendEmailsToManagers implements IStrategy<PedidoHelper> {
 		}
 
 		List<Long> lstIdLinhaProduto = null;
+		String fabricas = "";
 		if (listPedidoItens != null) {
 			listPedidoItens.forEach(pi -> {
 				lstIdLinhaProduto.add(pi.getProdutoPrecoRegras().getLinhaProduto().getId());
+				fabricas += pi.getProdutoPrecoRegras().getProduto().getDesProduto() + " - "
+						+ pi.getFabrica().getDesFabrica() + "\n";
 			});
 		}
 		List<Integer> lstIdPerfil = null;
@@ -103,7 +106,7 @@ public class SendEmailsToManagers implements IStrategy<PedidoHelper> {
 				for (Integer idPerfil : lstIdPerfil) {
 					if (idPerfil != null) {
 						List<String> lstTemp = pedidoDAO.retornaEmailUsuarioAprovador(idPerfil.longValue(),
-								pedido.getRegional().getIdRegional(), lstIdLinhaProduto);
+								pedido.getRegional().getId(), lstIdLinhaProduto);
 						if (lstTemp != null && !lstTemp.isEmpty()) {
 							lstEmail.addAll(lstTemp);
 						}
@@ -122,12 +125,6 @@ public class SendEmailsToManagers implements IStrategy<PedidoHelper> {
 					campanhas += c.getNomeCampanha() + ", ";
 				}
 				campanhas = "\nCampanha(s): " + campanhas.substring(0, campanhas.length() - 2);
-			}
-
-			String fabricas = "";
-			for (PedidoItem pi : getListaPedidoItem(pedido.getId())) {
-				fabricas += pi.getProdutoPrecoRegras().getProduto().getDesProduto() + " - "
-						+ pi.getFabrica().getDesFabrica() + "\n";
 			}
 
 			String corpoEmail = "\n" + tipo + " de número " + pedido.getCodSap() + " está aguardando sua aprovação!"
