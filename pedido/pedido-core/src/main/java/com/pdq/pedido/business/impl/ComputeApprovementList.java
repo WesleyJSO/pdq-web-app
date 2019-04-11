@@ -69,25 +69,22 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		Optional<Pedido> optional =  aCase.getResult().getEntity();
-		Pedido pedido = optional.isPresent() ? optional.get() : null;
-		if (pedido != null) {
-			statusPendente = statusControleAprovacaoDao.findById(StatusControleAprovacaoHelper.ID_PENDENTE);
-			List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
-			List<PedidoItem> listaPedidoItem = pedido.getListPedidoItem();
-			LOG.info("Chamada do método compute da strategy ComputeApprovementList.");
-			if (!compute(listaControleAprovacao, pedido, listaPedidoItem, pedido.getStatusPedido())) {
-				error(aCase, "O fluxo de aprovação computado não termina em status IMPLANTADO ou APROVADO.", true);
-			} else if (CollectionUtils.isEmpty(listaControleAprovacao)) {
-				error(aCase, "O pedido não se aplica a nenhuma regra cadastrada.", true);
-			} else {
-				controleAprovacaoDao.saveAll(listaControleAprovacao);
-				aCase.getResult().addEntities(listaControleAprovacao.stream());
-			}
+		Optional<Pedido> optional = aCase.getResult().getEntity();
+		Pedido pedido = optional.get();
+		statusPendente = statusControleAprovacaoDao.findById(StatusControleAprovacaoHelper.ID_PENDENTE);
+		List<ControleAprovacao> listaControleAprovacao = new ArrayList<>();
+		List<PedidoItem> listaPedidoItem = pedido.getListPedidoItem();
 
-			return;
+		LOG.info("Chamada do método compute da strategy ComputeApprovementList.");
+
+		if (!compute(listaControleAprovacao, pedido, listaPedidoItem, pedido.getStatusPedido())) {
+			error(aCase, "O fluxo de aprovação computado não termina em status IMPLANTADO ou APROVADO.", true);
+		} else if (CollectionUtils.isEmpty(listaControleAprovacao)) {
+			error(aCase, "O pedido não se aplica a nenhuma regra cadastrada.", true);
+		} else {
+			controleAprovacaoDao.saveAll(listaControleAprovacao);
+			aCase.getResult().addEntities(listaControleAprovacao.stream());
 		}
-		error(aCase, "O pedido não se aplica a nenhuma regra cadastrada.", true);
 	}
 
 	private Boolean compute(List<ControleAprovacao> listaControleAprovacao, Pedido pedido,
@@ -108,7 +105,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 		Boolean validBean, foundValidColor, foundValidTerm, foundColorRule, foundTermRule;
 
 		// Find flows that start with the current status
-		
+
 		List<FluxoPedido> fluxos = fluxoPedidoDao.findByFluxoPedidoByIdStatusPedidoDe(fluxoFilter)
 				.collect(Collectors.toList());
 
@@ -279,7 +276,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		beansRegrasAprovacao = applicationContext.getBeansOfType(RegraAprovacaoValidator.class);
 	}
-	
+
 	private void error(INavigationCase<PedidoHelper> aCase, String message, boolean suspend) {
 		aCase.getResult().setError();
 		aCase.getResult().setMessage(message);

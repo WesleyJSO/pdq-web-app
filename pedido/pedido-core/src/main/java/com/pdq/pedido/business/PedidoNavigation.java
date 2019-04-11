@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
-import com.pdq.pedido.business.impl.ChangeStatus;
+import com.pdq.pedido.business.impl.ChangeStatusControleAprovacao;
+import com.pdq.pedido.business.impl.ChangeStatusPedido;
 import com.pdq.pedido.business.impl.ComputeApprovementList;
-import com.pdq.pedido.business.impl.FillPeditoItemList;
 import com.pdq.pedido.business.impl.FilterByCodSap;
 import com.pdq.pedido.business.impl.FilterPedidoByRegionalUsuario;
 import com.pdq.pedido.business.impl.FilterPedidoByStatusBonificacao;
@@ -24,11 +24,11 @@ public class PedidoNavigation {
 	@Autowired private FilterPedidoByRegionalUsuario filterPedidoByRegionalUsuario;
 	@Autowired private FilterPedidoByStatusBonificacao filterPedidoByStatusBonificacao;
 	@Autowired private FilterByCodSap filterByCodSap;
-	@Autowired private FillPeditoItemList fillPeditoItemList;
 	@Autowired private ComputeApprovementList computeApprovementList;
-	@Autowired private ChangeStatus changeStatus;
+	@Autowired private ChangeStatusPedido changeStatusPedido;
 	@Autowired private FindPedidoById findPedidoById;
 	@Autowired private GenerateStatusHistory generateStatusHistory;
+	@Autowired private ChangeStatusControleAprovacao changeStatusControleAprovacao;
 	
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
 	public Navigation<PedidoHelper> findPedidoByFilter() {
@@ -50,9 +50,18 @@ public class PedidoNavigation {
 	public Navigation<PedidoHelper> computeApprovementList() {
 		return new NavigationBuilder<PedidoHelper>()
 				.next(findPedidoById)
-				.next(fillPeditoItemList)
 				.next(computeApprovementList)
-				.next(changeStatus)
+				.next(changeStatusPedido)
+				.next(generateStatusHistory)
+				.build();
+	}
+
+	@Bean(name = "CHANGE_ORDER_STATUS")
+	public Navigation<PedidoHelper> changeOrderStatus() {
+		return new NavigationBuilder<PedidoHelper>()
+				.next(findPedidoById)
+				.next(changeStatusControleAprovacao)
+				.next(changeStatusPedido)
 				.next(generateStatusHistory)
 				.build();
 	}

@@ -42,32 +42,30 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		if (aEntity != null && aEntity.getId() != null) {
-			Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
-			Pedido pedido = optionalPedido.isPresent() ? optionalPedido.get() : null;
-			Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
-			Stream<ControleAprovacao> streamControleAprovacao = optional.isPresent() ? optional.get() : null;
-			Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("oldStatus");
-			StatusPedido oldStatus = statusOptional.isPresent() ? statusOptional.get() : null;
-			StatusPedido newStatus = pedido.getStatusPedido();
-			if (null != oldStatus) {
-				List<StatusPedido> listApprovedStatus = findApprovedStatuses(streamControleAprovacao, oldStatus, newStatus);
-				List<HistStatusPedido> listHistStatusPedido = generate(listApprovedStatus, pedido, oldStatus,
-						newStatus, aEntity.getObservacaoHistorico());
-				histStatusPedidoDAO.saveAll(listHistStatusPedido);
-			} else {
-				error(aCase, "Erro na geração de histórico de aprovação.", true);
-			}
-			return;
+		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
+		Pedido pedido = optionalPedido.get();
+		Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
+		Stream<ControleAprovacao> streamControleAprovacao = optional.get();
+		Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("oldStatus");
+		StatusPedido oldStatus = statusOptional.isPresent() ? statusOptional.get() : null;
+		StatusPedido newStatus = pedido.getStatusPedido();
+		if (null != oldStatus) {
+			List<StatusPedido> listApprovedStatus = findApprovedStatuses(streamControleAprovacao, oldStatus, newStatus);
+			List<HistStatusPedido> listHistStatusPedido = generate(listApprovedStatus, pedido, oldStatus, newStatus,
+					aEntity.getObservacaoHistorico());
+			histStatusPedidoDAO.saveAll(listHistStatusPedido);
+		} else {
+			error(aCase, "Erro na geração de histórico de aprovação.", true);
 		}
-		error(aCase, "Entidade Pedido não encontrada.", true);
 	}
-	
+
 	private List<StatusPedido> findApprovedStatuses(Stream<ControleAprovacao> streamControleAprovacao,
 			StatusPedido oldStatus, StatusPedido newStatus) {
-		// get approved statuses by order bigger than old status and smaller than new status
+		// get approved statuses by order bigger than old status and smaller
+		// than new status
 		List<ControleAprovacao> listApprovedControleAprovacao = streamControleAprovacao
-				.filter(ca -> ca.getStatusPedido().getOrdem() >= oldStatus.getOrdem() && ca.getStatusPedido().getOrdem() < newStatus.getOrdem())
+				.filter(ca -> ca.getStatusPedido().getOrdem() >= oldStatus.getOrdem()
+						&& ca.getStatusPedido().getOrdem() < newStatus.getOrdem())
 				.collect(Collectors.toList());
 		List<StatusPedido> listApprovedStatus = new ArrayList<>();
 		// adds old status to list if it is initial status
@@ -78,7 +76,7 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 	}
 
 	private List<HistStatusPedido> generate(List<StatusPedido> listApprovedStatus, Pedido pedido,
-			StatusPedido oldStatus, StatusPedido newStatus, String obs) {		
+			StatusPedido oldStatus, StatusPedido newStatus, String obs) {
 		List<HistStatusPedido> listHistStatusPedido = new ArrayList<>();
 		Usuario usuario = usuarioDAO.getLoggedUser();
 		listApprovedStatus
