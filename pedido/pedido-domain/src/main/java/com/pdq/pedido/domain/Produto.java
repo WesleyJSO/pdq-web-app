@@ -13,14 +13,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Table
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "ID"))
-public class Produto extends DomainEntity<String> {
-	
+public class Produto extends DomainEntity<Long> {
+
 	private static final long serialVersionUID = 7685245106358697123L;
-	
+
+	@Column(name = "ID_PRODUTO")
 	private Long idProduto;
 	private Double embalagem;
 	private Double dose;
