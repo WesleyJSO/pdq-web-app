@@ -1,6 +1,6 @@
 package com.pdq.pedido.business.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,7 +49,7 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 		if (null == newStatus)
 			newStatus = finalStatus;
 		pedido.setStatusPedido(newStatus);
-		pedido.setDtAlteracaoAprovacao(new Date());
+		pedido.setDtAlteracaoAprovacao(LocalDateTime.now());
 		pedidoDAO.save(pedido);
 		aCase.getResult().addEntities(listControleAprovacao.stream());
 	}
