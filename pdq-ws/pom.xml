@@ -21,7 +21,8 @@
 		<spring.ws.version>3.0.3.RELEASE</spring.ws.version>
 		<slf4j.version>1.7.26</slf4j.version>
 		<apache.httpclient.version>4.5.8</apache.httpclient.version>
-
+		<pdq.version>1.0.1-SNAPSHOT</pdq.version>
+		
 		<sap.wsdl.download>false</sap.wsdl.download>
 		<sap.wsdl.compile>true</sap.wsdl.compile>
 		<sap.wsdl.username>WEBART_IT</sap.wsdl.username>
@@ -34,6 +35,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>pedido-domain</artifactId>
+			<version>${pdq.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
