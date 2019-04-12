@@ -21,8 +21,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.bce.domain.Result;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Pedido;
-import com.pdq.pedido.helper.PedidoHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.PedidoHelper;
 /**
  * 
  * @author José Wesley Silva

@@ -14,8 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.dvsmedeiros.bce.domain.IEntity;
-import com.pdq.pedido.dao.impl.UsuarioDAO;
 import com.pdq.pedido.domain.Usuario;
+import com.s3.dao.impl.UsuarioDAO;
 
 @Component
 public class SecurityService implements UserDetailsService {

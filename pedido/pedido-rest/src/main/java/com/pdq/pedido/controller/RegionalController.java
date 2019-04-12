@@ -17,9 +17,9 @@ import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Regional;
 import com.pdq.pedido.domain.Regra;
 import com.pdq.pedido.domain.Usuario;
-import com.pdq.pedido.helper.RegionalHelper;
-import com.pdq.pedido.helper.UsuarioHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.RegionalHelper;
+import com.s3.helper.UsuarioHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}regional")

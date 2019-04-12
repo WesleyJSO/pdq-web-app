@@ -8,8 +8,8 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.dvsmedeiros.bce.domain.Result;
 import com.pdq.pedido.domain.Parametro;
-import com.pdq.pedido.helper.ParametroHelper;
-import com.pdq.pedido.repository.ParametroRepository;
+import com.s3.helper.ParametroHelper;
+import com.s3.repository.ParametroRepository;
 import com.s3.ws.client.SOAPClient;
 /**
  * 

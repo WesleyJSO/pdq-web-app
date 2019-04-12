@@ -16,8 +16,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.TipoTabela;
-import com.pdq.pedido.helper.PedidoItemHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.PedidoItemHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}tipotabela")
