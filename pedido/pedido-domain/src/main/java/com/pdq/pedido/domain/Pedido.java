@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -107,7 +109,14 @@ public class Pedido extends DomainEntity<String> {
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoItem> listPedidoItem;
+	
+	@Column(name = "DT_ALTER_APROVACAO")
+	private LocalDateTime dtAlteracaoAprovacao;
 
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<ControleAprovacao> listControleAprovacao;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "CAMPANHA_PEDIDO", joinColumns = { @JoinColumn(name = "ID_PEDIDO") }, inverseJoinColumns = { @JoinColumn(name = "ID_CAMPANHA")} )
+	private List<Campanha> lstCampanhas;
 }

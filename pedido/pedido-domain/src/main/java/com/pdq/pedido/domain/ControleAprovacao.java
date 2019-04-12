@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.pdq.utils.DomainEntity;
 
@@ -58,7 +59,15 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_REGRA")
 	private Regra regra;
+	
+	@Transient
+	private Boolean approved;
+	
+	@Transient
+	private Boolean disapproved;
 
+	public ControleAprovacao(){}
+	
 	/**
 	 * @author Bruno Holanda
 	 * Muralis Acessoria e Tecnologia Ltda.

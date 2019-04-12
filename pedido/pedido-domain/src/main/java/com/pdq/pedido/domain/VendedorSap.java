@@ -7,6 +7,7 @@ import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 /**
  * 
  * @author José Wesley Silva

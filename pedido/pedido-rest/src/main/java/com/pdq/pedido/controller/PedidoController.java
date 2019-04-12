@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,9 +93,6 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 	 * @author Bruno Holanda
 	 * Muralis Acessoria e Tecnologia Ltda.
 	 * @date 7 de mar de 2019
-	 *
-	 * @param pedido
-	 * @return ResponseEntity
 	 */
 	@PostMapping(value = "computeapprovementlist")
 	public @ResponseBody ResponseEntity<?> computeApprovementList(@RequestBody PedidoHelper pedido) {
@@ -105,16 +103,44 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 			
 			navigator.run(pedido, aCase);
 			
-			Result result = aCase.getResult();
+			Result result = new Result();
 
-			if (result.hasError()) {
-				return ResponseMessage.serverError(result.getMessage());
-			}
+			if (aCase.getResult().hasError())
+				result.setError();
+			result.setMessage(aCase.getResult().getMessage());
 			return ResponseEntity.ok(result);
 
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return ResponseMessage.serverError("Erro ao computar lista de aprovações");
+		}
+
+	}
+	
+	/**
+	 * @author Bruno Holanda
+	 * Muralis Acessoria e Tecnologia Ltda.
+	 * @date 7 de mar de 2019
+	 */
+	@PutMapping(value = "changestatus")
+	public @ResponseBody ResponseEntity<?> changeStatus(@RequestBody PedidoHelper pedido) {
+
+		try {
+			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
+					.withName("CHANGE_ORDER_STATUS");
+			
+			navigator.run(pedido, aCase);
+			
+			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
+
+			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
+				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
+			}
+			return ResponseEntity.noContent().build();
+
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			return ResponseMessage.serverError("Erro ao alterar o status do pedido");
 		}
 
 	}
