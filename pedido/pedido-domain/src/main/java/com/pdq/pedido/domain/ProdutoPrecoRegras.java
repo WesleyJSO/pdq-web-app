@@ -22,6 +22,9 @@ public class ProdutoPrecoRegras extends DomainEntity<Long> {
 
 	private static final long serialVersionUID = 6988876037701409548L;
 
+	private String observacaoGpNf;
+    private String tipoEmbalagem;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_TABELA_PRECO")
 	private TabelaPreco tabelaPreco;

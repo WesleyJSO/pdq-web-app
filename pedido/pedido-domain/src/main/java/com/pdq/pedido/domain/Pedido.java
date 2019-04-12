@@ -1,6 +1,6 @@
 package com.pdq.pedido.domain;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -49,8 +49,8 @@ public class Pedido extends DomainEntity<String> {
 	private String numeroColeta;
 	private String observacao;
 	private String numPedidoCli;
-	private Instant dtCreditoRural;
-	private Instant dtCriacaoPedido;
+	private LocalDateTime dtCreditoRural;
+	private LocalDateTime dtCriacaoPedido;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_STATUS_PEDIDO")
@@ -68,19 +68,39 @@ public class Pedido extends DomainEntity<String> {
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_CLIENTE_COBRANCA")
+	private Cliente clienteCobranca;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_CLIENTE_ENTREGA")
+	private Cliente clienteEntrega;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_VENDEDOR_AGENCIADO")
+	private VendedorSap vendedorAgenciado;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_TIPO_VENDA")
 	private TipoVenda tipoVenda;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_TRANSPORTADORA")
+	private Transportadora transportadora;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_RESPONSAVEL_COMISSAO")	
+	private Usuario usuarioResponsavelComissao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_SETOR_ATIVIDADE")
 	private SetorAtividade setorAtividade;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ESTADO_ORIGEM")
 	private Estado estadoOrigem;
-	
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CLASSIFICACAO_CLIENTE")
 	private ClassificacaoCliente classificacaoCliente;
 

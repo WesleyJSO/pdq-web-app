@@ -1,8 +1,7 @@
 package com.pdq.pedido.business.impl;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -255,13 +254,12 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 			if (regraPrazo.getLstLinhaProduto().contains(linhaProduto)) {
 				Integer periodo = pedidoItem.getCondicaoPagamento().getDiasPagamento() == null ? 0
 						: Integer.valueOf(pedidoItem.getCondicaoPagamento().getDiasPagamento());
-				Instant dIni = pedido.getDtCriacaoPedido();
-				Instant dFim;
+				LocalDateTime dIni = pedido.getDtCriacaoPedido();
+				LocalDateTime dFim;
 				// LocalDate dIni = LocalDate.from(pedido.getDtCriacaoPedido());
 				// LocalDate dFim;
 				if (pedidoItem.getDataPagamento() != null) {
-					dFim = Instant.from(
-							pedidoItem.getDataPagamento().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
+					dFim = pedidoItem.getDataPagamento();
 				} else if (pedidoItem.getDataFaturamento() != null) {
 					dFim = pedidoItem.getDataFaturamento();
 				} else {
