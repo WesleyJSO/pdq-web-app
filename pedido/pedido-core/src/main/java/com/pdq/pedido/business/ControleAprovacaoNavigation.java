@@ -7,16 +7,16 @@ import org.springframework.context.annotation.Configuration;
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.pdq.pedido.business.impl.FindControleAprovacaoByIdPedido;
-import com.pdq.pedido.helper.RegraHelper;
+import com.pdq.pedido.helper.ControleAprovacaoHelper;
 
 @Configuration
-public class RegraNavigation {
+public class ControleAprovacaoNavigation {
 	
 	@Autowired private FindControleAprovacaoByIdPedido findControleAprovacaoByIdPedido;
 	
 	@Bean(name = "FIND_CONTROLE_APROVACAO_BY_ID_PEDIDO")
-	public Navigation<RegraHelper> findPedidoByFilter() {
-		return new NavigationBuilder<RegraHelper>()
+	public Navigation<ControleAprovacaoHelper> findControleAprovacaoByIdPedido() {
+		return new NavigationBuilder<ControleAprovacaoHelper>()
 				.next(findControleAprovacaoByIdPedido)
 				.build();
 	}

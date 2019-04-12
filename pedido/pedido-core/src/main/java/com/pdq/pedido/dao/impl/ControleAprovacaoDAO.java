@@ -21,7 +21,7 @@ import com.pdq.utils.GenericDAO;
 @Transactional
 public class ControleAprovacaoDAO extends GenericDAO<ControleAprovacao, Long> {
 	
-	public Stream<ControleAprovacao> findByControleAprovacaoByIdPedido(Filter<? extends ControleAprovacao> filter) {
+	public Stream<ControleAprovacao> findControleAprovacaoByIdPedido(Filter<? extends ControleAprovacao> filter) {
 
 		boolean validFilter = filter != null 
 				&& filter.getEntity() != null 

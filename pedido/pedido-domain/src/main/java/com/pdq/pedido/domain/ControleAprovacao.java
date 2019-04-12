@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
@@ -40,6 +41,7 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	private boolean ativo;
 	private LocalDate dataAprovacao;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PEDIDO")
 	private Pedido pedido;

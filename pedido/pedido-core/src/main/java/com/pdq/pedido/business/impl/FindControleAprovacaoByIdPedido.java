@@ -7,23 +7,25 @@ import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
-import com.pdq.pedido.dao.impl.RegraDAO;
-import com.pdq.pedido.helper.RegraHelper;
+import com.pdq.pedido.dao.impl.ControleAprovacaoDAO;
+import com.pdq.pedido.helper.ControleAprovacaoHelper;
 
 @Component
-public class FindControleAprovacaoByIdPedido implements IStrategy<RegraHelper> {
+public class FindControleAprovacaoByIdPedido implements IStrategy<ControleAprovacaoHelper> {
 
-	@Autowired RegraDAO dao;
-	
+	@Autowired
+	ControleAprovacaoDAO controleAprovacaoDAO;
+
 	@Override
-	public void process(RegraHelper aEntity, INavigationCase<RegraHelper> aCase) {
-		if(aEntity != null && !Strings.isNullOrEmpty(((RegraHelper)aEntity).getIdPedido())) {
-			Filter<RegraHelper> filter = new Filter<>();
+	public void process(ControleAprovacaoHelper aEntity, INavigationCase<ControleAprovacaoHelper> aCase) {
+		if (aEntity != null && null != aEntity.getPedido()
+				&& !Strings.isNullOrEmpty(((ControleAprovacaoHelper) aEntity).getPedido().getId())) {
+			Filter<ControleAprovacaoHelper> filter = new Filter<>();
 			filter.setEntity(aEntity);
-			aCase.getResult().addEntities(dao.findControleAprovacaoByIdPedido(filter));
+			aCase.getResult().addEntities(controleAprovacaoDAO.findControleAprovacaoByIdPedido(filter));
 			return;
 		}
-		aCase.getResult().setMessage("entidade Regra não encontrada.");
+		aCase.getResult().setMessage("Aprovações não encontradas.");
 		aCase.getResult().setError();
 		aCase.suspendExecution();
 	}

@@ -35,7 +35,7 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 			
 			TypedQuery<ControleAprovacao> query = em
 					.createQuery(jpql.toString(), ControleAprovacao.class)
-					.setParameter("idPedido", ((RegraHelper) filter.getEntity()).getIdPedido());
+					.setParameter("id", ((RegraHelper) filter.getEntity()).getIdPedido());
 			
 			List<Regra> listRegra = new ArrayList<>();
 			query.getResultList()

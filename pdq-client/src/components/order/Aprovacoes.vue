@@ -30,7 +30,7 @@
       idPedido: { type: String, default: '' }
     },
     async created () {
-      this.listRegra = await this.$_Regra.findByIdPedido(this.idPedido)
+      this.listRegra = await this.$_ControleAprovacao.findByIdPedido(this.idPedido)
     },
     data () {
       return {
