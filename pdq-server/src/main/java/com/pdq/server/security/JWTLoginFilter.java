@@ -49,13 +49,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 				credentials.setLogin(login.toString());
 				credentials.setSenha(password.toString());
 			}
-		}
-
-		/**
-		 * stores sent password to later encrypt with BCryptPasswordEncoder in the Security service class
-		 */
-		SecurityService.presentedPassword = credentials.getSenha();
-		
+		}		
 		return getAuthenticationManager().authenticate(
 				new UsernamePasswordAuthenticationToken(
 						credentials.getLogin(),

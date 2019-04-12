@@ -19,8 +19,6 @@ import com.pdq.pedido.domain.Usuario;
 
 @Component
 public class SecurityService implements UserDetailsService {
-
-	protected static String presentedPassword;
 	
 	@Autowired private UsuarioDAO usuarioDAO;
 	private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
