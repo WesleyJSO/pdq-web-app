@@ -1,7 +1,5 @@
 package com.s3.business.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +8,9 @@ import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Result;
 import com.s3.helper.ParametroHelper;
 import com.s3.helper.PedidoHelper;
+import com.s3.helper.StatusPedidoHelper;
 import com.s3.repository.ParametroRepository;
 import com.s3.sap.z_pedido_novo_sap.TableOfZsdeErroPedidoWebs;
-import com.s3.sap.z_pedido_novo_sap.TableOfZsdePedidoWebs;
 import com.s3.sap.z_pedido_novo_sap.ZbcPedidoNovoArtWebs;
 import com.s3.service.sap.PedidoNovoService;
 /**
@@ -30,11 +28,15 @@ public class SendOrderToSap implements IStrategy<PedidoHelper> {
 	
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
-		Optional<TableOfZsdePedidoWebs> pedidoSap = aCase.getResult().getEntity();
-		if(pedidoSap.isPresent()) {
+		
+		
+		if (aEntity != null 
+				&& aEntity.getStatusPedido() != null 
+				&& StatusPedidoHelper.ID_STATUS_VERIFICACAO_ADM_VENDAS.equals(aEntity.getStatusPedido().getId())) {
+			
 			ZbcPedidoNovoArtWebs request = new ZbcPedidoNovoArtWebs();
 			request.setIChAcesso(parametroRepository.findById(ParametroHelper.PARAMETER_SAP_WS_KEY).get().getValParametro());
-			request.setTabPedido(pedidoSap.get());
+			request.setTabPedido(aCase.getResult().getEntity());
 			request.setTabErroPedido(new TableOfZsdeErroPedidoWebs());
 			Result r = pedidoNovoService.execute(request);
 			if(r.hasError()) {
