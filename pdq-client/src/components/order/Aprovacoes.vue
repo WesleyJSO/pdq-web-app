@@ -16,10 +16,10 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="green darken-3" class="white--text" small>Aprovado</v-btn>
-      <v-btn color="yellow darken-4" class="white--text" small>Não Aprovado</v-btn>
-      <v-btn color="red darken-3" class="white--text" small>Cancelado</v-btn>
-      <v-btn color="light-blue darken-3" class="white--text" small>Desfazer Alterações</v-btn>
+      <v-btn color="#145661" class="white--text" depressed small @click="orderApproval">Aprovado</v-btn>
+      <v-btn color="#808000" class="white--text" depressed small>Não Aprovado</v-btn>
+      <v-btn color="#971900" class="white--text" depressed small>Cancelado</v-btn>
+      <v-btn color="light-blue darken-3" class="white--text" depressed small>Desfazer Alterações</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -27,15 +27,24 @@
 <script>
   export default {
     props: {
-      idPedido: { type: String, default: '' }
+      pedido: { type: Object, default: () => {} }
     },
     async created () {
-      this.listRegra = await this.$_Regra.findByIdPedido(this.idPedido)
+      this.listRegra = await this.$_Regra.findByIdPedido(this.pedido.id)
     },
     data () {
       return {
         checkBoxColor: 'indigo',
         listRegra: []
+      }
+    },
+    methods: {
+      async orderApproval () {
+        if(this.pedido) {
+          console.log(this.pedido)
+          let i = await this.$_BaseAPI.putData(this.pedido, 'pedido/changestatus')
+          console.log(i)
+        }
       }
     }
   }

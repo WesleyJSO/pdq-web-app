@@ -49,16 +49,15 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 			
 			PedidoHelper p = new PedidoHelper();
 			p.setCodSap(codSap);
+			
 			applicationFacade.find(p, aCase);
-
 			Optional<Pedido> ts = aCase.getResult().getEntity();
 
 			if (ts.isPresent() && Stream.of(ts.get()).count() > 0)
 				return ResponseEntity.ok(ts.get());
 			else if(aCase.getResult().hasError())
 				return ResponseMessage.serverError(aCase.getResult().getMessage());
-			else
-				return ResponseEntity.noContent().build();
+			return ResponseMessage.serverError("Erro durante processamento da entidade.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,14 +73,15 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
 					.withName("FILTER_PEDIDO_BY_STATUS");
 			
-			navigator.run(filter, aCase);
+			applicationFacade.find(filter, aCase);
 			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
-
-			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
+			
+			if (ts.isPresent() && Stream.of(ts.get()).count() > 0)
 				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
-			}
-			return ResponseEntity.noContent().build();
-
+			else if (aCase.getResult().hasError())
+				return ResponseMessage.serverError(aCase.getResult().getMessage());
+			return ResponseMessage.serverError("Erro durante processamento da entidade.");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseMessage.serverError("Erro ao consultar " + Pedido.class.getSimpleName());
@@ -128,16 +128,13 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 		try {
 			BusinessCase<PedidoHelper> aCase = new BusinessCaseBuilder<PedidoHelper>()
 					.withName("CHANGE_ORDER_STATUS");
-			
-			navigator.run(pedido, aCase);
-			
+			applicationFacade.save(pedido, aCase);
 			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
-
-			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
+			if (ts.isPresent() && Stream.of(ts.get()).count() > 0)
 				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
-			}
-			return ResponseEntity.noContent().build();
-
+			else if (aCase.getResult().hasError())
+				return ResponseMessage.serverError(aCase.getResult().getMessage());
+			return ResponseMessage.serverError("Erro durante processamento da entidade.");
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return ResponseMessage.serverError("Erro ao alterar o status do pedido");

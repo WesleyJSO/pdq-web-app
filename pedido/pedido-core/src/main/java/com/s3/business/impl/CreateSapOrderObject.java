@@ -12,13 +12,12 @@ import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.google.common.base.Strings;
 import com.pdq.pedido.domain.Funcionario;
-import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
 import com.s3.dao.impl.FuncionarioDAO;
 import com.s3.helper.ParametroHelper;
 import com.s3.helper.PedidoHelper;
+import com.s3.helper.StatusPedidoHelper;
 import com.s3.repository.ParametroRepository;
-import com.s3.repository.PedidoRepository;
 import com.s3.sap.z_pedido_novo_sap.TableOfZsdePedidoWebs;
 import com.s3.sap.z_pedido_novo_sap.ZsdePedidoWebs;
 /**
@@ -45,17 +44,24 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
 	@Autowired private ParametroRepository parametroRepository;
 	private TableOfZsdePedidoWebs pedidoSap;
 	
-	@Autowired private PedidoRepository pedidoRepository;
 	/**
+	 *
 	 * Get each order item from the order and put it into a SAP object,
 	 * creates a SAP's order object with order items ready to send to SAP.
+	 *
+	 * @author José Wesley Silva
+	 * 15-04-2019 14:19:22
+	 *
+	 * @param aEntity
+	 * @param aCase
 	 */
 	@Override
-	public void process(PedidoHelper bEntity, INavigationCase<PedidoHelper> aCase) {
+	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 
-		Pedido aEntity = pedidoRepository.findById("8a43f82e5333658101533e7e347201b6").get();
-		
-		if (aEntity != null) {
+		if (aEntity != null 
+				&& aEntity.getStatusPedido() != null 
+				&& StatusPedidoHelper.ID_STATUS_VERIFICACAO_ADM_VENDAS.equals(aEntity.getStatusPedido().getId())) {
+			
 			Optional<Funcionario> funcionario = funcionarioDAO.findById(aEntity.getUsuarioRtv().getId(), new Funcionario());
             Optional<Funcionario> funcionarioResponsavelComissao = funcionarioDAO.findById(aEntity.getUsuarioResponsavelComissao().getId(), new Funcionario());
 			
