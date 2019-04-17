@@ -20,5 +20,6 @@ public class StatusControleAprovacaoHelper extends StatusControleAprovacao {
 	public static final Long ID_PENDENTE = 1L;
 	public static final Long ID_APROVADO = 2L;
 	public static final Long ID_REPROVADO = 3L;
+	public static final Long ID_CANCELADO = 4L;
 
 }

@@ -131,10 +131,10 @@ public class PedidoController extends DomainEntityController<Pedido, String> {
 			
 			navigator.run(pedido, aCase);
 			
-			Optional<Stream<Pedido>> ts = aCase.getResult().getEntities();
+			Optional<Pedido> ts = aCase.getResult().getEntity();
 
-			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
-				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
+			if (ts.isPresent()) {
+				return ResponseEntity.ok(ts.get());
 			}
 			return ResponseEntity.noContent().build();
 

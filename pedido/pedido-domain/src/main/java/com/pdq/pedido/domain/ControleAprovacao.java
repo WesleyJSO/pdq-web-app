@@ -67,6 +67,9 @@ public class ControleAprovacao extends DomainEntity<Long> {
 	
 	@Transient
 	private Boolean disapproved;
+	
+	@Transient
+	private Boolean canceled;
 
 	public ControleAprovacao(){}
 	

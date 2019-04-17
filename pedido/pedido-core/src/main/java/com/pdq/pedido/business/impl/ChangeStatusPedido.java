@@ -73,14 +73,17 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 		// if any of the active approvals were disapproved, return the proper
 		// disapprove status
 		for (ControleAprovacao ca : listControleAprovacao) {
-			if (ca.isAtivo()
-					&& ca.getStatusControleAprovacao().getId().equals(StatusControleAprovacaoHelper.ID_REPROVADO)) {
-				Long idDisaprove;
-				if (pedido.getOrcamento())
-					idDisaprove = StatusPedidoHelper.ID_STATUS_NAO_APROVADO;
-				else
-					idDisaprove = StatusPedidoHelper.ID_STATUS_RECUSADO;
-				return statusPedidoDAO.findById(idDisaprove, ca.getStatusPedido()).get();
+			if (ca.isAtivo()) {
+				if (ca.getStatusControleAprovacao().getId().equals(StatusControleAprovacaoHelper.ID_REPROVADO)) {
+					Long idDisaprove;
+					if (!pedido.getOrcamento())
+						idDisaprove = StatusPedidoHelper.ID_STATUS_NAO_APROVADO;
+					else
+						idDisaprove = StatusPedidoHelper.ID_STATUS_RECUSADO;
+					return statusPedidoDAO.findById(idDisaprove, ca.getStatusPedido()).get();
+				} else if (ca.getStatusControleAprovacao().getId().equals(StatusControleAprovacaoHelper.ID_CANCELADO)){
+					return statusPedidoDAO.findById(StatusPedidoHelper.ID_STATUS_CANCELADO, ca.getStatusPedido()).get();
+				}
 			}
 		}
 		return findStatus(listControleAprovacao);

@@ -20,7 +20,6 @@ import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.StatusPedido;
 import com.pdq.pedido.domain.Usuario;
 import com.pdq.pedido.helper.PedidoHelper;
-import com.pdq.pedido.helper.StatusPedidoHelper;
 
 /**
  * 
@@ -44,51 +43,35 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
 		Pedido pedido = optionalPedido.get();
-		Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
-		Stream<ControleAprovacao> streamControleAprovacao = optional.get();
+		Optional<Stream<ControleAprovacao>> controleAprovacaoOptional = aCase.getResult().getEntity("approvedList");
+		Stream<ControleAprovacao> streamApproved = controleAprovacaoOptional.get();
 		Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("oldStatus");
-		StatusPedido oldStatus = statusOptional.isPresent() ? statusOptional.get() : null;
+		StatusPedido oldStatus = statusOptional.get();
 		StatusPedido newStatus = pedido.getStatusPedido();
-		if (null != oldStatus) {
-			List<StatusPedido> listApprovedStatus = findApprovedStatuses(streamControleAprovacao, oldStatus, newStatus);
-			List<HistStatusPedido> listHistStatusPedido = generate(listApprovedStatus, pedido, oldStatus, newStatus,
-					aEntity.getObservacaoHistorico());
-			histStatusPedidoDAO.saveAll(listHistStatusPedido);
-		} else {
-			error(aCase, "Erro na geração de histórico de aprovação.", true);
-		}
+		List<StatusPedido> listApprovedStatus = findApprovedStatuses(streamApproved, oldStatus, newStatus);
+		List<HistStatusPedido> listHistStatusPedido = generate(listApprovedStatus, pedido,
+				aEntity.getObservacaoHistorico());
+		
+		histStatusPedidoDAO.saveAll(listHistStatusPedido);
 	}
 
+	// obtains the approved statuses, except the old status, for the history should show the destination statuses of the order/budget
 	private List<StatusPedido> findApprovedStatuses(Stream<ControleAprovacao> streamControleAprovacao,
 			StatusPedido oldStatus, StatusPedido newStatus) {
-		// get approved statuses by order bigger than old status and smaller
-		// than new status
-		List<ControleAprovacao> listApprovedControleAprovacao = streamControleAprovacao
-				.filter(ca -> ca.getStatusPedido().getOrdem() >= oldStatus.getOrdem()
-						&& ca.getStatusPedido().getOrdem() < newStatus.getOrdem())
-				.collect(Collectors.toList());
 		List<StatusPedido> listApprovedStatus = new ArrayList<>();
-		// adds old status to list if it is initial status
-		if (StatusPedidoHelper.ID_STATUS_EM_CONSTRUCAO.equals(oldStatus.getId()))
-			listApprovedStatus.add(oldStatus);
+		List<ControleAprovacao> listApprovedControleAprovacao = streamControleAprovacao.collect(Collectors.toList());
 		listApprovedControleAprovacao.forEach(ca -> listApprovedStatus.add(ca.getStatusPedido()));
+		listApprovedStatus.add(newStatus);
+		listApprovedStatus.remove(oldStatus);
 		return listApprovedStatus;
 	}
 
-	private List<HistStatusPedido> generate(List<StatusPedido> listApprovedStatus, Pedido pedido,
-			StatusPedido oldStatus, StatusPedido newStatus, String obs) {
+	private List<HistStatusPedido> generate(List<StatusPedido> listApprovedStatus, Pedido pedido, String obs) {
 		List<HistStatusPedido> listHistStatusPedido = new ArrayList<>();
 		Usuario usuario = usuarioDAO.getLoggedUser();
 		listApprovedStatus
 				.forEach(status -> listHistStatusPedido.add(new HistStatusPedido(status, usuario, pedido, obs)));
 		return listHistStatusPedido;
-	}
-
-	private void error(INavigationCase<PedidoHelper> aCase, String message, boolean suspend) {
-		aCase.getResult().setError();
-		aCase.getResult().setMessage(message);
-		if (suspend)
-			aCase.suspendExecution();
 	}
 
 }
