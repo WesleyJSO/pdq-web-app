@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dvsmedeiros.bce.core.controller.INavigator;
@@ -34,7 +35,27 @@ public abstract class DomainEntityController <T extends IEntity, R extends Objec
 		this.clazz = clazz;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	@GetMapping(value = "/{id}")
+	public @ResponseBody ResponseEntity getEntityById(@PathVariable R id) {
+		try {
+			BusinessCase<?> aCase = new BusinessCaseBuilder<T>().defaultContext();
+			Result result = applicationFacade.findById(id, clazz, aCase);
+			Optional<T> ts = result.getEntity();
 
+			if (ts.isPresent() && Stream.of(ts.get()).count() > 0)
+				return ResponseEntity.ok(ts.get());
+			else if(aCase.getResult().hasError())
+				return ResponseMessage.serverError(aCase.getResult().getMessage());
+			else
+				return ResponseEntity.noContent().build();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseMessage.serverError("Erro ao consultar " + clazz.getSimpleName());
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
 	@GetMapping
 	public @ResponseBody ResponseEntity getEntities() {

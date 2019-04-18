@@ -11,8 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.dvsmedeiros.bce.domain.ApplicationEntity;
-import com.pdq.pedido.dao.impl.UsuarioDAO;
 import com.pdq.pedido.domain.Usuario;
+import com.s3.dao.impl.UsuarioDAO;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -15,8 +15,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Usuario;
-import com.pdq.pedido.helper.UsuarioHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.UsuarioHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}usuario")

@@ -17,10 +17,10 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="green darken-3" class="white--text" @click="approve" small>Aprovar</v-btn>
-      <v-btn color="yellow darken-4" class="white--text" @click="disapprove" small>Reprovar</v-btn>
-      <v-btn color="red darken-3" class="white--text" @click="cancel" small>Cancelar</v-btn>
-      <v-btn color="light-blue darken-3" class="white--text" :disabled=true small>Desfazer Alterações</v-btn>
+      <v-btn color="#145661" class="white--text" @click="approve" depressed small>Aprovar</v-btn>
+      <v-btn color="#808000" class="white--text" @click="disapprove" depressed small>Reprovar</v-btn>
+      <v-btn color="#971900" class="white--text" @click="cancel" depressed small>Cancelar</v-btn>
+      <v-btn color="light-blue darken-3" class="white--text" :disabled=true depressed small>Desfazer Alterações</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -29,7 +29,7 @@
   import store from '../../store'
   export default {
     props: {
-      idPedido: { type: String, default: '' }
+      pedido: { type: Object, default: () => {} }
     },
     async created () {
       this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.idPedido)
@@ -60,7 +60,7 @@
       },
       async changeStatus(){
         let pedido
-        pedido = await this.$_Pedido.changeStatus({id: this.idPedido, listControleAprovacao: this.listControleAprovacao})
+        pedido = await this.$_BaseAPI.putData({id: this.pedido.id, listControleAprovacao: this.listControleAprovacao}, 'pedido/changestatus')
         this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.idPedido)
         this.$emit('changed', pedido)
         this.verifyUserApprovalPermissions()

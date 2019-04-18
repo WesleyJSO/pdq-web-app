@@ -85,7 +85,7 @@
 			<artifactId>pedido-domain</artifactId>
 			<version>${pdq.version}</version>
 		</dependency>
-		
+
 		<!-- place every rest from each module in here -->
 		<dependency>
 			<groupId>com.dvsmedeiros</groupId>
@@ -98,7 +98,11 @@
 			<artifactId>pedido-rest</artifactId>
 			<version>${pdq.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.pdq</groupId>
+			<artifactId>pdq-ws</artifactId>
+			<version>${pdq.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

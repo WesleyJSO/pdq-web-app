@@ -1,7 +1,5 @@
 package com.pdq.pedido.domain;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,28 +12,19 @@ import lombok.EqualsAndHashCode;
  * 
  * @author José Wesley Silva
  * Muralis Assessoria e Tecnologia Ltda.
- * 05-03-2019 11:45:44
+ * 10-04-2019 18:47:17
  *
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
+@Table
 @Entity
-@Table(name = "VENDEDOR_SAP")
-@AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class VendedorSap extends DomainEntity<Long> {
-		
-	private static final long serialVersionUID = -2490368437650764808L;
 	
-	@Column(name = "COD_VENDEDOR_SAP")
-	private String codVendedorSap;
-	
-	@Column(name = "NOME_VENDEDOR_SAP")
-	private String nomVendedorSap;	
-	
-	@Column(name = "NUM_CNPJ")
-	private String numCnpj;
-	
-	@Column(name = "NUM_CPF")
-	private String numCpf;
+	private static final long serialVersionUID = 7429212480049994047L;
 
+	private String codVendedorSap;
+	private String nomeVendedorSap;	
+	private String numCnpj;
+	private String numCpf;
 }

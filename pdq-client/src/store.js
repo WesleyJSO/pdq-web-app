@@ -104,6 +104,10 @@ export default new Vuex.Store({
 		},
 		setToken({ commit }, validUser) {
 			return new Promise((resolve) => {
+				axios.get(`${process.env.VUE_APP_BASE_URL}funcionario/${validUser.id}`)
+				.then(resp => {
+					validUser.username = resp.data.nomFuncionario
+				})
 				const token = 'Bearer  '.concat(validUser.token)
 				const user = validUser
 				const roles = user.authorities.map(role => { return {id: role.id, authority: role.authority}})
