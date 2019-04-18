@@ -32,7 +32,7 @@
       pedido: { type: Object, default: () => {} }
     },
     async created () {
-      this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.idPedido)
+      this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.pedido.id)
       this.verifyUserApprovalPermissions()
     },
     data () {
@@ -61,7 +61,7 @@
       async changeStatus(){
         let pedido
         pedido = await this.$_BaseAPI.putData({id: this.pedido.id, listControleAprovacao: this.listControleAprovacao}, 'pedido/changestatus')
-        this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.idPedido)
+        this.listControleAprovacao = await this.$_ControleAprovacao.findByIdPedido(this.pedido.id)
         this.$emit('changed', pedido)
         this.verifyUserApprovalPermissions()
       },
@@ -71,10 +71,16 @@
           let hasPermission = false
           // verify user permissions
           store.getters.userRoles.forEach(role => {
-            if (approval.regra.perfil.id === role.id) {
+            if (approval.regra.perfil && approval.regra.perfil.id === role.id) {
               hasPermission = true
+            // if term rule
             }
           })
+          if (approval.regra.aprovador){
+            if (approval.regra.aprovador === store.getters.loggedUser.id){
+              hasPermission = true
+            }
+          }
           let enable = hasPermission
           // verify approval status
           if (approval.approved === true || approval.disapproved === true || approval.canceled === true) {

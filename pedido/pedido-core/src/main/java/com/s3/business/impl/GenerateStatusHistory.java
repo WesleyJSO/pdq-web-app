@@ -44,7 +44,7 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
 		Pedido pedido = optionalPedido.get();
 		Optional<Stream<ControleAprovacao>> controleAprovacaoOptional = aCase.getResult().getEntity("approvedList");
-		Stream<ControleAprovacao> streamApproved = controleAprovacaoOptional.get();
+		Stream<ControleAprovacao> streamApproved = controleAprovacaoOptional.isPresent() ? controleAprovacaoOptional.get() : Stream.empty();
 		Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("oldStatus");
 		StatusPedido oldStatus = statusOptional.get();
 		StatusPedido newStatus = pedido.getStatusPedido();

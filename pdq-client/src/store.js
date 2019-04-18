@@ -113,6 +113,7 @@ export default new Vuex.Store({
 				const roles = user.authorities.map(role => { return {id: role.id, authority: role.authority}})
 				localStorage.setItem('user-token', token)
 				let parsedUser = {
+					id: user.id,
 					user: user.username,
 					roles,
 					token

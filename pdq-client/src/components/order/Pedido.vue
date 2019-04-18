@@ -39,7 +39,7 @@
 			</v-flex>
       
 			<v-flex>
-				<Aprovacoes :idPedido="mutablePedido.id" @changed="changePedido" />
+				<Aprovacoes :pedido="mutablePedido" @changed="changePedido" />
 			</v-flex>
 
 		</v-layout>
@@ -75,7 +75,7 @@ import Aprovacoes from './Aprovacoes'
 			changePedido(pedido){
 				this.mutablePedido = pedido
 			}
-    },
+		},
     data () {
       return {
 				orderNumber: '',
