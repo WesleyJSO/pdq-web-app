@@ -1,4 +1,4 @@
-package com.pdq.pedido.business.impl;
+package com.s3.business.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +11,8 @@ import org.springframework.util.CollectionUtils;
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.pdq.pedido.domain.ControleAprovacao;
-import com.pdq.pedido.helper.ControleAprovacaoHelper;
-import com.pdq.pedido.helper.StatusControleAprovacaoHelper;
+import com.s3.helper.ControleAprovacaoHelper;
+import com.s3.helper.StatusControleAprovacaoHelper;
 
 /**
  * 

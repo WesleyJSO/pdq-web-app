@@ -1,4 +1,4 @@
-package com.pdq.pedido.business;
+package com.s3.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
-import com.pdq.pedido.business.impl.ProcessApprovals;
-import com.pdq.pedido.helper.ControleAprovacaoHelper;
 import com.s3.business.impl.FindControleAprovacaoByIdPedido;
+import com.s3.business.impl.ProcessApprovals;
+import com.s3.helper.ControleAprovacaoHelper;
 
 @Configuration
 public class ControleAprovacaoNavigation {

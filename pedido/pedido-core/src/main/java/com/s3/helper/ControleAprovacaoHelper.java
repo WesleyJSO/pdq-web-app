@@ -1,4 +1,4 @@
-package com.pdq.pedido.helper;
+package com.s3.helper;
 
 import com.pdq.pedido.domain.ControleAprovacao;
 

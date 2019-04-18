@@ -7,8 +7,8 @@ import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
-import com.pdq.pedido.helper.ControleAprovacaoHelper;
 import com.s3.dao.impl.ControleAprovacaoDAO;
+import com.s3.helper.ControleAprovacaoHelper;
 
 @Component
 public class FindControleAprovacaoByIdPedido implements IStrategy<ControleAprovacaoHelper> {

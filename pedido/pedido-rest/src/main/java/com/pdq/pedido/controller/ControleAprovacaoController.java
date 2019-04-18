@@ -16,8 +16,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.ControleAprovacao;
 import com.pdq.pedido.domain.Pedido;
-import com.pdq.pedido.helper.ControleAprovacaoHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.ControleAprovacaoHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}controleaprovacao")

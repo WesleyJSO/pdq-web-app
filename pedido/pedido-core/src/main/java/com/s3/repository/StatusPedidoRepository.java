@@ -1,4 +1,4 @@
-package com.pdq.pedido.repository;
+package com.s3.repository;
 
 import com.pdq.pedido.domain.StatusPedido;
 import com.pdq.utils.IRepository;
