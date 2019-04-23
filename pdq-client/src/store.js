@@ -25,10 +25,10 @@ export default new Vuex.Store({
 		AUTH_REQUEST(state) {
 			state.status = 'loading'
 		},
-		AUTH_SUCCESS(state, { token, user }) {
+		AUTH_SUCCESS(state, { token, parsedUser }) {
 			state.status = 'success'
 			state.token = token
-			state.user = user
+			state.user = parsedUser
 		},
 		AUTH_ERROR(state) {
 			state.status = 'error'
@@ -71,7 +71,7 @@ export default new Vuex.Store({
 					.then(resp => {
 						const token = resp.headers.authorization
 						const user = resp.data
-						const roles = user.authorities.map(role => role.authority)
+						const roles = user.authorities.map(role => { return {id: role.id, authority: role.authority}})
 						localStorage.setItem('user-token', token)
 						let parsedUser = {
 							user: user.username,
@@ -80,7 +80,7 @@ export default new Vuex.Store({
 						}
 						localStorage.setItem('user', JSON.stringify(parsedUser))
 						axios.defaults.headers.common['Authorization'] = token
-						commit('AUTH_SUCCESS',{ token, user })
+						commit('AUTH_SUCCESS',{ token, parsedUser })
 						resolve(resp)
 					})
 					.catch(err => {
@@ -104,18 +104,23 @@ export default new Vuex.Store({
 		},
 		setToken({ commit }, validUser) {
 			return new Promise((resolve) => {
+				axios.get(`${process.env.VUE_APP_BASE_URL}funcionario/${validUser.id}`)
+				.then(resp => {
+					validUser.username = resp.data.nomFuncionario
+				})
 				const token = 'Bearer  '.concat(validUser.token)
 				const user = validUser
-				const roles = user.authorities.map(role => role.authority)
+				const roles = user.authorities.map(role => { return {id: role.id, authority: role.authority}})
 				localStorage.setItem('user-token', token)
 				let parsedUser = {
+					id: user.id,
 					user: user.username,
 					roles,
 					token
 				}
 				localStorage.setItem('user', JSON.stringify(parsedUser))
 				axios.defaults.headers.common['Authorization'] = token
-				commit('AUTH_SUCCESS', { token, user })
+				commit('AUTH_SUCCESS', { token, parsedUser })
 				resolve()
 			})
 		}
@@ -129,6 +134,7 @@ export default new Vuex.Store({
 	getters: {
 		isLoggedIn: state => !!state.token,
 		authStatus: state => state.status,
-    loggedUser: state => state.user ? state.user : null
+		loggedUser: state => state.user ? state.user : null,
+		userRoles: state => state.user ? state.user.roles : []
 	}
 })

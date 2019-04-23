@@ -28,6 +28,9 @@ public class Perfil extends DomainEntity<Long> implements IEntity, GrantedAuthor
 	
 	private static final long serialVersionUID = -116633184780027495L;
 	
+	public Perfil() {
+		super();
+	}
 	private String desPerfil;
 	private String acronimo;
 

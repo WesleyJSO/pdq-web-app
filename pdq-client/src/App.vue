@@ -46,8 +46,8 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="#007486" dark app fixed dense>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="#f1f1f1" dark app fixed dense>
+      <v-toolbar-side-icon color="primary" @click.stop="drawer = !drawer"/>
       <v-divider class="mx-2" inset vertical/>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-btn color="white" class="button-icon pa-1" depressed>
@@ -56,7 +56,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-avatar size="40" color="blue">
-        <span class="white--text headline">J</span>
+        <span class="white--text headline">{{ initials }}</span>
       </v-avatar>
     </v-toolbar>
     <v-content>
@@ -76,6 +76,7 @@
 
 <script>
 // import GridContainer from './components/GridContainer'
+import store from './store'
 import Snackbar from './components/shared/Snackbar'
 import Loader from './components/shared/Loader'
 export default {
@@ -106,9 +107,19 @@ export default {
         // { icon: 'trending_up', text: 'Relatórios', link: '/report' },
         // { icon: 'settings', text: 'Configurações', link: '/configuration' },
       ]
-    };
+    }
+  },
+  computed: {
+    initials: () => {
+      console.log(store.state.user.username)
+      if(store.state.user.username) {
+        var initials = store.state.user.username.match(/\b\w/g) || []
+        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase()
+        return initials
+      }
+    }
   }
-};
+}
 </script>
 
 <style>

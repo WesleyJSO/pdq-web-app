@@ -39,7 +39,7 @@
 			</v-flex>
       
 			<v-flex>
-				<Aprovacoes :idPedido="mutablePedido.id" />
+				<Aprovacoes :pedido="mutablePedido" @changed="changePedido" />
 			</v-flex>
 
 		</v-layout>
@@ -71,8 +71,11 @@ import Aprovacoes from './Aprovacoes'
 			async fetchOrder (event) {
 				if (event.keyCode === 13 && this.orderNumber.length > 6)
 					this.mutablePedido = await this.$_Pedido.findByCodSap(this.orderNumber)
-			} 
-    },
+			},
+			changePedido(pedido){
+				this.mutablePedido = pedido
+			}
+		},
     data () {
       return {
 				orderNumber: '',

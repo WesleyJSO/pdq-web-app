@@ -19,7 +19,7 @@ const router = new Router({
       component: require('../components/searchorders/GridContainer').default,
       meta: {
         requiresAuth: true,
-        roles: ['TUDO', 'ADM VENDAS']
+        roles: [{id: 11, authority: 'TUDO'}, {id: 5, authority: 'ADM VENDAS'}]
       }
     },
     {
@@ -29,7 +29,7 @@ const router = new Router({
       props: true,
       meta: {
         requiresAuth: true,
-        roles: ['TUDO', 'ADM VENDAS']
+        roles: [{id: 11, authority: 'TUDO'}, {id: 5, authority: 'ADM VENDAS'}]
       }
     },
     {
@@ -38,7 +38,7 @@ const router = new Router({
       component: require('../components/workflow/GridContainer').default,
       meta: {
         requiresAuth: true,
-        roles: ['TUDO', 'ADM VENDAS']
+        roles: [{id: 11, authority: 'TUDO'}, {id: 5, authority: 'ADM VENDAS'}]
       }
     }
   ]
@@ -68,8 +68,13 @@ router.beforeEach((to, from, next) => {
         change = false
       } else {
         let user = store.getters.loggedUser
-        for (let role of user.authorities) {
-          change = to.meta.roles.includes(role.authority)
+        for (let role of user.roles) {
+          for (let metaRole of to.meta.roles) {
+            if (metaRole.authority === role.authority && metaRole.id === role.id) {
+              change = true
+              break
+            }
+          }
           if(change === true)
             break
         }

@@ -26,4 +26,15 @@ export default class Pedido {
       this.store.commit('SHOW_SNACKBAR', err.response.data.message)
     }
   }
+  async changeStatus(pedido) {
+    try {
+      this.store.commit('SHOW_LOADER')
+      let response = await this.axios.put(`${this.url}/changestatus`, pedido)
+      this.store.commit('CLOSE_LOADER')
+      return response.data
+    } catch (err) {
+      this.store.commit('CLOSE_LOADER')
+      this.store.commit('SHOW_SNACKBAR', err.response.data.message)
+    }
+  }
 }

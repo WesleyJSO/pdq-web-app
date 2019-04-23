@@ -18,8 +18,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Cidade;
-import com.pdq.pedido.helper.CidadeHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.CidadeHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}cidade")

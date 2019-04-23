@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="urn:sap-com:document:sap:rfc:functions"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<wsdl:documentation>
+		<sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+	</wsdl:documentation>
+	<wsp:UsingPolicy wsdl:required="true" />
+	<wsp:Policy wsu:Id="BN__z_alt_cad_s3">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false
+				</sapattahnd:Enabled>
+				<saptrnbnd:OptimizedMimeSerialization
+					xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+					wsp:Optional="true" />
+				<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+					wsp:Optional="true" />
+			</wsp:All>
+			<wsp:All>
+				<sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false
+				</sapattahnd:Enabled>
+				<saptrnbnd:OptimizedXMLTransfer
+					uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/"
+					wsp:Optional="true" />
+				<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+					wsp:Optional="true" />
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="BN__z_alt_cad_s3_soap12">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false
+				</sapattahnd:Enabled>
+				<saptrnbnd:OptimizedMimeSerialization
+					xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+					wsp:Optional="true" />
+				<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+					wsp:Optional="true" />
+			</wsp:All>
+			<wsp:All>
+				<sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false
+				</sapattahnd:Enabled>
+				<saptrnbnd:OptimizedXMLTransfer
+					uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/"
+					wsp:Optional="true" />
+				<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+					wsp:Optional="true" />
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="IF__z_alt_cad_s3">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sapsession:Session
+					xmlns:sapsession="http://www.sap.com/webas/630/soap/features/session/">
+					<sapsession:enableSession>false</sapsession:enableSession>
+				</sapsession:Session>
+				<sapcentraladmin:CentralAdministration
+					xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/"
+					wsp:Optional="true">
+					<sapcentraladmin:BusinessApplicationID>E3252DFEE82067F1833100155D04A504
+					</sapcentraladmin:BusinessApplicationID>
+				</sapcentraladmin:CentralAdministration>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="OP__ZBC_ALT_CLIENTE_ART_WEBS">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<saptrhnw05:required
+					xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+				<sapcomhnd:enableCommit
+					xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+				<sapblock:enableBlocking
+					xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+				<saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false
+				</saprmnw05:enableWSRM>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="qualified"
+			targetNamespace="urn:sap-com:document:sap:rfc:functions">
+			<xsd:simpleType name="char1">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char10">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char132">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="132" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char15">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char18">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="18" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char2">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char20">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char255">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char3">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char30">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char4">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char40">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="40" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char6">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char60">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char70">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="70" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char80">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="80" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ZMME_ALT_CLIENTE_WEBS">
+				<xsd:sequence>
+					<xsd:element name="TP_REGISTRO" type="tns:char1" />
+					<xsd:element name="CD_SAP" type="tns:char10" />
+					<xsd:element name="DC_CLIENTE" type="tns:char70" />
+					<xsd:element name="TERMO_PESQ" type="tns:char20" />
+					<xsd:element name="ENDERECO" type="tns:char60" />
+					<xsd:element name="NUMERO" type="tns:char10" />
+					<xsd:element name="COMPLEMENTO" type="tns:char10" />
+					<xsd:element name="RUA2" type="tns:char40" />
+					<xsd:element name="RUA3" type="tns:char40" />
+					<xsd:element name="RUA4" type="tns:char40" />
+					<xsd:element name="RUA5" type="tns:char40" />
+					<xsd:element name="BAIRRO" type="tns:char40" />
+					<xsd:element name="CEP" type="tns:char10" />
+					<xsd:element name="CIDADE" type="tns:char40" />
+					<xsd:element name="UF" type="tns:char3" />
+					<xsd:element name="PAIS" type="tns:char3" />
+					<xsd:element name="CAIXA_POSTAL" type="tns:char10" />
+					<xsd:element name="TELEFONE" type="tns:char30" />
+					<xsd:element name="RAMAL" type="tns:char10" />
+					<xsd:element name="CELULAR" type="tns:char30" />
+					<xsd:element name="INS_ESTADUAL" type="tns:char18" />
+					<xsd:element name="SUFRAMA" type="tns:char40" />
+					<xsd:element name="ZONA_FRANCA" type="tns:char1" />
+					<xsd:element name="EMAIL" type="tns:char132" />
+					<xsd:element name="EMAIL_NFE" type="tns:char132" />
+					<xsd:element name="EMAIL_BOLETO1" type="tns:char132" />
+					<xsd:element name="EMAIL_BOLETO2" type="tns:char132" />
+					<xsd:element name="EMAIL_BOLETO3" type="tns:char132" />
+					<xsd:element name="OBS" type="tns:char255" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ZSDE_ERRO_WEBS">
+				<xsd:sequence>
+					<xsd:element name="SEQUENCIA" type="tns:char4" />
+					<xsd:element name="CAMPO" type="tns:char40" />
+					<xsd:element name="MENSAGEM" type="tns:char80" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="TABLE_OF_ZSDE_ERRO_WEBS">
+				<xsd:sequence>
+					<xsd:element name="item" type="tns:ZSDE_ERRO_WEBS"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="ZBC_ALT_CLIENTE_ART_WEBS">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="I_ALT_CADASTRO" type="tns:ZMME_ALT_CLIENTE_WEBS"
+							minOccurs="0" />
+						<xsd:element name="I_CH_ACESSO" type="tns:char15"
+							minOccurs="0" />
+						<xsd:element name="TAB_ERRO" type="tns:TABLE_OF_ZSDE_ERRO_WEBS"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ZBC_ALT_CLIENTE_ART_WEBSResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="COD_SAP_PRE" type="tns:char6" />
+						<xsd:element name="DC_STATUS" type="tns:char70" />
+						<xsd:element name="RETORNO" type="tns:char70" />
+						<xsd:element name="STATUS" type="tns:char2" />
+						<xsd:element name="TAB_ERRO" type="tns:TABLE_OF_ZSDE_ERRO_WEBS"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ZBC_ALT_CLIENTE_ART_WEBS">
+		<wsdl:part name="parameters" element="tns:ZBC_ALT_CLIENTE_ART_WEBS" />
+	</wsdl:message>
+	<wsdl:message name="ZBC_ALT_CLIENTE_ART_WEBSResponse">
+		<wsdl:part name="parameter" element="tns:ZBC_ALT_CLIENTE_ART_WEBSResponse" />
+	</wsdl:message>
+	<wsdl:portType name="z_alt_cad_s3">
+		<wsp:Policy>
+			<wsp:PolicyReference URI="#IF__z_alt_cad_s3" />
+		</wsp:Policy>
+		<wsdl:operation name="ZBC_ALT_CLIENTE_ART_WEBS">
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP__ZBC_ALT_CLIENTE_ART_WEBS" />
+			</wsp:Policy>
+			<wsdl:input message="tns:ZBC_ALT_CLIENTE_ART_WEBS" />
+			<wsdl:output message="tns:ZBC_ALT_CLIENTE_ART_WEBSResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="z_alt_cad_s3" type="tns:z_alt_cad_s3">
+		<wsp:Policy>
+			<wsp:PolicyReference URI="#BN__z_alt_cad_s3" />
+		</wsp:Policy>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="ZBC_ALT_CLIENTE_ART_WEBS">
+			<soap:operation
+				soapAction="urn:sap-com:document:sap:rfc:functions:z_alt_cad_s3:ZBC_ALT_CLIENTE_ART_WEBSRequest"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="z_alt_cad_s3_soap12" type="tns:z_alt_cad_s3">
+		<wsp:Policy>
+			<wsp:PolicyReference URI="#BN__z_alt_cad_s3_soap12" />
+		</wsp:Policy>
+		<wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="ZBC_ALT_CLIENTE_ART_WEBS">
+			<wsoap12:operation
+				soapAction="urn:sap-com:document:sap:rfc:functions:z_alt_cad_s3:ZBC_ALT_CLIENTE_ART_WEBSRequest"
+				style="document" />
+			<wsdl:input>
+				<wsoap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsoap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="z_alt_cad_s3">
+		<wsdl:port name="z_alt_cad_s3" binding="tns:z_alt_cad_s3">
+			<soap:address
+				location="http://PDQSZNSAPQAS2.produquimica.local:8002/sap/bc/srt/rfc/sap/z_alt_cad_s3/500/z_alt_cad_s3/z_alt_cad_s3" />
+		</wsdl:port>
+		<wsdl:port name="z_alt_cad_s3_soap12" binding="tns:z_alt_cad_s3_soap12">
+			<wsoap12:address
+				location="http://PDQSZNSAPQAS2.produquimica.local:8002/sap/bc/srt/rfc/sap/z_alt_cad_s3/500/z_alt_cad_s3/z_alt_cad_s3" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

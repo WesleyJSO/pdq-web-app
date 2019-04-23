@@ -17,6 +17,7 @@ import Regra from './API/Regra'
 import Regional from './API/Regional'
 import StatusPedido from './API/StatusPedido'
 import Funcionario from './API/Funcionario'
+import ControleAprovacao from './API/ControleAprovacao'
 
 moment.updateLocale('en', {
   months: [
@@ -43,7 +44,7 @@ Vue.prototype.$_Regra = new Regra(store, axios, url)
 Vue.prototype.$_Regional = new Regional(store, axios, url)
 Vue.prototype.$_StatusPedido = new StatusPedido(store, axios, url)
 Vue.prototype.$_Funcionario = new Funcionario(store, axios, url)
-
+Vue.prototype.$_ControleAprovacao = new ControleAprovacao(store, axios, url)
 
 Vue.filter('userFormatDate', function (v) {
   if (!v || !moment(v).isValid) return 'date parse error'

@@ -14,8 +14,8 @@ import com.dvsmedeiros.bce.core.controller.impl.BusinessCase;
 import com.dvsmedeiros.bce.core.controller.impl.BusinessCaseBuilder;
 import com.dvsmedeiros.rest.domain.ResponseMessage;
 import com.pdq.pedido.domain.Funcionario;
-import com.pdq.pedido.helper.FuncionarioHelper;
 import com.pdq.utils.DomainEntityController;
+import com.s3.helper.FuncionarioHelper;
 
 @Controller
 @RequestMapping("${server.controller.prefix}funcionario")

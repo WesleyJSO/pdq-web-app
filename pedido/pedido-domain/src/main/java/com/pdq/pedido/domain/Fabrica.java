@@ -20,4 +20,5 @@ public class Fabrica extends DomainEntity<Long> {
 	private static final long serialVersionUID = -7664213943083625961L;
 	
 	private String desFabrica;
+	private String codFabrica;
 }

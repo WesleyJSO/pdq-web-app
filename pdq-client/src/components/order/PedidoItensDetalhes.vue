@@ -67,7 +67,7 @@
       tabIndex: { type: Number, default: 1 }
 		},
 		watch: {
-			pedido: function (newOrder) {
+			pedido: function (newOrder) { /** @FIXME try with -- pedido (newOrder) { */
         this.$_PedidoItem.findByIdPedido(newOrder.id)
         .then(response => {
           this.$_Funcionario.findByIdUsuario(newOrder.usuarioRtv.id)

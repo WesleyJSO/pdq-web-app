@@ -10,9 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EntityScan({"com.pdq", "com.dvsmedeiros"})
-@ComponentScan({"com.pdq", "com.dvsmedeiros"})
-@EnableJpaRepositories({"com.pdq", "com.dvsmedeiros"})
+@EntityScan({"com.pdq", "com.s3", "com.dvsmedeiros"})
+@ComponentScan({"com.pdq", "com.s3", "com.dvsmedeiros"})
+@EnableJpaRepositories({"com.pdq", "com.s3", "com.dvsmedeiros"})
 @EnableAutoConfiguration
 @EnableScheduling
 @SpringBootApplication

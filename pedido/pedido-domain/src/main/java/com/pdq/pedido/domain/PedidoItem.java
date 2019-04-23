@@ -1,7 +1,6 @@
 package com.pdq.pedido.domain;
 
-import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -53,7 +52,7 @@ public class PedidoItem extends DomainEntity<String> {
 	private Double encargosFinanceiros;
 	private Double valorJurosUnitario;
 	private Double porcJuros;
-	private Double volumeTotalEmKg;
+	private Double volumeTotalKg;
 	private String embalagem;
 	private String codOrdemSap;
 	private String motivoErroSap;
@@ -62,9 +61,9 @@ public class PedidoItem extends DomainEntity<String> {
 	private Double txCambio;
 	private Boolean aprovadoGerProduto;
 	private Double descontoPorc;
-	private Instant dataFaturamento;
-	private LocalDate dataPagamento;
-	private LocalDate dtTxCambio;
+	private LocalDateTime dataFaturamento;
+	private LocalDateTime dataPagamento;
+	private LocalDateTime dtTxCambio;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PEDIDO")
