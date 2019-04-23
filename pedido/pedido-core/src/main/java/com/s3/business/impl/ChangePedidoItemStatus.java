@@ -1,6 +1,7 @@
 package com.s3.business.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,7 +62,7 @@ public class ChangePedidoItemStatus implements IStrategy<PedidoHelper> {
 		Optional<Stream<ControleAprovacao>> approvedOptional = aCase.getResult()
 				.getEntity("changeStatusControleAprovacaoResult");
 		List<ControleAprovacao> listApproved = approvedOptional.isPresent()
-				? approvedOptional.get().collect(Collectors.toList()) : null;
+				? approvedOptional.get().collect(Collectors.toList()) : Collections.emptyList();
 		List<ControleAprovacao> listControleAprovacao = null;
 		finalStatusAprovacao = findFinalStatus(pedido);
 
@@ -87,6 +88,7 @@ public class ChangePedidoItemStatus implements IStrategy<PedidoHelper> {
 			aCase.getResult().addEntities(listControleAprovacao.stream());
 		}
 		aCase.getResult().addEntity("changeStatusControleAprovacaoResult", listApproved.stream());
+		pedido.setListControleAprovacao(listControleAprovacao);
 		aCase.getResult().addEntity(pedido);
 	}
 
@@ -126,7 +128,8 @@ public class ChangePedidoItemStatus implements IStrategy<PedidoHelper> {
 			for (PedidoItem pi : lstPedidoItem) {
 
 				for (RegraAprovacaoPrazo regraAprovacaoPrazo : listRegra) {
-					if (usuario.getId().equals(regraAprovacaoPrazo.getAprovador().getId())) {
+					if (usuario.getId().equals(regraAprovacaoPrazo.getAprovador().getId()) && regraAprovacaoPrazo
+							.getLstLinhaProduto().contains(pi.getProdutoPrecoRegras().getLinhaProduto())) {
 						itensToAprove.add(pi);
 						LOG.info("Status " + controle.getStatusPedido().getDescricaoStatus() + " do item "
 								+ pi.getProdutoPrecoRegras().getProduto().getDesProduto() + " aprovado por "
@@ -150,15 +153,18 @@ public class ChangePedidoItemStatus implements IStrategy<PedidoHelper> {
 	private void changePedidoItemStatus(List<PedidoItem> itensToAprove, ControleAprovacao controle,
 			List<ControleAprovacao> listControleAprovacao) {
 		itensToAprove.forEach(item -> {
-			ControleAprovacao controleAprovacao = listControleAprovacao.stream().filter(
-					ca -> (ca.getStatusPedido().getOrdem() > controle.getStatusPedido().getOrdem() && !ca.getApproved())
-							|| !ca.getApproved())
-					.findFirst().orElse(null);
-			if (null != controleAprovacao) {
+			ControleAprovacao controleAprovacao = listControleAprovacao.stream()
+					.filter(ca -> (ca.getStatusPedido().getOrdem() > controle.getStatusPedido().getOrdem()
+							&& !ca.getApproved()) || !ca.getApproved())
+					.findFirst()
+					.orElse(listControleAprovacao.stream().filter(
+							ca -> ca.getStatusPedido().getId().equals(StatusPedidoHelper.ID_STATUS_APROVACAO_PRAZO)
+							&& ca.getStatusPedido().getOrdem() < controle.getStatusPedido().getOrdem())
+							.findFirst().orElse(null));
+			if (null != controleAprovacao)
 				item.setStatusAprovacao(controleAprovacao.getStatusPedido());
-			} else {
+			else
 				item.setStatusAprovacao(finalStatusAprovacao);
-			}
 		});
 
 	}

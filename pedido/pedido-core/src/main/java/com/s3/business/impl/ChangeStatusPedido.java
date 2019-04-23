@@ -5,14 +5,18 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
+import com.pdq.pedido.domain.StatusControleAprovacao;
 import com.pdq.pedido.domain.StatusPedido;
 import com.s3.dao.impl.PedidoDAO;
+import com.s3.dao.impl.StatusControleAprovacaoDAO;
 import com.s3.helper.PedidoHelper;
+import com.s3.helper.StatusControleAprovacaoHelper;
 
 /**
  * 
@@ -26,6 +30,10 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 	@Autowired
 	private PedidoDAO pedidoDAO;
 
+	@Autowired
+	private StatusControleAprovacaoDAO statusControleAprovacaoDAO;
+
+	@Transactional
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
@@ -35,6 +43,14 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 		StatusPedido newStatus = null;
 		newStatus = findStatus(pedido);
 		pedido.setStatusPedido(newStatus);
+		pedido.getListControleAprovacao().forEach(controle -> {
+			if (controle.getStatusPedido().equals(pedido.getStatusPedido()) && !controle.getStatusControleAprovacao()
+					.getId().equals(StatusControleAprovacaoHelper.ID_PENDENTE)) {
+				StatusControleAprovacao pending = statusControleAprovacaoDAO
+						.findById(StatusControleAprovacaoHelper.ID_PENDENTE);
+				controle.setStatusControleAprovacao(pending);
+			}
+		});
 		pedido.setDtAlteracaoAprovacao(LocalDateTime.now());
 		pedidoDAO.save(pedido);
 	}
@@ -42,8 +58,8 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 	private StatusPedido findStatus(Pedido pedido) {
 		StatusPedido lowerOrderStatus = null;
 		int lowerOrder = Integer.MAX_VALUE;
-		for (PedidoItem pedidoItem : pedido.getListPedidoItem()){
-			if (pedidoItem.getStatusAprovacao().getOrdem() < lowerOrder){
+		for (PedidoItem pedidoItem : pedido.getListPedidoItem()) {
+			if (pedidoItem.getStatusAprovacao().getOrdem() < lowerOrder) {
 				lowerOrderStatus = pedidoItem.getStatusAprovacao();
 				lowerOrder = lowerOrderStatus.getOrdem();
 			}

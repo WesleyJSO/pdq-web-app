@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
@@ -48,7 +49,8 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 		List<HistStatusPedido> listHistStatusPedido = generate(listApprovedStatus, pedido,
 				aEntity.getObservacaoHistorico());
 		
-		histStatusPedidoDAO.saveAll(listHistStatusPedido);
+		if (!CollectionUtils.isEmpty(listHistStatusPedido))
+			histStatusPedidoDAO.saveAll(listHistStatusPedido);
 	}
 
 	// obtains the approved statuses, except the old one, for the history should show the destination statuses of the order/budget
