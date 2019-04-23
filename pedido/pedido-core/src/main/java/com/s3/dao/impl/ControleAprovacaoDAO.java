@@ -11,7 +11,7 @@ import com.pdq.pedido.domain.ControleAprovacao;
 import com.pdq.utils.GenericDAO;
 
 /**
- * @author Bruno Holanda
+ * @author Bruno Holanda 
  * Muralis Acessoria e Tecnologia Ltda.
  * @date 8 de mar de 2019
  *
@@ -20,22 +20,19 @@ import com.pdq.utils.GenericDAO;
 @Repository
 @Transactional
 public class ControleAprovacaoDAO extends GenericDAO<ControleAprovacao, Long> {
-	
+
 	public Stream<ControleAprovacao> findControleAprovacaoByIdPedido(Filter<? extends ControleAprovacao> filter) {
 
-		boolean validFilter = filter != null 
-				&& filter.getEntity() != null 
-				&& filter.getEntity().getPedido() != null
+		boolean validFilter = filter != null && filter.getEntity() != null && filter.getEntity().getPedido() != null
 				&& filter.getEntity().getPedido().getId() != null;
-		
-		if(validFilter) {
-			
+
+		if (validFilter) {
+
 			StringBuilder jpql = new StringBuilder();
 			jpql.append("from ").append(ControleAprovacao.class.getName()).append(" ca ");
-			jpql.append(" where ca.pedido.id = :id");
+			jpql.append(" where ca.pedido.id = :id").append(" and ca.ativo = true");
 			return em.createQuery(jpql.toString(), ControleAprovacao.class)
-				.setParameter("id", filter.getEntity().getPedido().getId())
-				.getResultList().stream();
+					.setParameter("id", filter.getEntity().getPedido().getId()).getResultList().stream();
 		}
 		return null;
 	}

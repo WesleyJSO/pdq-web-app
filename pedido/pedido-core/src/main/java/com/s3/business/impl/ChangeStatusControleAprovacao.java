@@ -1,5 +1,6 @@
 package com.s3.business.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +14,10 @@ import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.pdq.pedido.domain.ControleAprovacao;
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.StatusControleAprovacao;
+import com.pdq.pedido.domain.Usuario;
 import com.s3.dao.impl.ControleAprovacaoDAO;
 import com.s3.dao.impl.StatusControleAprovacaoDAO;
+import com.s3.dao.impl.UsuarioDAO;
 import com.s3.helper.PedidoHelper;
 import com.s3.helper.StatusControleAprovacaoHelper;
 
@@ -32,6 +35,9 @@ public class ChangeStatusControleAprovacao implements IStrategy<PedidoHelper> {
 
 	@Autowired
 	private ControleAprovacaoDAO controleAprovacaoDao;
+	
+	@Autowired
+	private UsuarioDAO usuarioDAO;
 
 	StatusControleAprovacao approved;
 	StatusControleAprovacao disapproved;
@@ -43,11 +49,12 @@ public class ChangeStatusControleAprovacao implements IStrategy<PedidoHelper> {
 		Pedido pedido = optionalPedido.get();
 		List<ControleAprovacao> listControleAprovacao = aEntity.getListControleAprovacao();
 		if (!CollectionUtils.isEmpty(listControleAprovacao)) {
+			Usuario usuario = usuarioDAO.getLoggedUser();
 			findStatuses();
 			List<ControleAprovacao> listApproved = new ArrayList<>();
 			listControleAprovacao.forEach(ca -> {
 				ca.setPedido(pedido);
-				if (StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId()))
+				if (StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId())) {
 					if (ca.getDisapproved())
 						ca.setStatusControleAprovacao(disapproved);
 					else if (ca.getCanceled())
@@ -55,11 +62,16 @@ public class ChangeStatusControleAprovacao implements IStrategy<PedidoHelper> {
 					else if (ca.getApproved()) {
 						ca.setStatusControleAprovacao(approved);
 						listApproved.add(ca);
-					} 
+					}
+					if (!StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId())){
+						ca.setDataAprovacao(LocalDate.now());
+						ca.setUsuario(usuario);
+					}
+				}
 			});
 			controleAprovacaoDao.saveAll(listControleAprovacao);
 			aCase.getResult().addEntities(listControleAprovacao.stream());
-			aCase.getResult().addEntity("approvedList", listApproved.stream());
+			aCase.getResult().addEntity("changeStatusControleAprovacaoResult", listApproved.stream());
 		} else {
 			error(aCase, "Não foi possível encontrar a lista de aprovações do pedido", true);
 		}

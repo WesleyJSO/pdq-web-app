@@ -6,9 +6,9 @@
     <v-card-text class="pa-0 pl-3">
       <v-container fluid>
         <v-layout row wrap>
-          <v-flex v-for="(element, index) in listControleAprovacao" :key="element.id">
+          <v-flex v-for="element in listControleAprovacao" :key="element.id">
             <v-checkbox class="pa-0 pl-3"
-              :disabled="!mapPermissionsControleAprovacao[index]"
+              :disabled="!element.permited"
               :color="checkBoxColor"
               :label="element.statusPedido.descricaoStatus"
               v-model="element.approved" />
@@ -38,8 +38,7 @@
     data () {
       return {
         checkBoxColor: 'indigo',
-        listControleAprovacao: [],
-        mapPermissionsControleAprovacao:[]
+        listControleAprovacao: []
       }
     },
     methods: {
@@ -66,7 +65,6 @@
         this.verifyUserApprovalPermissions()
       },
       verifyUserApprovalPermissions() {
-        this.mapPermissionsControleAprovacao = []
         this.listControleAprovacao.forEach(approval => {
           let hasPermission = false
           // verify user permissions
@@ -74,19 +72,16 @@
             if (approval.regra.perfil && approval.regra.perfil.id === role.id) {
               hasPermission = true
             // if term rule
+            } else {
+              hasPermission = approval.permited
             }
           })
-          if (approval.regra.aprovador){
-            if (approval.regra.aprovador === store.getters.loggedUser.id){
-              hasPermission = true
-            }
-          }
           let enable = hasPermission
           // verify approval status
           if (approval.approved === true || approval.disapproved === true || approval.canceled === true) {
             enable = false
           }
-          this.mapPermissionsControleAprovacao.push(enable)
+          approval.permited = enable
         })
       }
     }

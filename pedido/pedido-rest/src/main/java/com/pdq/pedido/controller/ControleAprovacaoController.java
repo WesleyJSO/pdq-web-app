@@ -42,11 +42,13 @@ public class ControleAprovacaoController extends DomainEntityController<Controle
 			if (ts.isPresent() && Stream.of(ts.get()).count() > 0) {
 				return ResponseEntity.ok(ts.get().collect(Collectors.toList()));
 			}
-			return ResponseEntity.noContent().build();
+			else if (aCase.getResult().hasError())
+				return ResponseMessage.serverError(aCase.getResult().getMessage());
+			return ResponseMessage.serverError("Erro durante processamento.");
 
 		} catch(Exception e) {
 			e.printStackTrace();
-			return ResponseMessage.serverError("Erro ao consultar " + ControleAprovacao.class.getSimpleName());
+			return ResponseMessage.serverError("Erro ao consultar as aprovações do pedido.");
 		}
 	}
 }

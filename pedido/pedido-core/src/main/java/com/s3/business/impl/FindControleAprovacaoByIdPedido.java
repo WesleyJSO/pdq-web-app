@@ -1,6 +1,7 @@
 package com.s3.business.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,19 @@ import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
 import com.pdq.pedido.domain.ControleAprovacao;
+import com.pdq.pedido.domain.Pedido;
 import com.s3.dao.impl.ControleAprovacaoDAO;
+import com.s3.dao.impl.PedidoDAO;
 import com.s3.dao.impl.RegraDAO;
 import com.s3.helper.ControleAprovacaoHelper;
 import com.s3.helper.RegraHelper;
 
+/**
+ * 
+ * @author Bruno Holanda - Muralis
+ * @date 21 de abr de 2019
+ *
+ */
 @Component
 public class FindControleAprovacaoByIdPedido implements IStrategy<ControleAprovacaoHelper> {
 
@@ -24,11 +33,18 @@ public class FindControleAprovacaoByIdPedido implements IStrategy<ControleAprova
 	
 	@Autowired
 	RegraDAO regraDAO;
+	
+	@Autowired
+	private PedidoDAO pedidoDAO;
 
 	@Override
 	public void process(ControleAprovacaoHelper aEntity, INavigationCase<ControleAprovacaoHelper> aCase) {
 		if (aEntity != null && null != aEntity.getPedido()
 				&& !Strings.isNullOrEmpty(((ControleAprovacaoHelper) aEntity).getPedido().getId())) {
+			Optional<Pedido> pedido = pedidoDAO.findById(aEntity.getPedido().getId(), new Pedido());
+			if (pedido.isPresent()) {
+				aCase.getResult().addEntity(pedido.get());
+			}
 			Filter<ControleAprovacaoHelper> filter = new Filter<>();
 			filter.setEntity(aEntity);
 			List<ControleAprovacao> listControleAprovacao = controleAprovacaoDAO.findControleAprovacaoByIdPedido(filter).collect(Collectors.toList());

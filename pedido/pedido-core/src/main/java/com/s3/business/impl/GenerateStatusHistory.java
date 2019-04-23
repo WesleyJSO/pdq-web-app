@@ -17,7 +17,6 @@ import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.StatusPedido;
 import com.pdq.pedido.domain.Usuario;
 import com.s3.dao.impl.HistStatusPedidoDAO;
-import com.s3.dao.impl.StatusPedidoDAO;
 import com.s3.dao.impl.UsuarioDAO;
 import com.s3.helper.PedidoHelper;
 
@@ -31,21 +30,18 @@ import com.s3.helper.PedidoHelper;
 public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 
 	@Autowired
-	StatusPedidoDAO statusPedidoDAO;
+	private UsuarioDAO usuarioDAO;
 
 	@Autowired
-	UsuarioDAO usuarioDAO;
-
-	@Autowired
-	HistStatusPedidoDAO histStatusPedidoDAO;
+	private HistStatusPedidoDAO histStatusPedidoDAO;
 
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
 		Pedido pedido = optionalPedido.get();
-		Optional<Stream<ControleAprovacao>> controleAprovacaoOptional = aCase.getResult().getEntity("approvedList");
+		Optional<Stream<ControleAprovacao>> controleAprovacaoOptional = aCase.getResult().getEntity("changeStatusControleAprovacaoResult");
 		Stream<ControleAprovacao> streamApproved = controleAprovacaoOptional.isPresent() ? controleAprovacaoOptional.get() : Stream.empty();
-		Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("oldStatus");
+		Optional<StatusPedido> statusOptional = aCase.getResult().getEntity("changeStatusPedidoResult");
 		StatusPedido oldStatus = statusOptional.get();
 		StatusPedido newStatus = pedido.getStatusPedido();
 		List<StatusPedido> listApprovedStatus = findApprovedStatuses(streamApproved, oldStatus, newStatus);
@@ -55,7 +51,7 @@ public class GenerateStatusHistory implements IStrategy<PedidoHelper> {
 		histStatusPedidoDAO.saveAll(listHistStatusPedido);
 	}
 
-	// obtains the approved statuses, except the old status, for the history should show the destination statuses of the order/budget
+	// obtains the approved statuses, except the old one, for the history should show the destination statuses of the order/budget
 	private List<StatusPedido> findApprovedStatuses(Stream<ControleAprovacao> streamControleAprovacao,
 			StatusPedido oldStatus, StatusPedido newStatus) {
 		List<StatusPedido> listApprovedStatus = new ArrayList<>();

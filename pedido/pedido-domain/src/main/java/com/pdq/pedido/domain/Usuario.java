@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pdq.utils.DomainEntity;
 
@@ -48,7 +49,14 @@ public class Usuario extends DomainEntity<Long> implements UserDetails {
 	@Transient private boolean accountNonExpired;
 	@Transient private boolean accountNonLocked;
 	@Transient private boolean isCredentialsNonExpired;
-							   
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "USUARIO_LINHA_PRODUTO", 
+		joinColumns = { @JoinColumn(name = "ID_USUARIO") }, 
+		inverseJoinColumns = { @JoinColumn(name = "ID_LINHA_PRODUTO") })
+	private List<LinhaProduto> listLinhaProduto;
+	
 	/*@MapsId
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO")

@@ -12,6 +12,7 @@ import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.google.common.base.Strings;
 import com.pdq.pedido.domain.Funcionario;
+import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
 import com.s3.dao.impl.FuncionarioDAO;
 import com.s3.helper.ParametroHelper;
@@ -58,36 +59,38 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 
-		if (aEntity != null 
-				&& aEntity.getStatusPedido() != null 
-				&& StatusPedidoHelper.ID_STATUS_VERIFICACAO_ADM_VENDAS.equals(aEntity.getStatusPedido().getId())) {
+		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
+		Pedido pedido = optionalPedido.get();
+		if (pedido != null 
+				&& pedido.getStatusPedido() != null 
+				&& StatusPedidoHelper.ID_STATUS_IMPLANTADO.equals(pedido.getStatusPedido().getId())) {
 			
-			Optional<Funcionario> funcionario = funcionarioDAO.findById(aEntity.getUsuarioRtv().getId(), new Funcionario());
-            Optional<Funcionario> funcionarioResponsavelComissao = funcionarioDAO.findById(aEntity.getUsuarioResponsavelComissao().getId(), new Funcionario());
+			Optional<Funcionario> funcionario = funcionarioDAO.findById(pedido.getUsuarioRtv().getId(), new Funcionario());
+            Optional<Funcionario> funcionarioResponsavelComissao = funcionarioDAO.findById(pedido.getUsuarioResponsavelComissao().getId(), new Funcionario());
 			
             pedidoSap = new TableOfZsdePedidoWebs();
 			int itemIndex = 0;
-			for (PedidoItem pedidoItem : aEntity.getListPedidoItem()) {
+			for (PedidoItem pedidoItem : pedido.getListPedidoItem()) {
 
                 String idSequencia = String.format("%03d" , ++itemIndex);
-                String tpPedido = aEntity.getTipoVenda().getCodTipoVenda();
-                String nrPedido = aEntity.getCodSap();
-                String dtPedido = dateFormat.format(aEntity.getDtCriacaoPedido());
-                String nrPedidoCli = Strings.isNullOrEmpty(aEntity.getNumPedidoCli())
-                		? "" : aEntity.getNumPedidoCli();
-                String cdEmissor = aEntity.getCliente().getCodSap().toString();
-                String cdRecebedor = aEntity.getClienteEntrega().getCodSap().toString();
-                String cdPagador = aEntity.getClienteCobranca().getCodSap().toString();
-                String cdMotivoOrd = aEntity.getBarter() 
-                		? "Z16" : aEntity.getCampanha() 
+                String tpPedido = pedido.getTipoVenda().getCodTipoVenda();
+                String nrPedido = pedido.getCodSap();
+                String dtPedido = dateFormat.format(pedido.getDtCriacaoPedido());
+                String nrPedidoCli = Strings.isNullOrEmpty(pedido.getNumPedidoCli())
+                		? "" : pedido.getNumPedidoCli();
+                String cdEmissor = pedido.getCliente().getCodSap().toString();
+                String cdRecebedor = pedido.getClienteEntrega().getCodSap().toString();
+                String cdPagador = pedido.getClienteCobranca().getCodSap().toString();
+                String cdMotivoOrd = pedido.getBarter() 
+                		? "Z16" : pedido.getCampanha() 
         				? "Z12" : "";
                 String cdMoeda = pedidoItem.getMoeda().getDesSigla();
                 String cdOrgVenda = pedidoItem.getOrganizacaoVendas().getCodOrganizacaoVendas();
-                String cdCanalDistr = aEntity.getCliente().getCanalDistribuicao() != null
-                		? aEntity.getCliente().getCanalDistribuicao().getCodCanalDistribuicao()
+                String cdCanalDistr = pedido.getCliente().getCanalDistribuicao() != null
+                		? pedido.getCliente().getCanalDistribuicao().getCodCanalDistribuicao()
         				: "";
                 
-                String cdSetAtiv = aEntity.getSetorAtividade().getCodSetorAtividade().toString().trim();
+                String cdSetAtiv = pedido.getSetorAtividade().getCodSetorAtividade().toString().trim();
                 String cdMaterial = String.format("%018d", pedidoItem.getProdutoPrecoRegras().getProduto().getIdProduto());
                 String dcMaterial = pedidoItem.getProdutoPrecoRegras().getProduto().getDesProduto();
                 String cdUtilMat = pedidoItem.getCultura().getCodCultura().toString();
@@ -105,14 +108,14 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
                 String dtTxCambio = pedidoItem.getDtTxCambio() == null 
                 		? "00000000"
         				: dateFormat.format(pedidoItem.getDtTxCambio());
-                String cdCentroLucro = aEntity.getRegional().getCentroLucro() != null
-                		? aEntity.getRegional().getCentroLucro().getCodSap()
+                String cdCentroLucro = pedido.getRegional().getCentroLucro() != null
+                		? pedido.getRegional().getCentroLucro().getCodSap()
         				: "";
                 String dtRemessa = dateFormat.format(pedidoItem.getDataFaturamento());
                 String unPreco = "00000";
-                String cdAgFrete = aEntity.getTransportadora() != null
-                		&& aEntity.getTransportadora().getCodSap() != null
-        				? aEntity.getTransportadora().getCodSap()
+                String cdAgFrete = pedido.getTransportadora() != null
+                		&& pedido.getTransportadora().getCodSap() != null
+        				? pedido.getTransportadora().getCodSap()
 						: "";
                 String vlFrete = pedidoItem.getValorFrete() == null
                 		? new DecimalFormat(int9dec2).format(0d).replace(",", "")
@@ -123,9 +126,9 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
         		String perComisSup = new DecimalFormat(int9dec3).format(pedidoItem.getComissaoRtvPorcent()).replace(",", "");
 
         		 
-                 boolean agenciado = aEntity.getVendaAgenciada() 
+                 boolean agenciado = pedido.getVendaAgenciada() 
                 		 && !pedidoItem.getTipoAgenciamento().equals(tipoAgenciamento[0]); // nenhum
-                 boolean agenciadoFixo = aEntity.getVendaAgenciada()
+                 boolean agenciadoFixo = pedido.getVendaAgenciada()
                 		 && pedidoItem.getAgenteFixoPorcent().equals(0d)
                 		 && pedidoItem.getTipoAgenciamento().equals(tipoAgenciamento[1]); // agente fixo
                  boolean agenteFixo = pedidoItem.getAgenteFixoPorcent() != null 
@@ -135,7 +138,7 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
         				 && pedidoItem.getAgenteRateioPorcentSap() != null;
         				 
                  String cdVendedor = agenciado
-                		 ? aEntity.getVendedorAgenciado().getCodVendedorSap()
+                		 ? pedido.getVendedorAgenciado().getCodVendedorSap()
         				 : "";
                  String perComisVen = agenciado && agenteFixo
                 		 ? new DecimalFormat(int9dec3).format(pedidoItem.getAgenteFixoPorcent()).replace(",", "")
@@ -166,8 +169,8 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
                 if (dcTextoNf2.length() > 132)
                     dcTextoNf2 = dcTextoNf2.substring(0, 132);
                 
-                String dcTextoNf3 = !Strings.isNullOrEmpty(aEntity.getNumeroColeta())
-                		? "Numero Coleta: ".concat(aEntity.getNumeroColeta())
+                String dcTextoNf3 = !Strings.isNullOrEmpty(pedido.getNumeroColeta())
+                		? "Numero Coleta: ".concat(pedido.getNumeroColeta())
         				: ""; 
                 if(dcTextoNf3.length() > 132) 
                     dcTextoNf3 = dcTextoNf3.substring(0, 132);
@@ -179,26 +182,26 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
                     		.getValParametro()
                     		.concat(" ")
                     		.concat(new SimpleDateFormat(userDateFormat)
-                    				.format(aEntity.getDtCreditoRural()))
+                    				.format(pedido.getDtCreditoRural()))
                 		: "";
                     		
                 String dcTextoCar1 = "Embalagem: "
                 		.concat(pedidoItem.getEmbalagem())
         				.concat(" Cod Produto: ")
         				.concat(pedidoItem.getProdutoPrecoRegras().getProduto().getIdProduto().toString());
-                String dcTextoCar2 = !Strings.isNullOrEmpty(aEntity.getNumeroAr())
-                		? "AR: ".concat(aEntity.getNumeroAr())
+                String dcTextoCar2 = !Strings.isNullOrEmpty(pedido.getNumeroAr())
+                		? "AR: ".concat(pedido.getNumeroAr())
         				: "";
 	            String dcTextoCar3 = "";
 	            String dcTextoCar4 = "";
                 
-	            String dcTextoTra = !Strings.isNullOrEmpty(aEntity.getDescricaoRota())
-	            		? "Rota: ".concat(aEntity.getDescricaoRota())
+	            String dcTextoTra = !Strings.isNullOrEmpty(pedido.getDescricaoRota())
+	            		? "Rota: ".concat(pedido.getDescricaoRota())
         				: "";        				
-                if(!Strings.isNullOrEmpty(aEntity.getObservacao()))
+                if(!Strings.isNullOrEmpty(pedido.getObservacao()))
                     if ( dcTextoTra.length() > 0 )
                         dcTextoTra.concat( " " );
-                    dcTextoTra = dcTextoTra.concat("Obs: ").concat(aEntity.getObservacao());
+                    dcTextoTra = dcTextoTra.concat("Obs: ").concat(pedido.getObservacao());
                     
                 String dcTextoTra1 = "";
                 String dcTextoTra2 = "";
@@ -249,13 +252,13 @@ public class CreateSapOrderObject implements IStrategy<PedidoHelper> {
 						dcTextoCom1, dcTextoCom2, dcTextoCom3, dcTextoCom4, nrOrdVenda, 
 						tpEmb, dtFixa, cdVenEstat));
 			}
-		}
-		if(pedidoSap != null && pedidoSap.getItem().size() > 0) {
-			aCase.getResult().addEntity(pedidoSap);
-		} else {
-			aCase.getResult().setError();
-			aCase.getResult().setMessage("Erro ao gerar pedido para enviar para SAP.");
-			aCase.suspendExecution();
+			if(pedidoSap != null && pedidoSap.getItem().size() > 0) {
+				aCase.getResult().addEntity("createSapOrderResult", pedidoSap);
+			} else {
+				aCase.getResult().setError();
+				aCase.getResult().setMessage("Erro ao gerar pedido para enviar para SAP.");
+				aCase.suspendExecution();
+			}			
 		}
 	}
 	/**

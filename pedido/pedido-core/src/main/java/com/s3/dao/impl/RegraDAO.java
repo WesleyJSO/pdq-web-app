@@ -1,5 +1,7 @@
 package com.s3.dao.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,6 +19,7 @@ import com.pdq.pedido.domain.RegraAprovacaoCor;
 import com.pdq.pedido.domain.RegraAprovacaoPrazo;
 import com.pdq.pedido.domain.RegraAprovacaoTabela;
 import com.pdq.utils.GenericDAO;
+import com.s3.helper.RegraAprovacaoPrazoHelper;
 import com.s3.helper.RegraHelper;
 
 @Repository
@@ -74,15 +77,13 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 					regra = null;
 				}
 			}
-			
+
 			if (null == regra) {
 				jpql.setLength(0);
-				jpql.append("select r from ").append(Regra.class.getName()).append(" r ")
-						.append(" where r.id = :id");
+				jpql.append("select r from ").append(Regra.class.getName()).append(" r ").append(" where r.id = :id");
 
-				TypedQuery<Regra> queryTabela = em
-						.createQuery(jpql.toString(), Regra.class)
-						.setParameter("id", ((RegraHelper) filter.getEntity()).getId());
+				TypedQuery<Regra> queryTabela = em.createQuery(jpql.toString(), Regra.class).setParameter("id",
+						((RegraHelper) filter.getEntity()).getId());
 
 				try {
 					regra = queryTabela.getSingleResult();
@@ -126,6 +127,36 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 					((RegraHelper) filter.getEntity()).getIdStatusPedido());
 
 			List<Regra> listRegra = new ArrayList<>();
+			query.getResultList().forEach(element -> listRegra.add(element));
+
+			return listRegra.stream();
+		}
+		return null;
+	}
+
+	public Stream<RegraAprovacaoPrazo> findAprovacaoPrazoByPedidoItem(Filter<RegraAprovacaoPrazoHelper> filter) {
+
+		RegraAprovacaoPrazoHelper helper = null;
+		boolean validFilter = filter != null && filter.getEntity() != null
+				&& (helper = (RegraAprovacaoPrazoHelper) filter.getEntity()).getIdLinhaProduto() != null
+				&& helper.getIdLinhaProduto() != 0l && helper.getDiasPrazoPagamento() != null;
+
+		if (validFilter) {
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append("select r from ").append(RegraAprovacaoPrazo.class.getName()).append(" r ")
+					.append(" join r.lstLinhaProduto lp").append(" where lp.id = :idLinhaProduto")
+					.append(" and r.prazoPagamentoInicio <= :diasPrazoPagamento")
+					.append(" and r.prazoPagamentoFim >= :diasPrazoPagamento")
+					.append(" and r.dataVigenciaInicio <= :today")
+					.append(" and r.dataVigenciaFim > :today")
+					.append(" and r.ativo = 1");
+			TypedQuery<RegraAprovacaoPrazo> query = em.createQuery(jpql.toString(), RegraAprovacaoPrazo.class)
+					.setParameter("idLinhaProduto", helper.getIdLinhaProduto())
+					.setParameter("diasPrazoPagamento", helper.getDiasPrazoPagamento())
+					.setParameter("today", LocalDate.now(ZoneId.of(ZoneId.SHORT_IDS.get("BET"))));
+
+			List<RegraAprovacaoPrazo> listRegra = new ArrayList<>();
 			query.getResultList().forEach(element -> listRegra.add(element));
 
 			return listRegra.stream();

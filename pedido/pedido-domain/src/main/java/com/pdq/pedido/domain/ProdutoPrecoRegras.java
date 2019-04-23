@@ -69,7 +69,7 @@ public class ProdutoPrecoRegras extends DomainEntity<Long> {
 	private TabelaPreco tabelaPreco;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PRODUTO")
+	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID_PRODUTO")
 	private Produto produto;
 
 	@ManyToOne(fetch = FetchType.LAZY)

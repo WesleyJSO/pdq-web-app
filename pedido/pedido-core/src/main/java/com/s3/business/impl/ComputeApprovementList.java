@@ -148,12 +148,14 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 				}
 
 				// Payment term rule
-				if (validateTermRule(regra)) {
-					foundTermRule = true;
-					foundValidTerm = validateTerm(regra, pedido, listaPedidoItem);
-					if (foundValidTerm) {
-						listaControleAprovacao
-								.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
+				if (!foundValidTerm) {
+					if (validateTermRule(regra)) {
+						foundTermRule = true;
+						foundValidTerm = validateTerm(regra, pedido, listaPedidoItem);
+						if (foundValidTerm) {
+							listaControleAprovacao
+									.add(new ControleAprovacao(statusPedidoPara, regra, pedido, statusPendente));
+						}
 					}
 				}
 			}
@@ -242,7 +244,7 @@ public class ComputeApprovementList implements IStrategy<PedidoHelper>, Applicat
 		RegraAprovacaoPrazo regraPrazo = (RegraAprovacaoPrazo) regra;
 		for (PedidoItem pedidoItem : listaPedidoItem) {
 			LinhaProduto linhaProduto = pedidoItem.getProdutoPrecoRegras().getLinhaProduto();
-			// Verify product line before perform term calculation
+			// Verify product line before calculating the term
 			if (regraPrazo.getLstLinhaProduto().contains(linhaProduto)) {
 				Integer periodo = pedidoItem.getCondicaoPagamento().getDiasPagamento() == null ? 0
 						: Integer.valueOf(pedidoItem.getCondicaoPagamento().getDiasPagamento());
