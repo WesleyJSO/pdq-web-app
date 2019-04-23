@@ -27,7 +27,6 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 	@Autowired
 	private PedidoDAO pedidoDAO;
 
-	@Transactional
 	@Override
 	public void process(PedidoHelper aEntity, INavigationCase<PedidoHelper> aCase) {
 		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
