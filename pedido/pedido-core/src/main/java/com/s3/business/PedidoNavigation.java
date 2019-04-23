@@ -19,6 +19,7 @@ import com.s3.business.impl.FindPedidoByFilter;
 import com.s3.business.impl.FindPedidoById;
 import com.s3.business.impl.FindTermRules;
 import com.s3.business.impl.GenerateStatusHistory;
+import com.s3.business.impl.InactivatePreviousApprovementList;
 import com.s3.business.impl.SendOrderToSap;
 import com.s3.helper.PedidoHelper;
 
@@ -39,6 +40,7 @@ public class PedidoNavigation {
 	@Autowired private FindTermRules findTermRules;
 	@Autowired private ChangePedidoItemStatus changePedidoItemStatus;
 	@Autowired private CheckPedidoPedidoItem checkPedidoPedidoItem;
+	@Autowired private InactivatePreviousApprovementList inactivatePreviousApprovementList;
 	
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
 	public Navigation<PedidoHelper> findPedidoByFilter() {
@@ -62,6 +64,7 @@ public class PedidoNavigation {
 				.next(findPedidoById)
 				.next(checkPedidoPedidoItem)
 				.next(findTermRules)
+				.next(inactivatePreviousApprovementList)
 				.next(computeApprovementList)
 				.next(changePedidoItemStatus)
 				.next(changeStatusPedido)
