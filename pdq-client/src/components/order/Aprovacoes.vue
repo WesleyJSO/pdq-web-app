@@ -17,9 +17,9 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="#145661" class="white--text" @click="approve" depressed small>Aprovar</v-btn>
-      <v-btn color="#808000" class="white--text" @click="disapprove" depressed small>Reprovar</v-btn>
-      <v-btn color="#971900" class="white--text" @click="cancel" depressed small>Cancelar</v-btn>
+      <v-btn color="#145661" class="white--text" @click="approve" :disabled="disableApprovalButons" depressed small>Aprovar</v-btn>
+      <v-btn color="#808000" class="white--text" @click="disapprove" :disabled="disableApprovalButons" depressed small>Reprovar</v-btn>
+      <v-btn color="#971900" class="white--text" @click="cancel" :disabled="disableApprovalButons" depressed small>Cancelar</v-btn>
       <v-btn color="light-blue darken-3" class="white--text" :disabled=true depressed small>Desfazer Alterações</v-btn>
     </v-card-actions>
   </v-card>
@@ -38,7 +38,8 @@
     data () {
       return {
         checkBoxColor: 'indigo',
-        listControleAprovacao: []
+        listControleAprovacao: [],
+        disableApprovalButons: true
       }
     },
     methods: {
@@ -65,6 +66,7 @@
         this.verifyUserApprovalPermissions()
       },
       verifyUserApprovalPermissions() {
+        this.disableApprovalButons = true
         this.listControleAprovacao.forEach(approval => {
           let hasPermission = false
           // verify user permissions
@@ -80,6 +82,9 @@
           // verify approval status
           if (approval.approved === true || approval.disapproved === true || approval.canceled === true) {
             enable = false
+          }
+          if (enable === true){
+            this.disableApprovalButons = false
           }
           approval.permited = enable
         })

@@ -156,11 +156,7 @@ public class ChangePedidoItemStatus implements IStrategy<PedidoHelper> {
 			ControleAprovacao controleAprovacao = listControleAprovacao.stream()
 					.filter(ca -> (ca.getStatusPedido().getOrdem() > controle.getStatusPedido().getOrdem()
 							&& !ca.getApproved()) || !ca.getApproved())
-					.findFirst()
-					.orElse(listControleAprovacao.stream().filter(
-							ca -> ca.getStatusPedido().getId().equals(StatusPedidoHelper.ID_STATUS_APROVACAO_PRAZO)
-							&& ca.getStatusPedido().getOrdem() < controle.getStatusPedido().getOrdem())
-							.findFirst().orElse(null));
+					.findFirst().orElse(null);
 			if (null != controleAprovacao)
 				item.setStatusAprovacao(controleAprovacao.getStatusPedido());
 			else
