@@ -1,7 +1,5 @@
 package com.s3.business.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -37,13 +35,10 @@ public class ControleAprovacaoFindPedidoById implements IStrategy<ControleAprova
 					.withName("VALIDATE_PEDIDO_PEDITO_ITEM_EXISTENCE");
 			PedidoHelper pedidoHelper = new PedidoHelper();
 			pedidoHelper.setId(aEntity.getPedido().getId());
+			subACase.setResult(aCase.getResult());
 			navigator.run(pedidoHelper, subACase);
-			
-			Optional<Pedido> ts = subACase.getResult().getEntity();
-			if (ts.isPresent()){
-				aCase.getResult().addEntity(ts.get());
-			}
-			return;
+			if (!aCase.getResult().hasError())
+				return;
 		}
 		error(aCase, "Pedido não encontrado", true);
 	}

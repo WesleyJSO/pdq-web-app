@@ -1,7 +1,6 @@
 package com.s3.business.impl;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,40 +10,36 @@ import org.springframework.util.CollectionUtils;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
-import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.ControleAprovacao;
+import com.pdq.pedido.domain.ControleAprovacaoPedidoItem;
 import com.pdq.pedido.domain.Pedido;
+import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.domain.StatusControleAprovacao;
 import com.pdq.pedido.domain.Usuario;
-import com.s3.dao.impl.ControleAprovacaoDAO;
 import com.s3.dao.impl.RegraDAO;
 import com.s3.dao.impl.StatusControleAprovacaoDAO;
 import com.s3.dao.impl.UsuarioDAO;
 import com.s3.helper.PedidoHelper;
-import com.s3.helper.RegraHelper;
 import com.s3.helper.StatusControleAprovacaoHelper;
 
 /**
  * 
  * @author Bruno Holanda - Muralis
- * @date 11 de abr de 2019
+ * @date 25 de abr de 2019
  *
  */
 @Component
-public class ChangeStatusControleAprovacao implements IStrategy<PedidoHelper> {
+public class ChangeStatusControle implements IStrategy<PedidoHelper> {
 
 	@Autowired
 	private StatusControleAprovacaoDAO statusControleAprovacaoDAO;
 
 	@Autowired
-	private ControleAprovacaoDAO controleAprovacaoDao;
-	
-	@Autowired
 	private UsuarioDAO usuarioDAO;
 
 	@Autowired
 	RegraDAO regraDAO;
-	
+
 	StatusControleAprovacao approved;
 	StatusControleAprovacao disapproved;
 	StatusControleAprovacao canceled;
@@ -55,34 +50,42 @@ public class ChangeStatusControleAprovacao implements IStrategy<PedidoHelper> {
 		Pedido pedido = optionalPedido.get();
 		List<ControleAprovacao> listControleAprovacao = aEntity.getListControleAprovacao();
 		if (!CollectionUtils.isEmpty(listControleAprovacao)) {
-			Filter<RegraHelper> filterRegra = new Filter<>();
-			RegraHelper regraHelper = new RegraHelper();
-			filterRegra.setEntity(regraHelper);
 			Usuario usuario = usuarioDAO.getLoggedUser();
 			findStatuses();
-			List<ControleAprovacao> listApproved = new ArrayList<>();
 			listControleAprovacao.forEach(ca -> {
 				ca.setPedido(pedido);
-				regraHelper.setId(ca.getRegra().getId());
-				ca.setRegra(regraDAO.findRegraById(filterRegra));
 				if (StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId())) {
 					if (ca.getDisapproved())
 						ca.setStatusControleAprovacao(disapproved);
 					else if (ca.getCanceled())
 						ca.setStatusControleAprovacao(canceled);
 					else if (ca.getApproved()) {
-						ca.setStatusControleAprovacao(approved);
-						listApproved.add(ca);
+						// check if every item has been approved for this status
+						Boolean approve = false;
+						for (PedidoItem item : pedido.getListPedidoItem()) {
+							approve = false;
+							for (ControleAprovacaoPedidoItem controleItem : item.getListControleAprovacaoPedidoItem()) {
+								if (controleItem.isAtivo() && controleItem.getStatusPedido().getId()
+										.equals(ca.getStatusPedido().getId())) {
+									approve = true;
+									break;
+								}
+							}
+							if (!approve)
+								break;
+						}
+
+						if (approve)
+							ca.setStatusControleAprovacao(approved);
 					}
-					if (!StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId())){
+					if (!StatusControleAprovacaoHelper.ID_PENDENTE.equals(ca.getStatusControleAprovacao().getId())) {
 						ca.setDataAprovacao(LocalDate.now());
 						ca.setUsuario(usuario);
 					}
 				}
 			});
-			//controleAprovacaoDao.saveAll(listControleAprovacao);
+			pedido.setListControleAprovacao(listControleAprovacao);
 			aCase.getResult().addEntities(listControleAprovacao.stream());
-			aCase.getResult().addEntity("changeStatusControleAprovacaoResult", listApproved.stream());
 		} else {
 			error(aCase, "Não foi possível encontrar a lista de aprovações do pedido", true);
 		}

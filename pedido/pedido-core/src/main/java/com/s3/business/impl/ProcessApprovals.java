@@ -12,12 +12,14 @@ import org.springframework.util.CollectionUtils;
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
 import com.pdq.pedido.domain.ControleAprovacao;
+import com.pdq.pedido.domain.ControleAprovacaoPedidoItem;
+import com.pdq.pedido.domain.Pedido;
+import com.pdq.pedido.domain.PedidoItem;
 import com.pdq.pedido.domain.RegraAprovacaoPrazo;
 import com.pdq.pedido.domain.Usuario;
 import com.s3.dao.impl.UsuarioDAO;
 import com.s3.helper.ControleAprovacaoHelper;
 import com.s3.helper.StatusControleAprovacaoHelper;
-import com.s3.helper.StatusPedidoHelper;
 
 /**
  * 
@@ -33,6 +35,8 @@ public class ProcessApprovals implements IStrategy<ControleAprovacaoHelper> {
 
 	@Override
 	public void process(ControleAprovacaoHelper aEntity, INavigationCase<ControleAprovacaoHelper> aCase) {
+		Optional<Pedido> optionalPedido = aCase.getResult().getEntity();
+		Pedido pedido = optionalPedido.get();
 		Optional<Stream<ControleAprovacao>> optional = aCase.getResult().getEntities();
 		List<ControleAprovacao> listControleAprovacao = optional.get().collect(Collectors.toList());
 		if (!CollectionUtils.isEmpty(listControleAprovacao)) {
@@ -56,7 +60,7 @@ public class ProcessApprovals implements IStrategy<ControleAprovacaoHelper> {
 				else
 					controle.setCanceled(false);
 
-				controle.setPermited(verifyPermission(controle, listRegra, usuario));
+				controle.setPermited(verifyPermission(pedido, controle, listRegra, usuario));
 			});
 			aCase.getResult().addEntities(listControleAprovacao.stream());
 			return;
@@ -66,15 +70,31 @@ public class ProcessApprovals implements IStrategy<ControleAprovacaoHelper> {
 		aCase.suspendExecution();
 	}
 
-	private Boolean verifyPermission(ControleAprovacao controle, List<RegraAprovacaoPrazo> listRegra, Usuario usuario) {
-		if (controle.getStatusPedido().getId().equals(StatusPedidoHelper.ID_STATUS_APROVACAO_PRAZO)) {
-			for (RegraAprovacaoPrazo regra : listRegra) {
-				if (regra.getAprovador().getId().equals(usuario.getId())){
-					return true;
+	private Boolean verifyPermission(Pedido pedido, ControleAprovacao controle, List<RegraAprovacaoPrazo> listRegra,
+			Usuario usuario) {
+		if (controle.getRegra() instanceof RegraAprovacaoPrazo) {
+			// Checks the status for each item. Only items not yet approved will go through the permission validation
+			Boolean approved;
+			for (PedidoItem item : pedido.getListPedidoItem()) {
+				approved = false;
+				for (ControleAprovacaoPedidoItem controleItem : item.getListControleAprovacaoPedidoItem()) {
+					if (controleItem.isAtivo()
+							&& controleItem.getStatusPedido().getId().equals(controle.getStatusPedido().getId())) {
+						approved = true;
+						break;
+					}
+				}
+				if (!approved) {
+					for (RegraAprovacaoPrazo regra : listRegra) {
+						if (regra.getAprovador().getId().equals(usuario.getId()) && regra.getLstLinhaProduto()
+								.contains(item.getProdutoPrecoRegras().getLinhaProduto())) {
+							return true;
+						}
+					}
 				}
 			}
 		} else {
-			if (usuario.getListPerfil().contains(controle.getRegra().getPerfil())){
+			if (usuario.getListPerfil().contains(controle.getRegra().getPerfil())) {
 				return true;
 			}
 		}

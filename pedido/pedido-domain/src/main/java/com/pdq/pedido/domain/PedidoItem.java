@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pdq.utils.DomainEntity;
 
 import lombok.Data;
@@ -110,4 +113,8 @@ public class PedidoItem extends DomainEntity<String> {
 		joinColumns = { @JoinColumn(name = "ID_PEDIDO_ITEM") }, 
 		inverseJoinColumns = { @JoinColumn(name = "ID_CAMPANHA") })
 	private List<Campanha> listCampanha;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pedidoItem", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<ControleAprovacaoPedidoItem> listControleAprovacaoPedidoItem;
 }
