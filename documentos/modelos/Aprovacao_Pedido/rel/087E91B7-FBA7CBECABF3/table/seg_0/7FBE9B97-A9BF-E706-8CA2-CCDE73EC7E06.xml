@@ -1,0 +1,132 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7FBE9B97-A9BF-E706-8CA2-CCDE73EC7E06" name="CONTROLE_APROVACAO_PEDIDO_ITEM">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:51:47 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_15</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="46E8D75D-AEBE-2EE1-EC41-D743127FA8EB">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:52:48 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATA_APROVACAO" id="26C2E3D3-113E-F99A-10FB-84661EA46D31">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:53:28 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ATIVO" id="9744572F-E4B6-F7E5-FA61-531039149286">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:54:14 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_PEDIDO_ITEM" id="82E62BE8-7120-477A-9845-D69BA8CAC498">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:54:58 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8B26943C-444C-E37D-9C67-2848164FE5DF" referredColumn="00AF4497-266F-ABD8-6DC6-29A24A7EA3C1"/>
+</associations>
+</Column>
+<Column name="ID_USUARIO" id="3F282CA6-93DF-DF75-580D-6F5EB4376793">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:07:09 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5682F22B-55A7-90C4-CAE3-BE9434A93941" referredColumn="43926595-4C65-EA39-E3EE-53601967B4A1"/>
+</associations>
+</Column>
+<Column name="ID_STATUS_PEDIDO" id="478242DA-5CA3-5B9A-C847-F35156E73FE6">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:07:39 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CDD54B8C-7D0B-2813-61A3-CF430A761065" referredColumn="8C83755C-0B79-0338-6549-11FD8EFEA67E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="75D3DABB-ECA6-70CF-76B5-8E8EFDD70DD9" name="CONTROLE_APROVACAO_PEDIDO_ITEM_PK">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:53:00 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="46E8D75D-AEBE-2EE1-EC41-D743127FA8EB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="49E7AA9F-CB47-B375-2D4E-9724B9F561AA" name="FK__CTR_APR_PD_ITM__PED_ITM">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:54:58 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="82E62BE8-7120-477A-9845-D69BA8CAC498"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="303A1719-1D43-F94E-B2EB-BFBE91B595D4" name="FK__CTR_APR_PD_ITM__USR">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:08:18 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3F282CA6-93DF-DF75-580D-6F5EB4376793"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="97AA455C-BD77-21C5-3269-6B6450884688" name="FK__CTR_APR_PD_ITM__STS_PED">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:11:09 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="478242DA-5CA3-5B9A-C847-F35156E73FE6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

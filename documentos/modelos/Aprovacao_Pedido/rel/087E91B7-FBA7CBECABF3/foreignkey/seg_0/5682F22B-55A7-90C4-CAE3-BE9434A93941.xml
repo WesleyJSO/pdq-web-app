@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="5682F22B-55A7-90C4-CAE3-BE9434A93941" containerWithKeyObject="7FBE9B97-A9BF-E706-8CA2-CCDE73EC7E06" localFKIndex="303A1719-1D43-F94E-B2EB-BFBE91B595D4" name="FK__CTR_APR_PD_ITM__USR">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:08:18 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<referredTableLongName>USUARIO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>49BC7616-44A1-3BC1-B764-FE90A1ABF28C</referredTableID>
+<keyObject>0D910445-EB30-6A6A-1E60-D871443C5775</keyObject>
+<referredKeyID>0D910445-EB30-6A6A-1E60-D871443C5775</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ID_USUARIO</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<discriminatorColumn>43926595-4C65-EA39-E3EE-53601967B4A1</discriminatorColumn>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

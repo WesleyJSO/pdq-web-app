@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="8B26943C-444C-E37D-9C67-2848164FE5DF" containerWithKeyObject="7FBE9B97-A9BF-E706-8CA2-CCDE73EC7E06" localFKIndex="49E7AA9F-CB47-B375-2D4E-9724B9F561AA" name="FK__CTR_APR_PD_ITM__PED_ITM">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:54:58 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<referredTableLongName>PEDIDO_ITEM</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>593AF2A1-E6AE-1CCA-E728-33DF0E82630F</referredTableID>
+<keyObject>86391AFD-6D48-FC22-B893-920C0D15A8FE</keyObject>
+<referredKeyID>86391AFD-6D48-FC22-B893-920C0D15A8FE</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ID_PEDIDO_ITEM</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<discriminatorColumn>00AF4497-266F-ABD8-6DC6-29A24A7EA3C1</discriminatorColumn>
+<columnDependencyConstraintGenerateName>FK__CTR_APR_PED_ITM__PED_ITM</columnDependencyConstraintGenerateName>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

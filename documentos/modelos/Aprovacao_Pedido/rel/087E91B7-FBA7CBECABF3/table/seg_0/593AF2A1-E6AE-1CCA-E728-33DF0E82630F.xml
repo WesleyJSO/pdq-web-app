@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="593AF2A1-E6AE-1CCA-E728-33DF0E82630F" name="PEDIDO_ITEM">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:48:46 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<ordsAlias>table_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_PEDIDO_ITEM" id="00AF4497-266F-ABD8-6DC6-29A24A7EA3C1">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:49:32 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_PEDIDO" id="40B7B012-8FAC-37C1-890C-B00878C2F5DF">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:03:16 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="877CEDCB-9F2F-CDAD-8499-64810D39AC91" referredColumn="1FEE6098-4472-2E63-B585-C3A0A6974CEB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="86391AFD-6D48-FC22-B893-920C0D15A8FE" name="PEDIDO_ITEM_PK">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 12:50:29 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="00AF4497-266F-ABD8-6DC6-29A24A7EA3C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2739E194-CDF3-D30B-F90F-2EB59A837FD0" name="FK__PED_ITM__PED">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:03:16 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40B7B012-8FAC-37C1-890C-B00878C2F5DF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

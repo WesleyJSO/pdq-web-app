@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CDD54B8C-7D0B-2813-61A3-CF430A761065" containerWithKeyObject="7FBE9B97-A9BF-E706-8CA2-CCDE73EC7E06" localFKIndex="97AA455C-BD77-21C5-3269-6B6450884688" name="FK__CTR_APR_PD_ITM__STS_PED">
+<createdBy>Muralis</createdBy>
+<createdTime>2019-04-26 13:11:09 UTC</createdTime>
+<ownerDesignName>Aprovacao_Pedido</ownerDesignName>
+<referredTableLongName>STATUS_PEDIDO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>D7341623-1ABE-3077-EE56-48A1F595F36B</referredTableID>
+<keyObject>26D27D0D-86A7-A4CF-F19D-8797A716B5FC</keyObject>
+<referredKeyID>26D27D0D-86A7-A4CF-F19D-8797A716B5FC</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
