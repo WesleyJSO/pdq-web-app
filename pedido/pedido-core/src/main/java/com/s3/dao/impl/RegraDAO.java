@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -122,12 +123,18 @@ public class RegraDAO extends GenericDAO<Regra, Long> {
 
 			StringBuilder jpql = new StringBuilder();
 			jpql.append("select r from ").append(Regra.class.getName()).append(" r ")
-					.append(" join r.listStatusPedido sp").append(" where sp.id = :id");
+					.append(" join fetch r.listStatusPedido sp").append(" where sp.id = :id");
 			TypedQuery<Regra> query = em.createQuery(jpql.toString(), Regra.class).setParameter("id",
 					((RegraHelper) filter.getEntity()).getIdStatusPedido());
 
 			List<Regra> listRegra = new ArrayList<>();
-			query.getResultList().forEach(element -> listRegra.add(element));
+			query.getResultList().forEach(element -> {
+				if (element instanceof HibernateProxy) {
+					element = (Regra) ((HibernateProxy) element).getHibernateLazyInitializer()
+			                .getImplementation();
+			    }
+				listRegra.add(element);
+			});
 
 			return listRegra.stream();
 		}

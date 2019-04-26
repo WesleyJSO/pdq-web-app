@@ -40,12 +40,11 @@ public class ChangeStatusPedido implements IStrategy<PedidoHelper> {
 	}
 
 	private StatusPedido findStatus(Pedido pedido) {
-		StatusPedido lowerOrderStatus = null;
-		int lowerOrder = Integer.MAX_VALUE;
+		StatusPedido lowerOrderStatus = new StatusPedido();
+		lowerOrderStatus.setOrdem(Integer.MAX_VALUE);
 		for (PedidoItem pedidoItem : pedido.getListPedidoItem()) {
-			if (pedidoItem.getStatusAprovacao().getOrdem() < lowerOrder) {
+			if (pedidoItem.getStatusAprovacao().getOrdem() < lowerOrderStatus.getOrdem()) {
 				lowerOrderStatus = pedidoItem.getStatusAprovacao();
-				lowerOrder = lowerOrderStatus.getOrdem();
 			}
 		}
 		return lowerOrderStatus;

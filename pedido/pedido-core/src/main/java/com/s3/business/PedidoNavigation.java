@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.dvsmedeiros.bce.core.controller.impl.Navigation;
 import com.dvsmedeiros.bce.core.controller.impl.NavigationBuilder;
 import com.s3.business.impl.ChangePedidoItemStatus;
-import com.s3.business.impl.ChangeStatusControle;
+import com.s3.business.impl.ChangeStatusControleAprovacao;
 import com.s3.business.impl.ChangeStatusPedido;
 import com.s3.business.impl.CheckPedidoPedidoItem;
 import com.s3.business.impl.ComputeApprovementList;
@@ -38,7 +38,6 @@ public class PedidoNavigation {
 	@Autowired private ChangeStatusPedido changeStatusPedido;
 	@Autowired private FindPedidoById findPedidoById;
 	@Autowired private GenerateStatusHistory generateStatusHistory;
-	//@Autowired private ChangeStatusControleAprovacao changeStatusControleAprovacao;
 	@Autowired private CreateSapOrderObject createSapOrderObject;
 	@Autowired private SendOrderToSap sendOrderToSap;
 	@Autowired private FindTermRules findTermRules;
@@ -48,7 +47,7 @@ public class PedidoNavigation {
 	@Autowired private FilterApproved filterApproved;
 	@Autowired private ProcessPedidoItemApprovals processPedidoItemApprovals;
 	@Autowired private ChangePedidoItemStatus changePedidoItemStatus;
-	@Autowired private ChangeStatusControle changeStatusControle;
+	@Autowired private ChangeStatusControleAprovacao changeStatusControleAprovacao;
 	@Autowired private DisapproveItems disapproveItems;
 	
 	@Bean(name = "FIND_PEDIDO_BY_FILTER")
@@ -75,7 +74,7 @@ public class PedidoNavigation {
 				.next(findTermRules)
 				.next(inactivatePreviousApprovementList)
 				.next(computeApprovementList)
-				//.next(changePedidoItemStatus)
+				.next(changePedidoItemStatus)
 				.next(changeStatusPedido)
 				.next(generateStatusHistory)
 				.build();
@@ -101,7 +100,7 @@ public class PedidoNavigation {
 		return new NavigationBuilder<PedidoHelper>()
 				.next(processPedidoItemApprovals)
 				.next(changePedidoItemStatus)
-				.next(changeStatusControle)
+				.next(changeStatusControleAprovacao)
 				.build();
 	}
 	
@@ -109,7 +108,7 @@ public class PedidoNavigation {
 	public Navigation<PedidoHelper> changeControleStatus() {
 		return new NavigationBuilder<PedidoHelper>()
 				.next(disapproveItems)
-				.next(changeStatusControle)
+				.next(changeStatusControleAprovacao)
 				.build();
 	}
 	
