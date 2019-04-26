@@ -1,14 +1,17 @@
 package com.s3.dao.impl;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.ControleAprovacao;
 import com.pdq.utils.GenericDAO;
+import com.s3.repository.ControleAprovacaoRepository;
 
 /**
  * @author Bruno Holanda
@@ -20,6 +23,8 @@ import com.pdq.utils.GenericDAO;
 @Repository
 @Transactional
 public class ControleAprovacaoDAO extends GenericDAO<ControleAprovacao, Long> {
+	
+	@Autowired private ControleAprovacaoRepository controleAprovacaoRepository;
 	
 	public Stream<ControleAprovacao> findControleAprovacaoByIdPedido(Filter<? extends ControleAprovacao> filter) {
 
@@ -38,6 +43,10 @@ public class ControleAprovacaoDAO extends GenericDAO<ControleAprovacao, Long> {
 				.getResultList().stream();
 		}
 		return null;
+	}
+
+	public List<ControleAprovacao> findByIdPedido(String id) {
+		return controleAprovacaoRepository.findByIdPedido(id);
 	}
 
 }

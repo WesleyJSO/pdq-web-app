@@ -1,8 +1,7 @@
 package com.s3.helper;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import com.pdq.pedido.domain.Pedido;
@@ -14,9 +13,11 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class PedidoItemHelper extends PedidoItem {
+public class PedidoItemHelper extends PedidoItem { 
 
 	private static final long serialVersionUID = -3048500342714728110L;
+	
+	public final static String UNIDADE_TONELADA = "TO";
 	
 	private Pedido pedido;
 	private PedidoItem pedidoItem;	
@@ -89,11 +90,10 @@ public class PedidoItemHelper extends PedidoItem {
 		
 		Double diasCriacaoPedidoToPagamento = 0d;
 		
-		Instant dIni = pedido.getDtCriacaoPedido();
-		Instant dFim = null;
+		LocalDateTime dIni = pedido.getDtCriacaoPedido();
+		LocalDateTime dFim = null;
 		if (pedidoItem.getDataPagamento() != null) {
-			dFim = Instant.from(
-					pedidoItem.getDataPagamento().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
+			dFim = pedidoItem.getDataPagamento();
 		} else if (pedidoItem.getDataFaturamento() != null) {
 			dFim = pedidoItem.getDataFaturamento();
 		}

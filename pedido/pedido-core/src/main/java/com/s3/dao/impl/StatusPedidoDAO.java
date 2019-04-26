@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pdq.pedido.domain.StatusPedido;
-import com.pdq.pedido.helper.StatusPedidoHelper;
 import com.pdq.utils.GenericDAO;
+import com.s3.helper.StatusPedidoHelper;
 
 @Repository
 @Transactional

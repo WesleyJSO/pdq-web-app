@@ -17,9 +17,9 @@ public class CorPedidoHelper extends CorPedido {
 
 	private static final long serialVersionUID = 5818882669327434960L;
 	
-	public static final Long ID_AZUL = 1L;
-	public static final Long ID_VERDE = 3L;
-	public static final Long ID_AMARELO = 2L;
-	public static final Long ID_VERMELHO = 4L;
-	public static final Long ID_PRETO = 5L;
+	public static final Long AZUL = 1L;
+	public static final Long VERDE = 3L;
+	public static final Long AMARELO = 2L;
+	public static final Long VERMELHO = 4L;
+	public static final Long PRETO = 5L;
 }

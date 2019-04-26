@@ -1,5 +1,6 @@
 package com.s3.dao.impl;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -8,10 +9,15 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.dvsmedeiros.bce.domain.Filter;
 import com.google.common.base.Strings;
+import com.pdq.pedido.domain.Funcionario;
+import com.pdq.pedido.domain.LinhaProduto;
 import com.pdq.pedido.domain.Pedido;
+import com.pdq.pedido.domain.Perfil;
+import com.pdq.pedido.domain.Regional;
 import com.pdq.utils.GenericDAO;
 import com.s3.helper.PedidoHelper;
 import com.s3.repository.PedidoRepository;
@@ -100,4 +106,71 @@ public class PedidoDAO extends GenericDAO<Pedido, String> {
 	public Optional<Pedido> findByCodSap(String codSap) {
 		return Optional.ofNullable(repository.findByCodSap(codSap));
 	}
+
+	public List<String> findApproverUserEmail(List<Perfil> listPerfil, Regional regional, List<LinhaProduto> listLinhaProduto) {
+		
+		boolean validParameters = regional != null && regional.getId() != null
+				&& !CollectionUtils.isEmpty(listPerfil);
+		
+		if(validParameters) {
+			StringBuilder jpql = new StringBuilder();
+			
+			jpql.append("select distinct f.email from ".concat(Funcionario.class.getName()).concat(" f "));
+			jpql.append("join f.usuario u ");
+			jpql.append("join f.listPerfil p ");
+			jpql.append("join f.listRegional r ");
+			jpql.append("join f.listLinhaProduto l ");
+			jpql.append("where r.id = :idRegional ");
+			jpql.append("and u.stsAtivo = true ");
+			jpql.append("and f.email is not null ");
+			
+			if(!CollectionUtils.isEmpty(listPerfil)) {
+				jpql.append("and p.id in (");
+				listPerfil.forEach(element -> jpql.append(element.getId().toString().concat(", ")));
+				jpql.replace(jpql.toString().length() -2, jpql.toString().length(), ")");
+			}
+			if(!CollectionUtils.isEmpty(listLinhaProduto)) {
+				jpql.append("and l.id in (");
+				listLinhaProduto.forEach(element -> jpql.append(element.getId().toString().concat(", ")));
+				jpql.replace(jpql.toString().length() -2, jpql.toString().length(), ")");
+			}
+			return em.createQuery(jpql.toString(), String.class)
+					.setParameter("idRegional", regional.getId())
+					.getResultList();
+		}
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

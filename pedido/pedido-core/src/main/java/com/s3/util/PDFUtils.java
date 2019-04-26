@@ -1,4 +1,4 @@
-package com.pdq.pedido.util;
+package com.s3.util;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pdq.pedido.domain.Pedido;
 import com.pdq.pedido.domain.PedidoItem;
-import com.pdq.pedido.helper.CorPedidoHelper;
-import com.pdq.pedido.helper.PedidoItemAprovadorIreportHelper;
-import com.pdq.pedido.helper.PedidoItemHelper;
+import com.s3.helper.CorPedidoHelper;
+import com.s3.helper.PedidoItemAprovadorIreportHelper;
+import com.s3.helper.PedidoItemHelper;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -114,7 +114,7 @@ public class PDFUtils {
 			if (lstPedidoItemHelper != null && !lstPedidoItemHelper.isEmpty()) {
 				for (PedidoItemHelper pih : lstPedidoItemHelper) {
 					// totalQuantidade += pih.getPedidoItem().getQuantidade();
-					totalQuantidade += pih.getPedidoItem().getVolumeTotalEmKg();
+					totalQuantidade += pih.getPedidoItem().getVolumeTotalKg();
 					if (pih.getPedidoItem().getTxCambio() != null) {
 						totalPrecoBrutoUnit += (pih.getPedidoItem().getValorUnitBruto()
 								* pih.getPedidoItem().getQuantidade() * pih.getPedidoItem().getTxCambio());

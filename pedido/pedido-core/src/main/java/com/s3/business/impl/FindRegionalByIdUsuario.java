@@ -1,11 +1,12 @@
 package com.s3.business.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.dvsmedeiros.bce.core.controller.INavigationCase;
 import com.dvsmedeiros.bce.core.controller.business.IStrategy;
-import com.dvsmedeiros.bce.domain.Filter;
 import com.pdq.pedido.domain.Usuario;
 import com.s3.dao.impl.RegionalDAO;
 import com.s3.dao.impl.UsuarioDAO;
@@ -21,9 +22,9 @@ public class FindRegionalByIdUsuario implements IStrategy<UsuarioHelper> {
 	public void process(UsuarioHelper aEntity, INavigationCase<UsuarioHelper> aCase) {
 		
 		if(aEntity != null && aEntity.getId() != null) {
-			Filter<Usuario> filter = new Filter<>();
-			filter.setEntity(usuarioDAO.findById(aEntity));
-			aCase.getResult().addEntities(regionalDAO.findByUsuario(filter));
+			Optional<Usuario> usuario = usuarioDAO.findById(aEntity.getId(), new Usuario());
+			if(usuario.isPresent()) 				
+				aCase.getResult().addEntity(usuario.get());
 		}
 	}
 }
